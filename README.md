@@ -1,4 +1,4 @@
-# Puño Eterno Studios
+# PuÃ±o Eterno Studios
 ---
 
 ## Art of Fighting Remake
@@ -34,3 +34,6 @@ These are all of the members involved in the project. Feel free to contact any o
 - Responsability: **Design**
 - Github: [Aitorlb7](https://github.com/Aitorlb7)
 - Contact: aitor97alb@gmail.com
+---
+## Versions 
+0.1 - All of the necessary resources for us to develop the game per se have been added, as well as a complete 
