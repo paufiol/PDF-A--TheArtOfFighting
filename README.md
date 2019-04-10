@@ -10,7 +10,7 @@ This is a project meant to create a faithful recreation of SNK's Art of Fighting
 ---
 These are all of the members involved in the project. Feel free to contact any of us.
 
-**Carlos Puigg**
+**Carlos Puig**
 - Responsability: **QA**
 - Github: [minipuig666](https://github.com/minipuig666)
 - Contact: carlos.puigmateos@gmail.com
