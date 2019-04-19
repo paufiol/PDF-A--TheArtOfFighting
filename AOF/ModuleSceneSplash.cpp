@@ -31,7 +31,7 @@ bool ModuleSceneSplash::Start()
 	LOG("Loading Splash scene");
 	App->audio->PlayMusic("Splash_song.ogg", -1);
 	graphics = App->textures->Load("Splash.png");
-
+	if(App->player->IsEnabled() == true) App->player->Disable();
 	return true;
 }
 

@@ -36,7 +36,7 @@ bool ModuleAudio::Init()
 	}
 
 	Mix_VolumeMusic(DEFAULT_VOLUME);
-	chunks[0] = LoadChunk("honda.ogg"); //AQUI
+	chunks[0] = LoadChunk("kouken.ogg"); //AQUI
 
 	return ret;
 }
@@ -75,11 +75,11 @@ Mix_Chunk * ModuleAudio::LoadChunk(const char* path)
 {
 	Mix_Chunk* chunk = nullptr;
 	chunk = Mix_LoadWAV(path);
-	if (!path) {
+	if (chunk == NULL) {
 		LOG("Mix_LoadWAV: %s\n", Mix_GetError());
 			
 	};
-	chunk = chunks[chunk_number];
+	chunks[chunk_number] = chunk;
 	chunk_number++;
 	if (chunk_number == MAX_CHUNKS) chunk_number %= MAX_CHUNKS;
 	return chunk;

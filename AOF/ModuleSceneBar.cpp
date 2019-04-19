@@ -47,7 +47,7 @@ bool ModuleSceneBar::CleanUp()
 	App->audio->StopMusic();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Bar scene");
-
+	App->player->Disable();
 	return true;
 }
 

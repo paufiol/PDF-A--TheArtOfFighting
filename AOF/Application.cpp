@@ -19,15 +19,16 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = scene_karuta = new ModuleSceneKaruta();
-	modules[5] = scene_bar = new ModuleSceneBar();
-	modules[6] = scene_splash = new ModuleSceneSplash();
-	modules[7] = scene_end = new ModuleSceneEnd();
-	modules[8] = player = new ModulePlayer();
-	modules[9] = fade = new ModuleFadeToBlack();
-	modules[10] = audio = new ModuleAudio();
-	modules[11] = particles = new ModuleParticles();
-	modules[12] = collision = new ModuleCollision();
+	modules[4] = audio = new ModuleAudio();
+	modules[5] = scene_karuta = new ModuleSceneKaruta();
+	modules[6] = scene_bar = new ModuleSceneBar();
+	modules[7] = scene_splash = new ModuleSceneSplash();
+	modules[8] = scene_end = new ModuleSceneEnd();
+	modules[9] = player = new ModulePlayer();
+	modules[10] = particles = new ModuleParticles();
+	modules[11] = collision = new ModuleCollision();
+	modules[12] = fade = new ModuleFadeToBlack();
+	
 }	
 
 Application::~Application()

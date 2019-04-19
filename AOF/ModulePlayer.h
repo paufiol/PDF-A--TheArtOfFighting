@@ -16,14 +16,13 @@ public:
 
 	bool Start();
 	update_status Update();
+	bool CleanUp();
 
 public:
 
-	bool jumplock = false; //Esto hay que rehacerlo en algún momento
-	bool punchlock = false;
-	bool koukenlock = false;
-
 	int hp = 100;
+	bool flip = true;
+
 
 	Animation* current_animation = &idle;
 

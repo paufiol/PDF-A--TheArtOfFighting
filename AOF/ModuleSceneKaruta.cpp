@@ -38,7 +38,7 @@ bool ModuleSceneKaruta::CleanUp()
 	App->audio->StopMusic();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Karuta stage");
-
+	App->player->Disable();
 	return true;
 }
 
