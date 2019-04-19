@@ -25,6 +25,8 @@ public:
 
 	int hp = 100;
 
+	Animation* current_animation = &idle;
+
 	Collider * player = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;

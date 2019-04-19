@@ -15,6 +15,7 @@ ModulePlayer::ModulePlayer()
 	position.x = 100;
 	position.y = 112;
 
+
 	// idle animation (arcade sprite sheet)
 	idle.PushBack({0, 8, 66, 108});
 	idle.PushBack({66, 8, 67 , 108});
@@ -41,7 +42,9 @@ ModulePlayer::ModulePlayer()
 
 	punch.PushBack({ 485, 348,  58, 108});
 	punch.PushBack({ 543, 348,  89, 108});
-	punch.speed = 0.2f;   
+	punch.PushBack({ 485, 348,  58, 108 });
+	punch.speed = 0.2f;
+	punch.lock = true;
 
 	koukenR.PushBack({ 176, 873, 66, 112 });
 	koukenR.PushBack({ 242, 873, 88, 112 });
@@ -49,7 +52,7 @@ ModulePlayer::ModulePlayer()
 	koukenR.PushBack({ 415, 888, 81, 97 });
 	koukenR.PushBack({ 496, 877, 102, 108 });
 	koukenR.speed = 0.2f;
-
+	koukenR.lock = true;
 
 	//AQUI haced que de patadas
 	
@@ -65,18 +68,24 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
 	player = App->collision->AddCollider({ position.x, position.y-108, 57, 108 }, COLLIDER_PLAYER, this);
+	
 	return ret;
 }
 
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	Animation* current_animation = &idle;
+	
 
 	int speed = 1;
 	 
-	if(!jumplock && !punchlock && !koukenlock)
+	if (current_animation->Finished() || current_animation->lock == false)
 	{
+		if (current_animation->Finished()) current_animation->Reset();
+		
+		
+		current_animation = &idle;
+
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
@@ -90,42 +99,50 @@ update_status ModulePlayer::Update()
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
-			//current_animation = &jump;
-			jumplock = true;
+			current_animation = &jump;
+			//jumplock = true;
 		}
 		
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
-			punchlock = true; 
+			//punchlock = true; 
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
 			current_animation = &koukenR;
-			koukenCollider = App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER_SHOT);
 
 			
-			koukenlock = true;
+			//koukenlock = true;
 		}
 	}
+	if(!current_animation->Finished() && current_animation->lock == true)
+	{
+		
+	}
 	
+	
+	/*
 	if (jumplock)
 	{
 		current_animation = &jump;
 		if (current_animation->current_frame < 3) { position.y -= speed; }
 		else { position.y += speed; }
-		if ( ((current_animation->current_frame)+0.2f) >= current_animation->last_frame ) {
+		if ( ((current_animation->current_frame)+0.2f) >= current_animation->last_frame  || position.y >= 112+108 ) {
 			jumplock = false;
+			position.y = 112; 
 		}
-	}
-
-	if (punchlock)
+	} */
+	/*
+	if (current_animation == &punch)
 	{
 		current_animation = &punch;
 		
 		if (((current_animation->current_frame) + 0.2f) >= current_animation->last_frame) {
 			punchlock = false;
 		}
-	}
+	} */
+	/*
 	if (koukenlock)
 	{
 		current_animation = &koukenR;
@@ -133,7 +150,7 @@ update_status ModulePlayer::Update()
 		if (((current_animation->current_frame) + 0.2f) >= current_animation->last_frame) {
 			koukenlock = false;
 		}
-	}
+	} */
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();

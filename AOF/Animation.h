@@ -12,6 +12,7 @@ public:
 	bool loop = true;
 	float current_frame;
 	int last_frame = 0;
+	bool lock = false;
 
 private:
 	int loops = 0;
@@ -31,6 +32,7 @@ public:
 		{
 			current_frame = (loop) ? 0.0f : last_frame - 1;
 			loops++;
+			
 		}
 		return frames[(int)current_frame];
 	}
@@ -43,6 +45,7 @@ public:
 	void Reset()
 	{
 		current_frame = 0;
+		loops = 0;
 	}
 };
 
