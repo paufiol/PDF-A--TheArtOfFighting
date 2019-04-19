@@ -76,6 +76,7 @@ update_status ModuleParticles::Update()
 
 		if(p->Update() == false)
 		{
+			p->collider->to_delete = true;
 			delete p;
 			active[i] = nullptr;
 		}
@@ -84,6 +85,8 @@ update_status ModuleParticles::Update()
 		
 			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
 			
+
+
 		/*	SDL_Rect prueba = {App->player->position.x,App->player->position.y,300,50 };
 			SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 0, 0);
 			SDL_RenderDrawRect(App->render->renderer, &prueba);
@@ -101,7 +104,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+Collider * ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -114,7 +117,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			if (collider_type != COLLIDER_NONE)
 				p->collider = App->collision->AddCollider({x, y, p->anim.GetCurrentFrame().w, p->anim.GetCurrentFrame().h }, collider_type, this);
 			active[i] = p;
-			break;
+			return p->collider;
 		}
 	}
 }
@@ -163,6 +166,12 @@ bool Particle::Update()
 
 	position.x += speed.x;
 	position.y += speed.y;
+
+	collider->rect.x = position.x;
+	collider->rect.y = position.y;
+
+
+
 
 	return ret;
 }

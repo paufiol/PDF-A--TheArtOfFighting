@@ -9,14 +9,10 @@
 #include "ModuleAudio.h"
 #include "SDL/include/SDL.h"
 
-// Reference at https://youtu.be/6OlenbCC4WI?t=382
 
 ModuleSceneKaruta::ModuleSceneKaruta()
 {
-	// ground
 	background = {0, 0, 538, 240};
-
-
 }
 
 ModuleSceneKaruta::~ModuleSceneKaruta()
@@ -50,12 +46,11 @@ bool ModuleSceneKaruta::CleanUp()
 update_status ModuleSceneKaruta::Update()
 {
 	
-
-	/*App->render->Blit(graphics, 0, 0, &background, 0.75f);*/
-	// TODO 2: make so pressing SPACE the KEN stage is loaded
+	App->render->Blit(graphics, 0, 0, &background, 0.75f);
+	
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack(  (Module*)App->scene_karuta, (Module*)App->scene_bar, 3.0f);
+		App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_bar, 3.0f);
 	}
 	return UPDATE_CONTINUE;
 }

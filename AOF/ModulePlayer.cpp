@@ -63,7 +63,7 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("ryo.png"); // arcade version
+	graphics = App->textures->Load("ryo.png");
 	player = App->collision->AddCollider({ position.x, position.y-108, 57, 108 }, COLLIDER_PLAYER, this);
 	return ret;
 }
@@ -101,7 +101,7 @@ update_status ModulePlayer::Update()
 
 		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
 			current_animation = &koukenR;
-			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			koukenCollider = App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER_SHOT);
 
 			
 			koukenlock = true;
@@ -139,6 +139,9 @@ update_status ModulePlayer::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	player->SetPos(position.x, position.y);
+
+	
+	
 
 	App->render->Blit(graphics, position.x, position.y, &r);
 	

@@ -54,8 +54,6 @@ bool ModuleSceneBar::CleanUp()
 // Update: draw background
 update_status ModuleSceneBar::Update()
 {
-	
-
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	

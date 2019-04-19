@@ -23,7 +23,10 @@ public:
 	bool punchlock = false;
 	bool koukenlock = false;
 
+	int hp = 100;
+
 	Collider * player = nullptr;
+	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
 	Animation idle;
 	Animation forward;
