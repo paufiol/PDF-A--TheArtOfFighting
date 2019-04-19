@@ -19,9 +19,11 @@ public:
 
 public:
 
-	bool jumplock = false; 
+	bool jumplock = false; //Esto hay que rehacerlo en algún momento
 	bool punchlock = false;
+	bool koukenlock = false;
 
+	Collider * player = nullptr;
 	SDL_Texture* graphics = nullptr;
 	Animation idle;
 	Animation forward;
@@ -29,6 +31,7 @@ public:
 	Animation punch;
 	Animation jump;
 	Animation kick;
+	Animation koukenR;
 	iPoint position;
 
 };

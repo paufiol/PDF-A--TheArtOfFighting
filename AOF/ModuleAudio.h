@@ -22,10 +22,16 @@ public:
 	bool CleanUp() ;
 	Mix_Chunk * LoadChunk(const char* path);
 	bool PlayMusic(const char* path, int loops);
+	bool PlayChunk(Mix_Chunk * sound);
+	void StopMusic();
 
 public:
 	Mix_Chunk * chunks[MAX_CHUNKS];
 	Mix_Music * music; 
+
+	int chunk_number = 0;
+
+	Mix_Chunk* koukenFx;//Idealmente esto solo es como nombre de comodidad, solo un puntero, lo importante es chunks, para luego limpiar todos los chunks y evitar M. Leaks
 };
 
 #endif // __ModuleAudio_H__

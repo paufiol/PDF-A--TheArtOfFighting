@@ -1,5 +1,5 @@
-#ifndef __MODULESCENEKEN_H__
-#define __MODULESCENEKEN_H__
+#ifndef __MODULESCENEBAR_H__
+#define __MODULESCENEBAR_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -7,11 +7,11 @@
 
 struct SDL_Texture;
 
-class ModuleSceneKen : public Module
+class ModuleSceneBar : public Module
 {
 public:
-	ModuleSceneKen();
-	~ModuleSceneKen();
+	ModuleSceneBar();
+	~ModuleSceneBar();
 
 	bool Start();
 	update_status Update();
@@ -20,11 +20,8 @@ public:
 public:
 	
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect ground;
-	SDL_Rect foreground;
 	SDL_Rect background;
-	Animation flag;
-	Animation girl;
+
 
 	float foreground_pos;
 	bool forward;
