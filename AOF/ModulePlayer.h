@@ -8,6 +8,13 @@
 
 struct SDL_Texture;
 
+enum jump
+{
+	JUMP_DOWN = -1,
+	JUMP_NOT = 0,
+	JUMP_UP = 1
+};
+
 class ModulePlayer : public Module
 {
 public:
@@ -21,12 +28,13 @@ public:
 public:
 
 	int hp = 100;
-	bool flip = true;
-
+	bool flip = false;
+	jump jumping = JUMP_NOT; 
 
 	Animation* current_animation = &idle;
 
 	Collider * player = nullptr;
+	Collider * melee = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
 	Animation idle;

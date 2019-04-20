@@ -69,8 +69,9 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER, this);
+	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER1, this);
 	
+
 	return ret;
 }
 
@@ -80,10 +81,16 @@ update_status ModulePlayer::Update()
 	
 
 	int speed = 1;
+	float speed_y = 2.5f;
 	 
 	if (current_animation->Finished() || current_animation->lock == false)
 	{
-		if (current_animation->Finished()) current_animation->Reset();
+		if (current_animation->Finished()) { 
+			current_animation->Reset(); 
+			if (melee != nullptr) {
+				melee->to_delete = true;
+			}
+		}
 			
 		current_animation = &idle;
 
@@ -101,24 +108,40 @@ update_status ModulePlayer::Update()
 
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
-		
+			jumping = JUMP_UP;
 		}
 		
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
-		
+			melee = App->collision->AddCollider({ position.x + 50, position.y +15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
 			current_animation = &koukenR;
-			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 
 		}
 	}
-	if(!current_animation->Finished() && current_animation->lock == true)
+	
+	if (jumping == JUMP_DOWN )
 	{
-		
+		position.y += (int)speed_y;
+		//speed_y -= 0.3f;
+		if (position.y >= 112) {
+			jumping = JUMP_NOT;
+			position.y = 112;
+			//speed = 1.5f;
+		}
 	}
+	if(jumping == JUMP_UP )
+	{
+		position.y -= (int)speed_y;
+		//speed_y += 0.3f;
+		if (current_animation->current_frame >= 2.5f) {
+			jumping = JUMP_DOWN;
+		}
+	}
+	
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
