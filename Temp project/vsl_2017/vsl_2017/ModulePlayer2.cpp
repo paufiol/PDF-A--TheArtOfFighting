@@ -77,7 +77,7 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER2, this);
+	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER2, this);
 
 
 	return ret;
@@ -166,7 +166,7 @@ update_status ModulePlayer2::Update()
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	player->SetPos(position.x, position.y);
+	playerCollider->SetPos(position.x, position.y);
 
 	App->render->Blit(graphics, position.x, position.y, &r, 1.0f, flip);
 
@@ -185,7 +185,7 @@ bool ModulePlayer2::CleanUp() {
 
 	SDL_DestroyTexture(graphics);
 
-	if (player != nullptr) player->to_delete = true;
+	if (playerCollider != nullptr) playerCollider->to_delete = true;
 
 	return true;
 

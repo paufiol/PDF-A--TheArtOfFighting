@@ -38,11 +38,12 @@ public:
 
 	Animation* current_animation = &idle;
 
-	Collider * player = nullptr;
+	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
 	Animation idle;
+	Animation crouchidle;
 	Animation forward;
 	Animation backward;
 	Animation punch;

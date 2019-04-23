@@ -4,6 +4,9 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
+#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
+#include "ModuleCollision.h"
 
 ModuleRender::ModuleRender() : Module()
 {
@@ -56,7 +59,7 @@ update_status ModuleRender::Update()
 
 	/* if(App->input->keyboard[SDL_SCANCODE_DOWN] == 1)
 		camera.y -= speed; */
-
+	
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == 1) {
 		
 			camera.x += speed;
@@ -68,8 +71,11 @@ update_status ModuleRender::Update()
 			camera.x -= speed;
 		
 	}
+	if (App->player->IsEnabled() && App->player2->IsEnabled()) {
+		//camera.x = App->player->position.x + ((App->player2->position.x + (App->player2->playerCollider->rect.w / 2)) + (App->player->position.x + (App->player->playerCollider->rect.w/2)))/2 - SCREEN_WIDTH / 2;
+		//camera.x =(App->player->position.x + App->player2->position.x) / 2 + (SCREEN_WIDTH / 2);
 		
-
+	}
 	return update_status::UPDATE_CONTINUE;
 }
 
@@ -101,8 +107,10 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	SDL_Rect rect;
 	if (use_camera)
 	{
-		rect.x = (int)(camera.x * speed) + x * SCREEN_SIZE;
-		rect.y = (int)(camera.y * speed) + y * SCREEN_SIZE;
+		rect.x = (int)(camera.x ) + x * SCREEN_SIZE;
+		rect.y = (int)(camera.y ) + y * SCREEN_SIZE;
+		//rect.x = x * SCREEN_SIZE;
+		//rect.y = y * SCREEN_SIZE;
 	}
 	else
 	{
@@ -164,6 +172,8 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 		ret = false;
 	}
 
+
+	
 	return ret;
 }
 

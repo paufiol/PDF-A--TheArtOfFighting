@@ -78,7 +78,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER1, this);
+	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 
 	
 	
@@ -94,6 +94,9 @@ update_status ModulePlayer::Update()
 	if (flip) flip_sign = -1;
 	if (!flip) flip_sign = 1;
 	
+	playerCollider->SetPos(position.x, position.y);
+	playerCollider->rect.h = 108;
+
 	if (jumping == JUMP_NOT) {
 		speed.x = 0.0f;
 	//	speed.y = 0.0f;
@@ -122,6 +125,14 @@ update_status ModulePlayer::Update()
 			jumping = JUMP_UP;
 			speed.x = -2.0f;
 		}
+
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
+		{
+			current_animation = &crouchidle;
+			playerCollider->rect.h = 50;
+			playerCollider->SetPos(position.x, position.y + 68);
+		}
+
 
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
 		{
@@ -162,7 +173,7 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN && !leaveif) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
-
+			App->audio->PlayChunk(App->audio->koukenFx);
 		}
 	}
 
@@ -194,17 +205,18 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-
-	
-
 	
 	position.x += speed.x;
 	position.y += speed.y;
-
-	player->SetPos(position.x, position.y);
+	if (position.x <=  0) {
+		position.x = 0;
+	}
+	if (position.x + playerCollider->rect.w >= 538) {
+		position.x = 538 - playerCollider->rect.w;
+	}
 
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -217,7 +229,7 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	} 
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
-		//App->player->speed.x /= 2.0f;
+		App->player->speed.x = 1.0f;
 		App->player2->position.x += speed.x;
 	}
 }
@@ -227,7 +239,7 @@ bool ModulePlayer::CleanUp() {
 
 	SDL_DestroyTexture(graphics);
 
-	if (player != nullptr) player->to_delete = true;
+	if (playerCollider != nullptr) playerCollider->to_delete = true;
 
 	return true;
 
