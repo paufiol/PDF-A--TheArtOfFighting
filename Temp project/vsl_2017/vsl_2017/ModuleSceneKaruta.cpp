@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleUI.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
@@ -26,7 +27,7 @@ bool ModuleSceneKaruta::Start()
 	App->audio->PlayMusic("Splash_song.ogg", -1);
 	graphics = App->textures->Load("Karuta.png");
 
-	
+	App->UI->Enable();
 	App->player->Enable();
 	return ret;
 }
@@ -39,6 +40,7 @@ bool ModuleSceneKaruta::CleanUp()
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Karuta stage");
 	App->player->Disable();
+	App->UI->Disable();
 	return true;
 }
 
