@@ -20,10 +20,15 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void OnCollision(Collider* A, Collider* B);
+
 public:
 
 	int hp = 100;
+	
 	bool flip = false;
+	int flip_sign;
+
 	jump jumping = JUMP_NOT;
 	bool keyup = true;
 

@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
@@ -26,7 +27,7 @@ bool ModuleSceneKaruta::Start()
 	App->audio->PlayMusic("Splash_song.ogg", -1);
 	graphics = App->textures->Load("Karuta.png");
 
-	
+	App->player2->Enable();
 	App->player->Enable();
 	return ret;
 }

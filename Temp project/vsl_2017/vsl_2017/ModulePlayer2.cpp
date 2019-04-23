@@ -102,32 +102,32 @@ update_status ModulePlayer2::Update()
 
 		current_animation = &idle;
 
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
 			position.x += speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
 			position.x -= speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER2_ATTACK, this);
 		}
 
-		if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN))
+		if ((App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN))
 		{
 			current_animation = &kick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER2_ATTACK, this);
 			/*keyup = false;*/
 		}
 		//if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_UP))
@@ -136,9 +136,9 @@ update_status ModulePlayer2::Update()
 		//}
 
 
-		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN) {
 			current_animation = &koukenR;
-			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
+			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER2_ATTACK);
 		}
 	}
 
@@ -171,6 +171,14 @@ update_status ModulePlayer2::Update()
 	App->render->Blit(graphics, position.x, position.y, &r, 1.0f, flip);
 
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer2::OnCollision(Collider* A, Collider* B) {
+	if (A->type == COLLIDER_PLAYER2_ATTACK && B->type == COLLIDER_PLAYER1) 
+	{
+		A->to_delete == true;
+	} //Player 2 hits player 1
+	
 }
 
 bool ModulePlayer2::CleanUp() {

@@ -6,6 +6,7 @@
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleCollision.h"
 
 #include "SDL/include/SDL_timer.h"
@@ -130,9 +131,12 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1)
 		{
-			
+			c1->to_delete = true;
+			if (c1->type == COLLIDER_PLAYER1_ATTACK && c2->type == COLLIDER_PLAYER2) { App->player->OnCollision(c1, c2); }
+			if (c1->type == COLLIDER_PLAYER2_ATTACK && c2->type == COLLIDER_PLAYER1) { App->player2->OnCollision(c1, c2); }
 			delete active[i];
 			active[i] = nullptr;
+
 			break;
 		}
 	}
@@ -169,9 +173,6 @@ bool Particle::Update()
 
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
-
-
-
 
 	return ret;
 }
