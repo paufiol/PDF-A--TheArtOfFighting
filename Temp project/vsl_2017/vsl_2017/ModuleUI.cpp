@@ -34,21 +34,21 @@ update_status ModuleUI::Update()
 	{
 		currentTimerposX = 928 - (32 * (currenttime - 30));
 		timerrect = { currentTimerposX,792,32,24 };
-		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f);
+		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
 	}
 	if (currenttime < 30)
 	{
 		currentTimerposX = 928 - (32 * currenttime);
 		timerrect = { currentTimerposX,816,32,24 };
-		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f);
+		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
 	}
 //--------------------------------------------------------------------
 	//Lifebars:
 	lifebar1rect = {765,0, 128,8 };
-	App->render->Blit(graphics, 8, 16, &lifebar1rect, 1.0f);
+	App->render->Blit(graphics, 8, 16, &lifebar1rect, 1.0f, false, false);
 
 	lifebar2rect = { 765,0, 128,8 };
-	App->render->Blit(graphics, 168, 16, &lifebar2rect, 1.0f);
+	App->render->Blit(graphics, 168, 16, &lifebar2rect, 1.0f, false, false);
 
 
 		return UPDATE_CONTINUE;
