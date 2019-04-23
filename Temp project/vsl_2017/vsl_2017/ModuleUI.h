@@ -16,7 +16,7 @@ public:
 	bool CleanUp();
 
 public:
-	SDL_Rect lifebar1rect, lifebar2rect, timerrect, staminabar1rect,
+	SDL_Rect lifebar1rect, lifebar2rect, emptylb, timerrect, staminabar1rect,
 		staminabar2rect, avatar1rect, avatar2rect;
 	int currentTimerposX;
 	int startTime;
