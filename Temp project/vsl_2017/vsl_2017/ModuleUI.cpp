@@ -10,7 +10,7 @@
 
 ModuleUI::ModuleUI()
 {
-
+	
 }
 ModuleUI::~ModuleUI()
 {
@@ -44,6 +44,12 @@ update_status ModuleUI::Update()
 	}
 //--------------------------------------------------------------------
 	//Lifebars:
+	lifebar1rect = {765,0, 128,8 };
+	App->render->Blit(graphics, 8, 16, &lifebar1rect, 1.0f);
+
+	lifebar2rect = { 765,0, 128,8 };
+	App->render->Blit(graphics, 168, 16, &lifebar2rect, 1.0f);
+
 
 		return UPDATE_CONTINUE;
 }
