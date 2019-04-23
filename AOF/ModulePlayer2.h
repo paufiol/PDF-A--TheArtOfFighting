@@ -8,7 +8,12 @@
 
 struct SDL_Texture;
 
-
+enum jump
+{
+	JUMP_DOWN = -1,
+	JUMP_NOT = 0,
+	JUMP_UP = 1
+};
 
 class ModulePlayer : public Module
 {
@@ -20,15 +25,10 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void OnCollision(Collider* A, Collider* B);
-
 public:
 
 	int hp = 100;
-	
 	bool flip = false;
-	int flip_sign;
-
 	jump jumping = JUMP_NOT;
 	bool keyup = true;
 

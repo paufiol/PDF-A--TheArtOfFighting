@@ -14,6 +14,7 @@ class ModuleSceneKaruta;
 class ModuleSceneSplash;
 class ModuleSceneEnd;
 class ModulePlayer;
+class ModulePlayer2;
 class ModuleFadeToBlack;
 class ModuleAudio;
 class ModuleParticles;
@@ -35,6 +36,7 @@ public:
 	ModuleSceneSplash *scene_splash;
 	ModuleSceneEnd *scene_end;
 	ModulePlayer* player;
+	ModulePlayer2*  player2;
 	ModuleFadeToBlack* fade;
 	ModuleAudio* audio;
 	ModuleParticles* particles;

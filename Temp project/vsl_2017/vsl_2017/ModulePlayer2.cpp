@@ -3,7 +3,6 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
-#include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
@@ -11,9 +10,9 @@
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
-ModulePlayer::ModulePlayer()
+ModulePlayer2::ModulePlayer2()
 {
-	position.x = 100;
+	position.x = 200;
 	position.y = 112;
 
 
@@ -32,13 +31,13 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 874, 348, 67, 108 });
 	forward.speed = 0.15f;
 
-	jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
-	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
-	jump.PushBack({ 126, 456, 62, 130 }, 0, -20);
-	jump.PushBack({ 188, 456, 57 , 130 }, 0, -20);
-	jump.PushBack({ 245, 456, 53, 130 }, 0, -20);
-	jump.PushBack({ 0, 456, 56, 130 }, 0, -20);
-	jump.PushBack({ 299, 456, 56, 130 }, 0, -20);
+	jump.PushBack({ 0,  456, 60, 130 });
+	jump.PushBack({ 60, 456, 66, 130 });
+	jump.PushBack({ 126, 456, 62, 130 });
+	jump.PushBack({ 188, 456, 57 , 130 });
+	jump.PushBack({ 245, 456, 53, 130 });
+	jump.PushBack({ 0, 456, 56, 130 });
+	jump.PushBack({ 299, 456, 56, 130 });
 	jump.speed = 0.1f;
 	jump.lock = true;
 
@@ -69,34 +68,28 @@ ModulePlayer::ModulePlayer()
 
 }
 
-ModulePlayer::~ModulePlayer()
+ModulePlayer2::~ModulePlayer2()
 {}
 
 // Load assets
-bool ModulePlayer::Start()
+bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER1, this);
+	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER2, this);
 
-
-	
 
 	return ret;
 }
 
 // Update: draw background
-update_status ModulePlayer::Update()
+update_status ModulePlayer2::Update()
 {
-	if (this->position.x >= App->player2->position.x) flip = true;
-	if (this->position.x <= App->player2->position.x) flip = false;
-	
+
+
 	int speed = 1;
 	float speed_y = 2.5f;
-
-	if (flip) flip_sign = -1;
-	if (!flip) flip_sign = 1;
 
 	if (current_animation->Finished() || current_animation->lock == false)
 	{
@@ -109,32 +102,32 @@ update_status ModulePlayer::Update()
 
 		current_animation = &idle;
 
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
 			position.x += speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
 			position.x -= speed;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER2_ATTACK, this);
 		}
 
-		if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN))
+		if ((App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN))
 		{
 			current_animation = &kick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER2_ATTACK, this);
 			/*keyup = false;*/
 		}
 		//if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_UP))
@@ -143,10 +136,9 @@ update_status ModulePlayer::Update()
 		//}
 
 
-		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN) {
 			current_animation = &koukenR;
-			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
-
+			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER2_ATTACK);
 		}
 	}
 
@@ -176,23 +168,20 @@ update_status ModulePlayer::Update()
 
 	player->SetPos(position.x, position.y);
 
-	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	App->render->Blit(graphics, position.x, position.y, &r, 1.0f, flip);
 
 	return UPDATE_CONTINUE;
 }
 
-void ModulePlayer::OnCollision(Collider* A, Collider* B) {
-	if (A->type == COLLIDER_PLAYER1_ATTACK && B->type == COLLIDER_PLAYER2)
+void ModulePlayer2::OnCollision(Collider* A, Collider* B) {
+	if (A->type == COLLIDER_PLAYER2_ATTACK && B->type == COLLIDER_PLAYER1) 
 	{
 		A->to_delete == true;
-		App->player2->hp -= 25;
-		//App->audio->PlayChunk(App->audio->koukenFx);
-	} 
-
+	} //Player 2 hits player 1
+	
 }
 
-
-bool ModulePlayer::CleanUp() {
+bool ModulePlayer2::CleanUp() {
 
 	SDL_DestroyTexture(graphics);
 

@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleUI.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
@@ -28,7 +29,8 @@ bool ModuleSceneKaruta::Start()
 	graphics = App->textures->Load("Karuta.png");
 
 	App->UI->Enable();
-	App->player->Enable();
+	App->player->Enable();	
+	App->player2->Enable();
 	return ret;
 }
 

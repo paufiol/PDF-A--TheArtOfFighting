@@ -8,6 +8,7 @@
 #include "ModuleSceneSplash.h"
 #include "ModuleSceneEnd.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "ModuleParticles.h"
@@ -26,10 +27,12 @@ Application::Application()
 	modules[7] = scene_splash = new ModuleSceneSplash();
 	modules[8] = scene_end = new ModuleSceneEnd();
 	modules[9] = player = new ModulePlayer();
-	modules[10] = particles = new ModuleParticles();
-	modules[11] = collision = new ModuleCollision();
-	modules[12] = fade = new ModuleFadeToBlack();
-	modules[13] = UI = new ModuleUI();
+	modules[10] = player2 = new ModulePlayer2();
+	modules[11] = particles = new ModuleParticles();
+	modules[12] = collision = new ModuleCollision();
+	modules[13] = fade = new ModuleFadeToBlack();
+	modules[14] = UI = new ModuleUI();
+
 	
 }	
 
@@ -45,6 +48,7 @@ bool Application::Init()
 
 	// Player will be enabled on the first update of a new scene
 	player->Disable();
+	player2->Disable();
 	// Disable the map that you do not start with
 	scene_karuta->Disable();
 	scene_bar->Disable();
