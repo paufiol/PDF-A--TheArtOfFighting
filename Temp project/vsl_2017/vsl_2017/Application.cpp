@@ -8,6 +8,7 @@
 #include "ModuleSceneSplash.h"
 #include "ModuleSceneEnd.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "ModuleParticles.h"

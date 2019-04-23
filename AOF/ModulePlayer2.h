@@ -8,7 +8,12 @@
 
 struct SDL_Texture;
 
-
+enum jump
+{
+	JUMP_DOWN = -1,
+	JUMP_NOT = 0,
+	JUMP_UP = 1
+};
 
 class ModulePlayer : public Module
 {

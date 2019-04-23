@@ -15,8 +15,15 @@ enum update_status
 	UPDATE_CONTINUE = 1,
 	UPDATE_STOP,
 	UPDATE_ERROR
+
 };
 
+enum jump
+{
+	JUMP_DOWN = -1,
+	JUMP_NOT = 0,
+	JUMP_UP = 1
+};
 // Useful typedefs ---------
 typedef unsigned int uint;
 
