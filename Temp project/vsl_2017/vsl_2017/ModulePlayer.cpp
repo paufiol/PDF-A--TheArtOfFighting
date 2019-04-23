@@ -80,7 +80,7 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("ryo.png");
 	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER1, this);
 
-
+	
 	
 
 	return ret;
@@ -91,12 +91,13 @@ update_status ModulePlayer::Update()
 {
 	if (this->position.x >= App->player2->position.x) flip = true;
 	if (this->position.x <= App->player2->position.x) flip = false;
-	
-	int speed = 1;
-	float speed_y = 2.5f;
-
 	if (flip) flip_sign = -1;
 	if (!flip) flip_sign = 1;
+	
+	if (jumping == JUMP_NOT) {
+		speed.x = 0.0f;
+	//	speed.y = 0.0f;
+	}
 
 	if (current_animation->Finished() || current_animation->lock == false)
 	{
@@ -106,20 +107,34 @@ update_status ModulePlayer::Update()
 				melee->to_delete = true;
 			}
 		}
+		bool leaveif = false;
 
 		current_animation = &idle;
+		
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
+			current_animation = &jump;
+			jumping = JUMP_UP;
+			speed.x = 2.0f;
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
+			current_animation = &jump;
+			jumping = JUMP_UP;
+			speed.x = -2.0f;
+		}
 
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
-			position.x += speed;
+			speed.x = 2.0f;
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
-			position.x -= speed;
+			speed.x = -1.5f;
 		}
+
 
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
@@ -129,9 +144,10 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
 			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			leaveif = true;
 		}
 
-		if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN))
+		if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) && !leaveif)
 		{
 			current_animation = &kick;
 			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this);
@@ -143,28 +159,33 @@ update_status ModulePlayer::Update()
 		//}
 
 
-		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN && !leaveif) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 
 		}
 	}
 
-
+	if (jumping != JUMP_NOT)
+	{
+		speed.y = (-1)*(10 + -0.5 * clock_parabolla);
+		clock_parabolla++;
+	}
 	if (jumping == JUMP_DOWN)
 	{
-		position.y += (int)speed_y;
-		//speed_y -= 0.3f;
+		//speed.y = 3;
+
 		if (position.y >= 112) {
 			jumping = JUMP_NOT;
 			position.y = 112;
-			//speed = 1.5f;
+			speed.y = 0;
+			clock_parabolla = 0;
 		}
 	}
 	if (jumping == JUMP_UP)
 	{
-		position.y -= (int)speed_y;
-		//speed_y += 0.3f;
+		//speed.y = -3;
+		
 		if (current_animation->current_frame >= 2.5f) {
 			jumping = JUMP_DOWN;
 		}
@@ -173,6 +194,12 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
+
+	
+
+	
+	position.x += speed.x;
+	position.y += speed.y;
 
 	player->SetPos(position.x, position.y);
 
@@ -188,7 +215,11 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 		App->player2->hp -= 25;
 		//App->audio->PlayChunk(App->audio->koukenFx);
 	} 
-
+	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
+	{
+		//App->player->speed.x /= 2.0f;
+		App->player2->position.x += speed.x;
+	}
 }
 
 

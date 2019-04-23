@@ -26,6 +26,10 @@ public:
 
 	int hp = 100;
 	
+	fPoint speed;
+	
+
+	int clock_parabolla = 0;
 	bool flip = false;
 	int flip_sign;
 

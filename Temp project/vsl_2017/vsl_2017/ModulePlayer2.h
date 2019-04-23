@@ -28,6 +28,8 @@ public:
 	jump jumping = JUMP_NOT;
 	bool keyup = true;
 
+	fPoint speed;
+
 	Animation* current_animation = &idle;
 
 	Collider * player = nullptr;
