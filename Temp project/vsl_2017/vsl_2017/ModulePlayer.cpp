@@ -31,13 +31,13 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 874, 348, 67, 108 });
 	forward.speed = 0.15f;
 
-	jump.PushBack({ 0,  456, 60, 130 });
-	jump.PushBack({ 60, 456, 66, 130 });
-	jump.PushBack({ 126, 456, 62, 130 });
-	jump.PushBack({ 188, 456, 57 , 130 });
-	jump.PushBack({ 245, 456, 53, 130 });
-	jump.PushBack({ 0, 456, 56, 130 });
-	jump.PushBack({ 299, 456, 56, 130 });
+	jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
+	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
+	jump.PushBack({ 126, 456, 62, 130 }, 0, -20);
+	jump.PushBack({ 188, 456, 57 , 130 }, 0, -20);
+	jump.PushBack({ 245, 456, 53, 130 }, 0, -20);
+	jump.PushBack({ 0, 456, 56, 130 }, 0, -20);
+	jump.PushBack({ 299, 456, 56, 130 }, 0, -20);
 	jump.speed = 0.1f;
 	jump.lock = true;
 
@@ -168,7 +168,7 @@ update_status ModulePlayer::Update()
 
 	player->SetPos(position.x, position.y);
 
-	App->render->Blit(graphics, position.x, position.y, &r, 1.0f, flip);
+	App->render->Blit(graphics, position.x+current_animation->GetOffset().x, position.y+ current_animation->GetOffset().y, &r, 1.0f, flip);
 
 	return UPDATE_CONTINUE;
 }
