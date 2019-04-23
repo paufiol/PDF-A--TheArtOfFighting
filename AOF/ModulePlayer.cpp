@@ -17,9 +17,9 @@ ModulePlayer::ModulePlayer()
 
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({0, 8, 66, 108});
-	idle.PushBack({66, 8, 67 , 108});
-	idle.PushBack({133, 8, 69, 108 });
+	idle.PushBack({ 0, 8, 66, 108 });
+	idle.PushBack({ 66, 8, 67 , 108 });
+	idle.PushBack({ 133, 8, 69, 108 });
 	idle.speed = 0.1f;
 
 	// walk forward animation (arcade sprite sheet)
@@ -41,8 +41,8 @@ ModulePlayer::ModulePlayer()
 	jump.speed = 0.1f;
 	jump.lock = true;
 
-	punch.PushBack({ 485, 348,  58, 108});
-	punch.PushBack({ 543, 348,  89, 108});
+	punch.PushBack({ 485, 348,  58, 108 });
+	punch.PushBack({ 543, 348,  89, 108 });
 	punch.PushBack({ 485, 348,  58, 108 });
 	punch.speed = 0.2f;
 	punch.lock = true;
@@ -54,10 +54,18 @@ ModulePlayer::ModulePlayer()
 	koukenR.PushBack({ 496, 877, 102, 108 });
 	koukenR.speed = 0.2f;
 	koukenR.lock = true;
-	
-	
+
+
 	//AQUI haced que de patadas
-	
+
+	kick.PushBack({ 669, 235, 60, 109 });
+	kick.PushBack({ 729, 235, 61, 113 });
+	kick.PushBack({ 790, 235, 103, 113 });
+	kick.PushBack({ 729, 235, 61, 113 });
+	kick.PushBack({ 669, 235, 60, 109 });
+	kick.speed = 0.2f;
+	kick.lock = true;
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -70,7 +78,7 @@ bool ModulePlayer::Start()
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
 	player = App->collision->AddCollider({ position.x, position.y - 108, 57, 108 }, COLLIDER_PLAYER1, this);
-	
+
 
 	return ret;
 }
@@ -78,20 +86,20 @@ bool ModulePlayer::Start()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	
+
 
 	int speed = 1;
 	float speed_y = 2.5f;
-	 
+
 	if (current_animation->Finished() || current_animation->lock == false)
 	{
-		if (current_animation->Finished()) { 
-			current_animation->Reset(); 
+		if (current_animation->Finished()) {
+			current_animation->Reset();
 			if (melee != nullptr) {
 				melee->to_delete = true;
 			}
 		}
-			
+
 		current_animation = &idle;
 
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
@@ -110,20 +118,32 @@ update_status ModulePlayer::Update()
 			current_animation = &jump;
 			jumping = JUMP_UP;
 		}
-		
+
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y +15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 		}
+
+		if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) /*&& (keyup == true)*/)
+		{
+			current_animation = &kick;
+			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this);
+			/*keyup = false;*/
+		}
+		//if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_UP))
+		//{
+		//	keyup = true;
+		//}
+
 
 		if (App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
-
 		}
 	}
-	
-	if (jumping == JUMP_DOWN )
+
+
+	if (jumping == JUMP_DOWN)
 	{
 		position.y += (int)speed_y;
 		//speed_y -= 0.3f;
@@ -133,7 +153,7 @@ update_status ModulePlayer::Update()
 			//speed = 1.5f;
 		}
 	}
-	if(jumping == JUMP_UP )
+	if (jumping == JUMP_UP)
 	{
 		position.y -= (int)speed_y;
 		//speed_y += 0.3f;
@@ -141,7 +161,7 @@ update_status ModulePlayer::Update()
 			jumping = JUMP_DOWN;
 		}
 	}
-	
+
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
@@ -149,7 +169,7 @@ update_status ModulePlayer::Update()
 	player->SetPos(position.x, position.y);
 
 	App->render->Blit(graphics, position.x, position.y, &r, 1.0f, flip);
-	
+
 	return UPDATE_CONTINUE;
 }
 
@@ -157,7 +177,7 @@ bool ModulePlayer::CleanUp() {
 
 	SDL_DestroyTexture(graphics);
 
-	if(player != nullptr) player->to_delete = true;
+	if (player != nullptr) player->to_delete = true;
 
 	return true;
 

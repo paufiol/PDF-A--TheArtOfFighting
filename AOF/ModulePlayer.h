@@ -29,7 +29,8 @@ public:
 
 	int hp = 100;
 	bool flip = false;
-	jump jumping = JUMP_NOT; 
+	jump jumping = JUMP_NOT;
+	bool keyup = true;
 
 	Animation* current_animation = &idle;
 
