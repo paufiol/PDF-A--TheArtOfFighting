@@ -50,6 +50,8 @@ public:
 	Animation jump;
 	Animation kick;
 	Animation koukenR;
+	Animation crouchpunch;
+	Animation crouchkick;
 	iPoint position;
 
 };

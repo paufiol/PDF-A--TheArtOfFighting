@@ -67,6 +67,27 @@ ModulePlayer::ModulePlayer()
 	kick.speed = 0.2f;
 	kick.lock = true;
 
+	//hacer que se mantenga la segunda animación mientras se pulsa down//
+
+	/*crouchidle.PushBack({ 0, 503, 60, 80 }, 0, 30);*/
+	crouchidle.PushBack({ 576, 43, 67, 71 }, 0,30);
+	crouchidle.speed = 0.1f;
+
+	//poner los botones para que pueda hacer el puñetazo//
+
+	crouchpunch.PushBack({ 414, 42, 53, 74 });
+	crouchpunch.PushBack({ 467,41, 109 , 75 });
+	crouchpunch.PushBack({ 414, 42, 53, 74 });
+	crouchpunch.PushBack({ 576, 43, 67, 71 });
+	crouchpunch.speed = 0.2f;
+
+	//poner los botones para que pueda hacer el puñetazo//
+
+	crouchkick.PushBack({866, 169, 55, 66});
+	crouchkick.PushBack({ 0, 280, 127 , 68 });
+	crouchkick.PushBack({ 866, 169, 55, 66 });
+
+
 }
 
 ModulePlayer::~ModulePlayer()
