@@ -125,6 +125,8 @@ update_status ModulePlayer::Update()
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
 
+	if(current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick ) playerCollider->SetPos(position.x, position.y + 33);
+
 	for (int i = 0; i < 69; i++) {
 		if (App->input->keyboard[i] == KEY_STATE::KEY_UP) {
 			keyup[i] = true;
@@ -145,23 +147,49 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
-			speed.x = 2.0f;
+			speed.x = 3.0f;
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
-			speed.x = -2.0f;
+			speed.x = -3.0f;
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &crouchidle;
-			playerCollider->rect.h = 60;
-			playerCollider->SetPos(position.x, position.y + 58);
+			playerCollider->rect.h = 75;
+			
 			if (keyup[SDL_SCANCODE_S]) {
 				StoreInput(SDL_SCANCODE_S);
 				keyup[SDL_SCANCODE_S] = false;
+			}
+		}
+
+		if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)
+			&& keyup[SDL_SCANCODE_Q] && !leaveif)
+		{
+			current_animation = &crouchpunch;
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 40, 63, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			leaveif = true;
+
+			if (keyup[SDL_SCANCODE_Q]) {
+				StoreInput(SDL_SCANCODE_Q);
+				keyup[SDL_SCANCODE_Q] = false;
+			}
+		}
+
+		if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN)
+			&& keyup[SDL_SCANCODE_E] && !leaveif)
+		{
+			current_animation = &crouchkick;
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 60, 70, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			leaveif = true;
+
+			if (keyup[SDL_SCANCODE_E]) {
+				StoreInput(SDL_SCANCODE_E);
+				keyup[SDL_SCANCODE_E] = false;
 			}
 		}
 
@@ -169,7 +197,7 @@ update_status ModulePlayer::Update()
 		{
 			current_animation = &forward;
 			speed.x = 2.0f;
-			
+			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_D]) {
 				StoreInput(SDL_SCANCODE_D);
 				if (flip) { block = App->collision->AddCollider({ position.x + 55, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
@@ -181,6 +209,7 @@ update_status ModulePlayer::Update()
 		{
 			current_animation = &forward;
 			speed.x = -1.5f;
+			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_A]) {
 				StoreInput(SDL_SCANCODE_A);
 				if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
@@ -213,31 +242,6 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-
-		if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN))
-		{
-			current_animation = &crouchpunch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 40, 63, 20 }, COLLIDER_PLAYER1_ATTACK, this);
-			leaveif = true;
-			
-			if (keyup[SDL_SCANCODE_Q]) {
-				StoreInput(SDL_SCANCODE_Q);
-				keyup[SDL_SCANCODE_Q] = false;
-			}
-		}
-
-		if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN))
-		{
-			current_animation = &crouchkick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 60, 70, 20 }, COLLIDER_PLAYER1_ATTACK, this);
-			leaveif = true;
-			if (keyup[SDL_SCANCODE_E]) {
-				StoreInput(SDL_SCANCODE_E);
-				keyup[SDL_SCANCODE_E] = false;
-			}
-		}
-
-		
 
 		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN)&& !leaveif) {
 			current_animation = &koukenR;
@@ -283,7 +287,11 @@ update_status ModulePlayer::Update()
 	if (position.x + playerCollider->rect.w >= 538) {
 		position.x = 538 - playerCollider->rect.w;
 	}
-
+	if (position.x <= (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 - SCREEN_WIDTH / 2) {
+		position.x = (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 - SCREEN_WIDTH / 2; }
+	if (position.x + playerCollider->rect.w >= (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 + SCREEN_WIDTH / 2) {
+		position.x = (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 + SCREEN_WIDTH / 2 - playerCollider->rect.w;
+	}
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
