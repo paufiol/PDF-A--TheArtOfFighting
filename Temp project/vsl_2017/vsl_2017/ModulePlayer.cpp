@@ -102,6 +102,10 @@ update_status ModulePlayer::Update()
 	//	speed.y = 0.0f;
 	}
 
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_UP) { 
+		keyup = true; 
+	}
+
 	if (current_animation->Finished() || current_animation->lock == false)
 	{
 		if (current_animation->Finished()) {
@@ -138,6 +142,10 @@ update_status ModulePlayer::Update()
 		{
 			current_animation = &forward;
 			speed.x = 2.0f;
+			if (keyup) { 
+				StoreInput(SDL_SCANCODE_D);
+				App->audio->PlayChunk(App->audio->koukenFx);
+				keyup = false; }
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
@@ -181,27 +189,27 @@ update_status ModulePlayer::Update()
 	{
 		speed.y = (-1)*(10 + -0.5 * clock_parabolla);
 		clock_parabolla++;
-	}
-	if (jumping == JUMP_DOWN)
-	{
-		//speed.y = 3;
 
-		if (position.y >= 112) {
-			jumping = JUMP_NOT;
-			position.y = 112;
-			speed.y = 0;
-			clock_parabolla = 0;
+		if (jumping == JUMP_DOWN)
+		{
+			//speed.y = 3;
+
+			if (position.y >= 112) {
+				jumping = JUMP_NOT;
+				position.y = 112;
+				speed.y = 0;
+				clock_parabolla = 0;
+			}
+		}
+		if (jumping == JUMP_UP)
+		{
+			//speed.y = -3;
+
+			if (current_animation->current_frame >= 2.5f) {
+				jumping = JUMP_DOWN;
+			}
 		}
 	}
-	if (jumping == JUMP_UP)
-	{
-		//speed.y = -3;
-		
-		if (current_animation->current_frame >= 2.5f) {
-			jumping = JUMP_DOWN;
-		}
-	}
-
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
@@ -232,6 +240,27 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 		App->player->speed.x = 1.0f;
 		App->player2->position.x += speed.x;
 	}
+}
+
+bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, SDL_Scancode D)
+{
+	int interval = 500;
+	for (int i = inputCount; i != inputCount - 1; i++) {
+		
+		if (i == MAX_INPUTS) i % MAX_INPUTS;
+		if (input[i] == A	&& input[i-1] == B && 
+			input[i-2] == C && input[i-3] == D) {
+
+				if((timeInput[i] - timeInput[i - 1]) < interval &&
+				   (timeInput[i - 1] - timeInput[i - 2]) < interval &&
+					(timeInput[i - 2] - timeInput[i - 3]) < interval)
+				{
+					return true;
+				}
+
+		}
+	}
+	return false;
 }
 
 

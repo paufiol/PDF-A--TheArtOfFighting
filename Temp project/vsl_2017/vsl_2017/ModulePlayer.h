@@ -5,6 +5,10 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "SDL/include/SDL.h"
+#include "SDL\include\SDL_scancode.h"
+
+#define MAX_INPUTS 64
 
 struct SDL_Texture;
 
@@ -21,6 +25,15 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* A, Collider* B);
+	bool TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, SDL_Scancode D);
+	void StoreInput(SDL_Scancode Scancode) {
+		input[inputCount] = Scancode;
+		timeInput[inputCount] = SDL_GetTicks();
+		inputCount++;
+		if (inputCount >= MAX_INPUTS) inputCount %= MAX_INPUTS;
+	};
+private:
+	int inputCount = 0;
 
 public:
 
@@ -28,6 +41,8 @@ public:
 	
 	fPoint speed;
 	
+	int input[MAX_INPUTS];
+	int timeInput[MAX_INPUTS];
 
 	int clock_parabolla = 0;
 	bool flip = false;

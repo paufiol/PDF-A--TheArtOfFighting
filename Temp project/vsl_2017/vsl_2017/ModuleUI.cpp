@@ -52,7 +52,7 @@ update_status ModuleUI::Update()
 	lifebar2rect = { 765,0, 128,8 };
 	App->render->Blit(graphics, 168, 16, &lifebar2rect, 1.0f, false, false);
 
-	App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
+	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
 		return UPDATE_CONTINUE;
 }
 
