@@ -108,6 +108,7 @@ update_status ModulePlayer::Update()
 	
 	playerCollider->SetPos(position.x, position.y);
 	playerCollider->rect.h = 108;
+	if (block != nullptr) block->SetPos(position.x + 55, position.y + 5);
 
 	if (jumping == JUMP_NOT) {
 		speed.x = 0.0f;
@@ -171,7 +172,7 @@ update_status ModulePlayer::Update()
 			
 			if (keyup[SDL_SCANCODE_D]) {
 				StoreInput(SDL_SCANCODE_D);
-				if (flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+				if (flip) { block = App->collision->AddCollider({ position.x + 55, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
 				keyup[SDL_SCANCODE_D] = false; 
 			}
 		}
@@ -212,6 +213,7 @@ update_status ModulePlayer::Update()
 			}
 		}
 
+
 		if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN))
 		{
 			current_animation = &crouchpunch;
@@ -235,7 +237,9 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if (TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) && !leaveif) {
+		
+
+		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN)&& !leaveif) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 			App->audio->PlayChunk(App->audio->koukenFx);
@@ -287,14 +291,19 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	if (A->type == COLLIDER_PLAYER1_ATTACK && B->type == COLLIDER_PLAYER2)
 	{
-		A->to_delete == true;
+		A->to_delete = true;
 		App->player2->hp -= 25;
 		
 	} 
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
-		App->player->speed.x = 1.0f;
+		//App->player->speed.x = 1.0f;
 		App->player2->position.x += speed.x;
+	}
+	if (A->type == COLLIDER_WALL && B->type == COLLIDER_PLAYER2_ATTACK)
+	{
+		position.x -= 15;
+		B->to_delete = true;
 	}
 
 }
