@@ -9,10 +9,10 @@ typedef unsigned char Uint8;
 
 enum KEY_STATE
 {
-	KEY_IDLE = 0,
+	KEY_UP = 0,
 	KEY_DOWN,
 	KEY_REPEAT,
-	KEY_UP
+	KEY_IDLE
 };
 
 
@@ -27,8 +27,10 @@ public:
 	update_status PreUpdate();
 	bool CleanUp();
 
+	
 public:
-	const Uint8 *keyboard = nullptr;
+	Uint8 *keyboard = nullptr;
+	Uint8 *oldkeyboard = nullptr;
 };
 
 #endif // __ModuleInput_H__

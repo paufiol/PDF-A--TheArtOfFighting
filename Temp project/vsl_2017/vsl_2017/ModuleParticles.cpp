@@ -85,8 +85,6 @@ update_status ModuleParticles::Update()
 		{
 		
 			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
-			
-
 
 		/*	SDL_Rect prueba = {App->player->position.x,App->player->position.y,300,50 };
 			SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 0, 0);

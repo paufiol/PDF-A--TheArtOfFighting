@@ -33,7 +33,7 @@ public:
 		if (inputCount >= MAX_INPUTS) inputCount %= MAX_INPUTS;
 	};
 private:
-	int inputCount = 0;
+	int inputCount = 1;
 
 public:
 
@@ -49,7 +49,7 @@ public:
 	int flip_sign;
 
 	jump jumping = JUMP_NOT;
-	bool keyup = true;
+	bool keyup[69] = { true };//This is not a joke.
 
 	int font_start = -1;
 
@@ -57,6 +57,7 @@ public:
 
 	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;
+	Collider * block = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
 	Animation idle;
@@ -67,6 +68,8 @@ public:
 	Animation jump;
 	Animation kick;
 	Animation koukenR;
+	Animation takeDamage;
+	
 	iPoint position;
 
 };
