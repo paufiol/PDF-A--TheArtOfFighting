@@ -224,7 +224,6 @@ update_status ModulePlayer::Update()
 	}
 
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-	
 	return UPDATE_CONTINUE;
 }
 

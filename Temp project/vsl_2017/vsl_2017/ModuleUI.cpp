@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
 #include "SDL/include/SDL.h"
+#include "ModuleFonts.h"
 
 ModuleUI::ModuleUI()
 {
@@ -22,6 +23,7 @@ bool ModuleUI::Start()
 	LOG("Loading UI textures");
 	graphics = App->textures->Load("UI_AOF.png");
 	startTime = SDL_GetTicks();
+	
 	return true;
 }
 update_status ModuleUI::Update()
@@ -53,7 +55,15 @@ update_status ModuleUI::Update()
 	App->render->Blit(graphics, 168, 16, &lifebar2rect, 1.0f, false, false);
 
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
-		return UPDATE_CONTINUE;
+
+
+//----------------------------------------------------------------------
+	
+	
+	
+	return UPDATE_CONTINUE;
+
+
 }
 
 bool ModuleUI::CleanUp()

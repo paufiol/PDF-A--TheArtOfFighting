@@ -51,6 +51,8 @@ public:
 	jump jumping = JUMP_NOT;
 	bool keyup = true;
 
+	int font_start = -1;
+
 	Animation* current_animation = &idle;
 
 	Collider * playerCollider = nullptr;

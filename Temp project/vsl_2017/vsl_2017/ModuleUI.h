@@ -21,6 +21,7 @@ public:
 	int currentTimerposX;
 	int startTime;
 
+
 	SDL_Texture* graphics = nullptr;
 
 };
