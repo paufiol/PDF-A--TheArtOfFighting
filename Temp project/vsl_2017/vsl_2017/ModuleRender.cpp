@@ -76,8 +76,8 @@ update_status ModuleRender::Update()
 		camera.x = -(App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2) )/ 2 + (SCREEN_WIDTH / 2);
 		
 	}
-	//if (camera.x > 0) camera.x = 0;
-	//if ((camera.x + SCREEN_WIDTH) < 538) camera.x = 538 - SCREEN_WIDTH;
+	if (camera.x > 0) camera.x = 0;
+	if ((camera.x + SCREEN_WIDTH) > 538) camera.x = 538 - SCREEN_WIDTH;
 
 	return update_status::UPDATE_CONTINUE;
 }

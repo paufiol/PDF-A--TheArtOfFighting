@@ -30,9 +30,20 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::PreUpdate()
 {
+	
 	SDL_PumpEvents();
 
-	keyboard = SDL_GetKeyboardState(NULL);
+	keyboard = (Uint8*)SDL_GetKeyboardState(NULL);
+	
+	/*if (keyboard != nullptr && oldkeyboard != nullptr) {
+		//SDL_SCANCODE_Z; SDL_SCANCODE_A; SDL_SCANCODE_SPACE;
+		for (int i = 4; i < 69; i++) {
+			if (&keyboard[i] == &oldkeyboard[i] && keyboard[i] == KEY_DOWN)			 
+			{ keyboard[i] = KEY_REPEAT; }
+			//if (keyboard[i] != oldkeyboard[i] && keyboard[i] != SDL_KEYDOWN) { keyboard[i] = KEY_UP; }
+		}
+	}
+	oldkeyboard = keyboard;*/
 
 	if(keyboard[SDL_SCANCODE_ESCAPE])
 	return update_status::UPDATE_STOP;
