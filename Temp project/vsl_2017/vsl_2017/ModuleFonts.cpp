@@ -69,7 +69,7 @@ void ModuleFonts::UnLoad(int font_id)
 }
 
 // Render text using a bitmap font
-void ModuleFonts::BlitText(int x, int y, int font_id, const char* text,SDL_Rect &P) const
+void ModuleFonts::BlitText(int x, int y, int font_id, const char* text, SDL_Rect &P) const
 {
 	if (text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
 	{
@@ -78,9 +78,10 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text,SDL_Rect 
 	}
 
 	const Font* font = &fonts[font_id];
+	SDL_Rect rect;
 	uint len = strlen(text);
-	P.w = font->char_w;
-	P.h = font->char_h;
+	rect.w = font->char_w;
+	rect.h = font->char_h;
 
 	for (uint i = 0; i < len; ++i)
 	{
@@ -90,11 +91,11 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text,SDL_Rect 
 			char B = font->table[j];
 			if (A == B)
 			{
-				P.x = x + (j % font->row_chars) * P.w;
-				P.y = y + (j / font->row_chars) * P.h;
+				rect.x = P.x + (j % font->row_chars) * rect.w;
+				rect.y = P.y + (j / font->row_chars) * rect.h;
 				break;
 			}
 		}
-		App->render->Blit(font->graphic, x, y, &P, false);
+		App->render->Blit(font->graphic, x, y, &rect, false);
 	}
 }
