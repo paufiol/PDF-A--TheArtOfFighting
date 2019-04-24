@@ -163,9 +163,10 @@ bool Particle::Update()
 			ret = false;
 	}
 	else
-		if(anim.Finished())
+		if(anim.Finished() && anim.loop == false)
 			ret = false;
 
+	//if(type )
 	position.x += speed.x;
 	position.y += speed.y;
 
