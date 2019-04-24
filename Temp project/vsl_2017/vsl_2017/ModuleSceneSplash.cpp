@@ -22,7 +22,8 @@ ModuleSceneSplash::ModuleSceneSplash()
 	background.w = 320;
 	background.h = 240;
 
-	rArt = { 5,0,96,80 };
+	rArt = { 208,5,96,80 };
+	rOf = { 10,5,94,63 };
 }
 
 ModuleSceneSplash::~ModuleSceneSplash()
@@ -37,7 +38,7 @@ bool ModuleSceneSplash::Start()
 
 	Art = App->textures->Load("InitSplash.png");
 
-	printFont = { 4,870, 318 ,13 };
+	printFont = { 0,844, 296 ,12 };
 	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnopqrstuvwxyz", printFont, 1);
 
 	if(App->player->IsEnabled() == true) App->player->Disable();
@@ -58,12 +59,16 @@ bool ModuleSceneSplash::CleanUp()
 update_status ModuleSceneSplash::Update()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(graphics, 0, 0, &background, 0.75f); 
-	timer += 1;
-	if (timer < 200)
-	{
-		App->render->Blit(Art, 0 + (int)timer, 0, &rArt, 0.75f);
-	}
+	//App->render->Blit(graphics, 0, 0, &background, 0.75f); 
+	
+	if (timer < 65){ timer += 3; App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f); }
+	else if (timer < 80 && timer > 65){ timer += 1; App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f); }
+	else if(timer < 85 && timer > 80 ){ timer += 2; App->render->Blit(Art, 80, 10, &rArt, 0.75f); }
+	else if (timer < 100 && timer > 85) { timer += 1; App->render->Blit(Art, 170 - (int)timer, 10, &rArt, 0.75f); }
+	else { timer++; (App->render->Blit(Art, 70, 10, &rArt, 0.75f)); }
+	
+	App->render->Blit(Art, 155, 20, &rOf, 0.75f);
+	
 	App->fonts->BlitText(100, 25, font_start, "Hello", printFont);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
