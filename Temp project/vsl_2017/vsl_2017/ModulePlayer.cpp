@@ -67,6 +67,20 @@ ModulePlayer::ModulePlayer()
 	kick.speed = 0.2f;
 	kick.lock = true;
 
+	crouchidle.PushBack({ 576, 42, 67, 73 }, 0, 30);
+	crouchidle.speed = 0.1f;
+
+	crouchpunch.PushBack({ 414, 42, 53, 74}, 0, 30);
+	crouchpunch.PushBack({ 463, 41, 112, 75 },0,30);
+	crouchpunch.PushBack({ 576, 42, 67, 73 },0,30);
+	crouchpunch.speed = 0.2f;
+	crouchpunch.lock = true;
+
+	crouchkick.PushBack({ 866, 169, 55, 66 }, 0, 30);
+	crouchkick.PushBack({ 0, 280, 127, 68 }, 0, 30);
+	crouchkick.PushBack({ 576, 42, 67, 73 }, 0, 30);
+	crouchkick.speed = 0.2f;
+	crouchkick.lock = true;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -192,6 +206,29 @@ update_status ModulePlayer::Update()
 		{
 			current_animation = &kick;
 			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this);
+			if (keyup[SDL_SCANCODE_E]) {
+				StoreInput(SDL_SCANCODE_E);
+				keyup[SDL_SCANCODE_E] = false;
+			}
+		}
+
+		if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN))
+		{
+			current_animation = &crouchpunch;
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 40, 63, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			leaveif = true;
+			
+			if (keyup[SDL_SCANCODE_Q]) {
+				StoreInput(SDL_SCANCODE_Q);
+				keyup[SDL_SCANCODE_Q] = false;
+			}
+		}
+
+		if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN) && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN))
+		{
+			current_animation = &crouchkick;
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 60, 70, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			leaveif = true;
 			if (keyup[SDL_SCANCODE_E]) {
 				StoreInput(SDL_SCANCODE_E);
 				keyup[SDL_SCANCODE_E] = false;

@@ -69,6 +69,8 @@ public:
 	Animation kick;
 	Animation koukenR;
 	Animation takeDamage;
+	Animation crouchpunch;
+	Animation crouchkick;
 	
 	iPoint position;
 
