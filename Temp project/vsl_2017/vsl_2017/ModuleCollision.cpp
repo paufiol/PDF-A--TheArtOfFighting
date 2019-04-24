@@ -1,7 +1,9 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleInput.h"
 #include "ModuleCollision.h"
+#include "ModulePlayer.h"
 
 ModuleCollision::ModuleCollision()
 {
@@ -93,7 +95,6 @@ update_status ModuleCollision::PreUpdate()
 // Called before render is available
 update_status ModuleCollision::Update()
 {
-
 	DebugDraw();
 
 	return UPDATE_CONTINUE;
@@ -101,8 +102,14 @@ update_status ModuleCollision::Update()
 
 void ModuleCollision::DebugDraw()
 {
-	if(App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_F1] == KEY_DOWN && App->player->keyup[SDL_SCANCODE_F1]) {
 		debug = !debug;
+		if (App->player->keyup[SDL_SCANCODE_F1])
+		{
+			App->player->keyup[SDL_SCANCODE_F1] = false;
+		};
+	}
+
 
 	if(debug == false)
 		return;
@@ -174,39 +181,8 @@ Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	// TODO 0: Return true if there is an overlap
-	// between argument "r" and property "rect"
-	/*
-	if (((r.x + r.w) > rect.x) && ((r.x + r.w) < (rect.x + rect.w))) { //Bottom right
-		if (((r.y + r.h) > rect.y) && ((r.y + r.h) < (rect.y + rect.h))) {
-
-			return true;
-
-		}
-	}
-
-	if (((r.x+r.w) > rect.x) && ((r.x + r.w) < (rect.x + rect.w))) { //Upper right
-		if ((r.y > rect.y) && (r.y < (rect.y + rect.h))) {
-
-			return true;
-
-		}
-	}
-
-	if ((r.x > rect.x) && (r.x < (rect.x + rect.w))) { //Bottom left
-		if (((r.y+r.h) > rect.y) && ((r.y + r.h) < (rect.y + rect.h))) {
-
-			return true;
-
-		}
-	}*/
 
 	return ((r.x + r.w > rect.x) && (r.x < rect.x + rect.w) &&
 		(r.y + r.h > rect.y) && (r.y < rect.y + rect.h));
-		
-	
-
-
-
 
 }

@@ -69,7 +69,7 @@ ModulePlayer2::ModulePlayer2()
 	damaged.PushBack({ 866, 754, 59, 99 });
 	damaged.PushBack({ 925, 754, 59, 63 });
 	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.speed = 0.2f;
+	damaged.speed = 0.1f;
 	damaged.lock = true;
 }
 

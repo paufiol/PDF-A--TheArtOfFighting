@@ -30,7 +30,7 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 747, 348, 69, 108 });
 	forward.PushBack({ 816, 348, 58, 108 });
 	forward.PushBack({ 874, 348, 67, 108 });
-	forward.speed = 0.15f;
+	forward.speed = 0.2f;
 
 	jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
 	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
@@ -85,7 +85,7 @@ ModulePlayer::ModulePlayer()
 	damaged.PushBack({ 866, 754, 59, 99 });
 	damaged.PushBack({ 925, 754, 59, 63 });
 	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.speed = 0.2f;
+	damaged.speed = 0.1f;
 	damaged.lock = true;
 }
 
@@ -113,6 +113,8 @@ update_status ModulePlayer::Update()
 	if (!flip) flip_sign = 1;
 	
 	playerCollider->SetPos(position.x, position.y);
+	if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
+
 	playerCollider->rect.h = 108;
 	if (block != nullptr) block->SetPos(position.x + 55, position.y + 5);
 
@@ -256,6 +258,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
+//Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
 	{
 		speed.y = (-1)*(12 + -0.5 * clock_parabolla);
@@ -282,9 +285,9 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	// Draw everything --------------------------------------
-	SDL_Rect r = current_animation->GetCurrentFrame();
 	
+	
+	//Keep character within limits-----------------------------
 	position.x += speed.x;
 	position.y += speed.y;
 	if (position.x <=  0) {
@@ -298,6 +301,9 @@ update_status ModulePlayer::Update()
 	if (position.x + playerCollider->rect.w >= (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 + SCREEN_WIDTH / 2) {
 		position.x = (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 + SCREEN_WIDTH / 2 - playerCollider->rect.w;
 	}
+
+	// Draw everything --------------------------------------
+	SDL_Rect r = current_animation->GetCurrentFrame();
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }

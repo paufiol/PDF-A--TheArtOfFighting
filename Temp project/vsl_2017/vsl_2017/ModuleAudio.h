@@ -8,7 +8,7 @@
 #define __ModuleAudio_H__
 
 #define MAX_CHUNKS 50
-#define DEFAULT_VOLUME 64
+#define DEFAULT_VOLUME 0
 
 class ModuleAudio : public Module
 {
