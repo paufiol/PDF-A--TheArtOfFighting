@@ -81,6 +81,12 @@ ModulePlayer::ModulePlayer()
 	crouchkick.PushBack({ 576, 42, 67, 73 }, 0, 30);
 	crouchkick.speed = 0.2f;
 	crouchkick.lock = true;
+
+	damaged.PushBack({ 866, 754, 59, 99 });
+	damaged.PushBack({ 925, 754, 59, 63 });
+	damaged.PushBack({ 866, 754, 59, 99 });
+	damaged.speed = 0.2f;
+	damaged.lock = true;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -301,6 +307,7 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	{
 		A->to_delete = true;
 		App->player2->hp -= 25;
+		App->player2->current_animation = &damaged;
 		
 	} 
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)

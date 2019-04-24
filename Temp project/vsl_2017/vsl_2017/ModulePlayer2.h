@@ -43,7 +43,9 @@ public:
 	Animation jump;
 	Animation kick;
 	Animation koukenR;
+	Animation damaged;
 	iPoint position;
+
 
 };
 
