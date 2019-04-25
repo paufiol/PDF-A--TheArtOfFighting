@@ -15,7 +15,7 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	int ReglaDe3(int num1, int num2, int num3);
+	int ReglaDe3(float num1, float num2, float num3);
 
 public:
 	SDL_Rect lifebar1rect, lifebar2rect, emptylb, staminabar1rect, staminabar2rect;

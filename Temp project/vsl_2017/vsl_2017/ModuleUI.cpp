@@ -16,6 +16,8 @@ ModuleUI::ModuleUI()
 	lifebar2rect = { 766,1, 127,7 };
 
 	emptylb = { 765,9, 128,9 };
+
+	currenthp1 = 127;
 }
 ModuleUI::~ModuleUI()
 {
@@ -63,24 +65,33 @@ update_status ModuleUI::Update()
 	App->render->Blit(graphics, 8, 16, &emptylb, 1.0f, false, false);
 	App->render->Blit(graphics, 168, 16, &emptylb, 1.0f, false, false);
 
-
-
-	if  (currenthp1 > (App->player->hp))
+	if  (currenthp1 > ReglaDe3(App->player->hp, 100, 127))
 	{
 		currenthp1 -= 1;
+		
 		lifebar1rect = { 766,1, currenthp1,7 };
+	}
+	if (currenthp2 > ReglaDe3(App->player2->hp, 100, 127))
+	{
+		currenthp2 -= 1;
+
+		lifebar2rect = { 766,1, currenthp2,7 };
 	}
 	App->render->Blit(graphics, 9, 17, &lifebar1rect, 1.0f, false, false);
 	App->render->Blit(graphics, 169, 17, &lifebar2rect, 1.0f, false, false);
+	//--------------------------------------------------------------------
+
+	//Pictures:
+
 
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
 	return UPDATE_CONTINUE;
 }
 
-int ModuleUI::ReglaDe3(int newhp, int hpbase, int pixels)
+int ModuleUI::ReglaDe3(float newhp, float hpbase, float pixels)
 {
-	int res = (newhp / hpbase) * pixels;
-	return res;
+	float res = (float)(newhp / hpbase) * pixels;
+	return (int)res;
 }
 
 bool ModuleUI::CleanUp()
