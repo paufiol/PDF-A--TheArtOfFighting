@@ -58,8 +58,13 @@ update_status ModuleSceneKaruta::Update()
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	if (App->player->p1Won)
 	{
-		/*App->fonts->BlitText(50, 150, App->scene_splash->printFontBM, "push_1p_or_2p_start_button", App->scene_splash->printFont);*/
+		
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f,false,false);
+	}
+	if (App->player->p2Won)
+	{
+		printWinner = { 725,420,120,40 };
+		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)

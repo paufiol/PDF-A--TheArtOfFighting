@@ -53,7 +53,7 @@ public:
 
 	int font_start = -1;
 
-	bool p1Won = false;
+	bool p1Won = false, p2Won = false;
 
 	Animation* current_animation = &idle;
 
