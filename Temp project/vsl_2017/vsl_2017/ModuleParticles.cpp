@@ -84,7 +84,8 @@ update_status ModuleParticles::Update()
 		else if(SDL_GetTicks() >= p->born)
 		{
 		
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			if (active[i]->collider->type == COLLIDER_PLAYER1_ATTACK) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player->flip);
+			if (active[i]->collider->type == COLLIDER_PLAYER2_ATTACK) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player2->flip);
 
 		/*	SDL_Rect prueba = {App->player->position.x,App->player->position.y,300,50 };
 			SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 0, 0);
@@ -130,8 +131,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		if (active[i] != nullptr && active[i]->collider == c1)
 		{
 			c1->to_delete = true;
-			if (c1->type == COLLIDER_PLAYER1_ATTACK && c2->type == COLLIDER_PLAYER2) { App->player->OnCollision(c1, c2); }
-			if (c1->type == COLLIDER_PLAYER2_ATTACK && c2->type == COLLIDER_PLAYER1) { App->player2->OnCollision(c1, c2); }
+			App->player->OnCollision(c1, c2);  
+			App->player2->OnCollision(c1, c2); 
 			delete active[i];
 			active[i] = nullptr;
 
@@ -166,8 +167,8 @@ bool Particle::Update()
 		if(anim.Finished() && anim.loop == false)
 			ret = false;
 
-	//if(type )
-	position.x += speed.x;
+	if((collider->type == COLLIDER_PLAYER1_ATTACK && App->player->flip) || (collider->type == COLLIDER_PLAYER2_ATTACK && App->player2->flip)) position.x -= speed.x;
+	else position.x += speed.x;
 	position.y += speed.y;
 
 	collider->rect.x = position.x;
