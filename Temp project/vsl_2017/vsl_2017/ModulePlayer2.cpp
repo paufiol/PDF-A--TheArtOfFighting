@@ -29,7 +29,7 @@ ModulePlayer2::ModulePlayer2()
 	forward.PushBack({ 747, 348, 69, 108 });
 	forward.PushBack({ 816, 348, 58, 108 });
 	forward.PushBack({ 874, 348, 67, 108 });
-	forward.speed = 0.15f;
+	forward.speed = 0.2f;
 
 	jump.PushBack({ 0,  456, 60, 130 });
 	jump.PushBack({ 60, 456, 66, 130 });
@@ -126,7 +126,8 @@ update_status ModulePlayer2::Update()
 
 		if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER2_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x - 30, position.y + 15, 40, 20 }, COLLIDER_PLAYER2_ATTACK, this);
+
 		}
 
 		if ((App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN))

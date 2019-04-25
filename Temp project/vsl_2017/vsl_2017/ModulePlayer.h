@@ -72,6 +72,8 @@ public:
 	Animation crouchpunch;
 	Animation crouchkick;
 	Animation damaged;
+	Animation back;
+	Animation doubleback;
 	iPoint position;
 
 };

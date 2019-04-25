@@ -25,12 +25,30 @@ ModulePlayer::ModulePlayer()
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
-	forward.PushBack({ 632, 348, 57, 108 });
-	forward.PushBack({ 689, 348, 58, 108 });
-	forward.PushBack({ 747, 348, 69, 108 });
-	forward.PushBack({ 816, 348, 58, 108 });
-	forward.PushBack({ 874, 348, 67, 108 });
-	forward.speed = 0.2f;
+	forward.PushBack({ 691, 348, 56, 109 });
+	forward.PushBack({ 749, 350, 65, 107 },-10,0);
+	forward.PushBack({ 818, 348, 58, 109 });
+	forward.PushBack({ 876, 350, 65, 107 },-9,0);
+	/*forward.PushBack({ 874, 348, 67, 108 });*/
+	forward.speed = 0.1f;
+	
+
+	back.PushBack({ 577, 479, 57, 109},-5,0);
+	back.PushBack({ 638, 477, 52, 111});
+	back.PushBack({ 692, 479, 57, 109},-5,0);
+	back.PushBack({ 638, 477, 52, 111 });
+	back.PushBack({ 577, 479, 57, 109 },-5,0);
+	back.speed = 0.1f;
+
+	
+
+	/*doubleback.PushBack({275, 595, 59, 107});
+	doubleback.PushBack({334, 596, 89, 106},-80, -10);
+	doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
+	doubleback.PushBack({423, 596, 73, 106}, -80, 10);
+	doubleback.speed = 0.2f;
+	doubleback.lock = true;*/
+
 
 	jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
 	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
@@ -87,6 +105,8 @@ ModulePlayer::ModulePlayer()
 	damaged.PushBack({ 866, 754, 59, 99 });
 	damaged.speed = 0.1f;
 	damaged.lock = true;
+
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -204,7 +224,7 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
 		{
 			current_animation = &forward;
-			speed.x = 2.0f;
+			speed.x = 2.5f;
 			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_D]) {
 				StoreInput(SDL_SCANCODE_D);
@@ -212,10 +232,10 @@ update_status ModulePlayer::Update()
 				keyup[SDL_SCANCODE_D] = false; 
 			}
 		}
-
+		//cambiar//
 		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
 		{
-			current_animation = &forward;
+			current_animation = &back;
 			speed.x = -1.5f;
 			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_A]) {
@@ -224,6 +244,18 @@ update_status ModulePlayer::Update()
 				keyup[SDL_SCANCODE_A] = false;
 			}
 		}
+
+		/*if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
+		{
+			current_animation = &doubleback;
+			speed.x = -1.5f;
+			playerCollider->rect.h = 108;
+			if (keyup[SDL_SCANCODE_A]) {
+				StoreInput(SDL_SCANCODE_A);
+				if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+				keyup[SDL_SCANCODE_A] = false;
+			}
+		}*/
 
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
