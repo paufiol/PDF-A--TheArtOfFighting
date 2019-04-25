@@ -39,7 +39,7 @@ bool ModuleSceneSplash::Start()
 	Art = App->textures->Load("InitSplash.png");
 
 	printFont = { 0,844, 296 ,12 };
-	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnopqrstuvwxyz", printFont, 1);
+	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789", printFont, 1);
 
 	if(App->player->IsEnabled() == true) App->player->Disable();
 	return true;
@@ -69,7 +69,7 @@ update_status ModuleSceneSplash::Update()
 	
 	App->render->Blit(Art, 155, 20, &rOf, 0.75f);
 	
-	App->fonts->BlitText(100, 25, font_start, "Hello", printFont);
+	App->fonts->BlitText(100, 25, font_start, "hello", printFont);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
