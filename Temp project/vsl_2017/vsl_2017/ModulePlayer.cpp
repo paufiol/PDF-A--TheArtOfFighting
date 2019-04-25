@@ -322,7 +322,14 @@ update_status ModulePlayer::Update()
 			keyup[SDL_SCANCODE_F2] = false;
 		}
 	}
-	
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3])
+	{
+		p2Won = !p2Won;
+		if (keyup[SDL_SCANCODE_F3])
+		{
+			keyup[SDL_SCANCODE_F3] = false;
+		}
+	}
 
 //Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)

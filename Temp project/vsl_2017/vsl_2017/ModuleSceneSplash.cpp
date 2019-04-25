@@ -75,7 +75,8 @@ update_status ModuleSceneSplash::Update()
 
 	App->render->Blit(Art, 155, 20, &rOf, 0.75f);
 	
-	if ((constTimer % 100) == 0)
+	if (constTimer > 120) { constTimer %= 120; }
+	if (constTimer < 60)
 	{
 		App->fonts->BlitText(50, 150, printFontBM, "push_1p_or_2p_start_button", printFont);
 	}
