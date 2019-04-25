@@ -281,6 +281,15 @@ update_status ModulePlayer::Update()
 				keyup[SDL_SCANCODE_E] = false;
 			}
 		}
+		if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_F2])
+		{
+			p1Won = !p1Won;
+			if (keyup[SDL_SCANCODE_F2]) 
+			{
+				keyup[SDL_SCANCODE_F2] = false;
+			}
+		}
+		
 
 
 		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN)&& !leaveif) {

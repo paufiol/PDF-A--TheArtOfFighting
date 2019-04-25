@@ -53,6 +53,8 @@ public:
 
 	int font_start = -1;
 
+	bool p1Won = false;
+
 	Animation* current_animation = &idle;
 
 	Collider * playerCollider = nullptr;

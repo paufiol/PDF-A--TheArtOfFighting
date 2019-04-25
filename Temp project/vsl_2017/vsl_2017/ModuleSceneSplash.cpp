@@ -23,7 +23,9 @@ ModuleSceneSplash::ModuleSceneSplash()
 	background.h = 240;
 
 	rArt = { 208,5,96,80 };
+	rFightingB = { 0,149,200, 75 };
 	rOf = { 10,5,94,63 };
+
 }
 
 ModuleSceneSplash::~ModuleSceneSplash()
@@ -61,12 +63,15 @@ update_status ModuleSceneSplash::Update()
 	// Draw everything --------------------------------------
 	//App->render->Blit(graphics, 0, 0, &background, 0.75f); 
 	
-	if (timer < 65){ timer += 3; App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f); }
-	else if (timer < 80 && timer > 65){ timer += 1; App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f); }
-	else if(timer < 85 && timer > 80 ){ timer += 2; App->render->Blit(Art, 80, 10, &rArt, 0.75f); }
-	else if (timer < 100 && timer > 85) { timer += 1; App->render->Blit(Art, 170 - (int)timer, 10, &rArt, 0.75f); }
+	if (timer < 65) {
+		timer += 5;
+		App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f);
+	}
+	else if (timer < 80 && timer > 65) { timer += 3; App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f); }
+	else if (timer < 86 && timer > 80) { timer += 2; App->render->Blit(Art, 80, 10, &rArt, 0.75f); }
+	else if (timer < 100 && timer > 86) { timer += 2; App->render->Blit(Art, 170 - (int)timer, 10, &rArt, 0.75f); }
 	else { timer++; (App->render->Blit(Art, 70, 10, &rArt, 0.75f)); }
-	
+
 	App->render->Blit(Art, 155, 20, &rOf, 0.75f);
 	
 	App->fonts->BlitText(100, 25, font_start, "hello", printFont);
