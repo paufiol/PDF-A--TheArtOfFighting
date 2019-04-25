@@ -1,5 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
+#include "Animation.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -144,6 +145,8 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	
 	
 	if (flip) {
+		rect.x -= (section->w - 57);
+		
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, NULL, NULL, SDL_FLIP_HORIZONTAL) != 0)
 		{
 			LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());

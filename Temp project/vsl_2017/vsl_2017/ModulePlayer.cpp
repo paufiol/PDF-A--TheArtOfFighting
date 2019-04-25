@@ -63,7 +63,7 @@ ModulePlayer::ModulePlayer()
 	punch.PushBack({ 485, 348,  58, 108 });
 	punch.PushBack({ 543, 348,  89, 108 });
 	punch.PushBack({ 485, 348,  58, 108 });
-	punch.speed = 0.2f;
+	punch.speed = 0.03f;
 	punch.lock = true;
 
 	koukenR.PushBack({ 176, 873, 66, 112 });
@@ -136,6 +136,13 @@ update_status ModulePlayer::Update()
 	playerCollider->rect.h = 108;
 	if (block != nullptr) block->SetPos(position.x + 55, position.y + 5);
 
+	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
+	{
+		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->rect.h = 75;
+	}
+
+
 	if (jumping == JUMP_NOT) {
 		speed.x = 0.0f;
 	//	speed.y = 0.0f;
@@ -151,7 +158,6 @@ update_status ModulePlayer::Update()
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
 
-	if(current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick ) playerCollider->SetPos(position.x, position.y + 33);
 
 	for (int i = 0; i < 69; i++) {
 		if (App->input->keyboard[i] == KEY_STATE::KEY_UP) {
@@ -262,7 +268,10 @@ update_status ModulePlayer::Update()
 
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
 			current_animation = &punch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			
 			leaveif = true;
 			if (keyup[SDL_SCANCODE_Q]) {
 				StoreInput(SDL_SCANCODE_Q);
@@ -279,16 +288,6 @@ update_status ModulePlayer::Update()
 				keyup[SDL_SCANCODE_E] = false;
 			}
 		}
-		if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_F2])
-		{
-			p1Won = !p1Won;
-			if (keyup[SDL_SCANCODE_F2]) 
-			{
-				keyup[SDL_SCANCODE_F2] = false;
-			}
-		}
-		
-
 
 		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F] == KEY_STATE::KEY_DOWN)&& !leaveif) {
 			current_animation = &koukenR;
@@ -298,6 +297,20 @@ update_status ModulePlayer::Update()
 
 		
 	}
+
+
+
+//Debug functionality-----------------------------------------
+
+	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
+	{
+		p1Won = !p1Won;
+		if (keyup[SDL_SCANCODE_F2])
+		{
+			keyup[SDL_SCANCODE_F2] = false;
+		}
+	}
+	
 
 //Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
@@ -350,11 +363,15 @@ update_status ModulePlayer::Update()
 }
 
 void ModulePlayer::OnCollision(Collider* A, Collider* B) {
-	if (A->type == COLLIDER_PLAYER1_ATTACK && B->type == COLLIDER_PLAYER2)
+	if (A->type == COLLIDER_PLAYER1_ATTACK && B->type == COLLIDER_PLAYER2)//Player1 lands hit on Player2
 	{
 		A->to_delete = true;
-		App->player2->hp -= 25;
-		App->player2->current_animation = &damaged;
+		
+		if (current_animation != &damaged)
+		{
+			App->player2->hp -= 25;
+			App->player2->current_animation = &damaged;
+		}
 		
 	} 
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
