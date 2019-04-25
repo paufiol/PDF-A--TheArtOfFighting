@@ -5,6 +5,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleParticles.h"
 #include "SDL/include/SDL.h"
 
@@ -32,13 +33,20 @@ update_status ModuleUI::Update()
 	//Timer:
 	int currenttime = 0;
 	currenttime = (SDL_GetTicks() - startTime) / 1000;
-	if (currenttime > 60) currenttime %= 60;
+	//if (currenttime > 60) currenttime %= 60;
 
 	if (currenttime >= 30)
 	{
 		currentTimerposX = 928 - (32 * (currenttime - 30));
+		if(currenttime > 60) currentTimerposX = 928 - (32 * (60 - 30)); //si es mayor de 60 se queda en 0.
 		timerrect = { currentTimerposX,792,32,24 };
 		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
+		
+		if (currenttime == 60) //Victory in case of time up.
+		{
+			if (App->player->hp > App->player2->hp)  App->player->p1Won = true;
+			if (App->player->hp < App->player2->hp)  App->player2->p2Won = true;
+		}
 	}
 	if (currenttime < 30)
 	{
@@ -46,7 +54,9 @@ update_status ModuleUI::Update()
 		timerrect = { currentTimerposX,816,32,24 };
 		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
 	}
-
+	
+	
+	if (currenttime > 60) timerrect = { 60,816,32,24 };
 	//--------------------------------------------------------------------
 		//Lifebars:
 

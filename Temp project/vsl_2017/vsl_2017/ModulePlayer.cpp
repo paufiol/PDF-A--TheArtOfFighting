@@ -63,7 +63,7 @@ ModulePlayer::ModulePlayer()
 	punch.PushBack({ 485, 348,  58, 108 });
 	punch.PushBack({ 543, 348,  89, 108 });
 	punch.PushBack({ 485, 348,  58, 108 });
-	punch.speed = 0.03f;
+	punch.speed = 0.2f;
 	punch.lock = true;
 
 	koukenR.PushBack({ 176, 873, 66, 112 });
@@ -137,7 +137,7 @@ update_status ModulePlayer::Update()
 	if (block != nullptr) 
 	{ 
 		if(!flip)	block->SetPos(position.x + 55, position.y + 5); 
-		if(flip)	block->SetPos(position.x - 15, position.y + 5);
+		if(flip)	block->SetPos(position.x - 10, position.y + 5);
 	}
 
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
@@ -160,7 +160,16 @@ update_status ModulePlayer::Update()
 		//keyup[SDL_SCANCODE_A] = true;
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
+	
+	if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
+		keyup[SDL_SCANCODE_Q] = false;
+		StoreInput(SDL_SCANCODE_Q);
+	}
 
+	if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_E] && current_animation->lock) {
+		keyup[SDL_SCANCODE_E] = false;
+		StoreInput(SDL_SCANCODE_E);
+	}
 
 	for (int i = 0; i < 69; i++) {
 		if (App->input->keyboard[i] == KEY_STATE::KEY_UP) {
@@ -269,6 +278,11 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
+
+			if (keyup[SDL_SCANCODE_W]) {
+				StoreInput(SDL_SCANCODE_W);
+				keyup[SDL_SCANCODE_W] = false;
+			}
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
@@ -455,3 +469,31 @@ bool ModulePlayer::CleanUp() {
 	return true;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//HOLA.
