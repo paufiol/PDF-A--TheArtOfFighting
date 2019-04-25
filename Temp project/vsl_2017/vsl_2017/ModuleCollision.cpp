@@ -161,10 +161,10 @@ bool ModuleCollision::CleanUp()
 	return true;
 }
 
-Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
+Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback, int damage)
 {
 	Collider* ret = nullptr;
-
+	ret->damage = damage;
 	for(uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if(colliders[i] == nullptr)

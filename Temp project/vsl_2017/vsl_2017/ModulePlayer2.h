@@ -28,6 +28,8 @@ public:
 	jump jumping = JUMP_NOT;
 	bool keyup = true;
 
+	bool p2Won = false;
+
 	fPoint speed;
 
 	Animation* current_animation = &idle;
