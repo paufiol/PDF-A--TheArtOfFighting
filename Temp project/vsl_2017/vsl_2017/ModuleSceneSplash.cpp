@@ -79,6 +79,7 @@ update_status ModuleSceneSplash::Update()
 		App->render->Blit(UI, 20, 190, &rSNK, 0.75f);
 		App->fonts->BlitText(95, 198, printFontBM, "snk_corp.of_america", printFont);
 		App->fonts->BlitText(255, 198, printFontBM, "$1992", printFont);
+		App->fonts->BlitText(245, 105, printFontBM, "tm", printFont);
 		if (constTimer > 120) { constTimer %= 120; }
 		if (constTimer < 60)
 		{

@@ -18,7 +18,7 @@ ModuleSceneKaruta::ModuleSceneKaruta()
 {
 	background = {0, 0, 538, 240};
 	/*App->scene_splash->printFont = { 0,919,421,16 };*/
-	printWinner = { 595,420,116,40 };
+	
 }
 
 ModuleSceneKaruta::~ModuleSceneKaruta()
@@ -47,6 +47,7 @@ bool ModuleSceneKaruta::CleanUp()
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Karuta stage");
 	App->player->Disable();
+	App->player2->Disable();
 	App->UI->Disable();
 	return true;
 }
@@ -58,7 +59,7 @@ update_status ModuleSceneKaruta::Update()
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	if (App->player->p1Won)
 	{
-		
+		printWinner = { 595,420,116,40 };
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f,false,false);
 	}
 	if (App->player->p2Won)
@@ -69,7 +70,7 @@ update_status ModuleSceneKaruta::Update()
 	
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_bar, 3.0f);
+		App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
 	}
 	return UPDATE_CONTINUE;
 }

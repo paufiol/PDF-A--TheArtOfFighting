@@ -83,13 +83,13 @@ update_status ModuleRender::Update()
 		else if (App->player->p1Won)
 		{
 			/*camera.x = -(App->player->position.x - (App->player->playerCollider->rect.w / 2) - SCREEN_WIDTH);*/
-			if ((camera.x + SCREEN_WIDTH)/2 >  App->player->position.x)
-			{
-				camera.x-=speed;
-			}
-			else if ((camera.x + SCREEN_WIDTH) / 2 < App->player->position.x)
+			if (camera.x  <  App->player->position.x + (App->player->playerCollider->rect.w / 2) - SCREEN_WIDTH / 2)
 			{
 				camera.x+=speed;
+			}
+			else if (camera.x > App->player->position.x + (App->player->playerCollider->rect.w / 2) + SCREEN_WIDTH / 2)
+			{
+				camera.x -= speed;
 			}
 			
 		}
