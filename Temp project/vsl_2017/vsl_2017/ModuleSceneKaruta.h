@@ -20,7 +20,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
-	SDL_Rect background;
+	SDL_Rect background,printWinner;
 };
 
 #endif // __MODULESCENEHONDA_H__

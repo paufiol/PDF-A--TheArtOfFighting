@@ -22,8 +22,9 @@ public:
 
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* Art = nullptr;
-	int font_start = -1;
-	float timer=0;
+	int printFontBM = -1;
+	float timer = 0;
+	int constTimer = 0;
 	SDL_Rect background, printFont,rArt,rOf, rFightingB;
 };
 
