@@ -20,12 +20,12 @@ public:
 
 public:
 
-	SDL_Texture* graphics = nullptr;
-	SDL_Texture* Art = nullptr;
+	SDL_Texture* UI = nullptr;
+	SDL_Texture* splashTitle = nullptr;
 	int printFontBM = -1;
 	float timer = 0;
 	int constTimer = 0;
-	SDL_Rect background, printFont,rArt,rOf, rFightingB;
+	SDL_Rect background, printFont,rSNK,rArt,rOf, rFightingB;
 };
 
 #endif 

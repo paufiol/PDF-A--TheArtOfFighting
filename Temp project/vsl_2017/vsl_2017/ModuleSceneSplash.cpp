@@ -26,6 +26,7 @@ ModuleSceneSplash::ModuleSceneSplash()
 	rArt = { 208,5,96,80 };
 	rFightingB = { 0,149,200, 75 };
 	rOf = { 10,5,94,63 };
+	rSNK = { 7, 378, 73,19 };
 
 }
 
@@ -37,10 +38,8 @@ bool ModuleSceneSplash::Start()
 {
 	LOG("Loading Splash scene");
 	App->audio->PlayMusic("Splash_song.ogg", -1);
-	graphics = App->textures->Load("Splash.png");
-
-	Art = App->textures->Load("InitSplash.png");
-
+	splashTitle = App->textures->Load("InitSplash.png");
+	UI = App->textures->Load("UI_AOF.png");
 	
 	printFontBM = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 
@@ -51,7 +50,8 @@ bool ModuleSceneSplash::Start()
 // UnLoad assets
 bool ModuleSceneSplash::CleanUp()
 {
-	SDL_DestroyTexture(graphics);
+	SDL_DestroyTexture(UI);
+	SDL_DestroyTexture(splashTitle);
 	App->audio->StopMusic();
 	LOG("Unloading Splash scene");
 
@@ -66,20 +66,27 @@ update_status ModuleSceneSplash::Update()
 	constTimer++;
 	if (timer < 65) {
 		timer += 5;
-		App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f);
+		App->render->Blit(splashTitle, (int)timer, 10, &rArt, 0.75f);
 	}
-	else if (timer < 80 && timer > 65) { timer += 3; App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f); }
-	else if (timer < 86 && timer > 80) { timer += 2; App->render->Blit(Art, 80, 10, &rArt, 0.75f); }
-	else if (timer < 100 && timer > 86) { timer += 2; App->render->Blit(Art, 170 - (int)timer, 10, &rArt, 0.75f); }
-	else { timer++; (App->render->Blit(Art, 70, 10, &rArt, 0.75f)); }
+	else if (timer < 80 && timer > 65) { timer += 3; App->render->Blit(splashTitle, (int)timer, 10, &rArt, 0.75f); }
+	else if (timer < 86 && timer > 80) { timer += 2; App->render->Blit(splashTitle, 80, 10, &rArt, 0.75f); }
+	else if (timer < 100 && timer > 86) { timer += 2; App->render->Blit(splashTitle, 170 - (int)timer, 10, &rArt, 0.75f); }
+	else { timer++; (App->render->Blit(splashTitle, 70, 10, &rArt, 0.75f)); }
 
-	App->render->Blit(Art, 155, 20, &rOf, 0.75f);
+	App->render->Blit(splashTitle, 155, 20, &rOf, 0.75f);
 	
-	if (constTimer > 120) { constTimer %= 120; }
-	if (constTimer < 60)
-	{
-		App->fonts->BlitText(50, 150, printFontBM, "push_1p_or_2p_start_button", printFont);
+	if (timer > 95) {
+		App->render->Blit(UI, 20, 190, &rSNK, 0.75f);
+		App->fonts->BlitText(95, 198, printFontBM, "snk_corp.of_america", printFont);
+		App->fonts->BlitText(255, 198, printFontBM, "$1992", printFont);
+		if (constTimer > 120) { constTimer %= 120; }
+		if (constTimer < 60)
+		{
+			App->fonts->BlitText(80, 155, printFontBM, "push_start_button", printFont);
+			
+		}
 	}
+	
 	
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
