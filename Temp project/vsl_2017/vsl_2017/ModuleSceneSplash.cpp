@@ -22,6 +22,7 @@ ModuleSceneSplash::ModuleSceneSplash()
 	background.w = 320;
 	background.h = 240;
 
+	printFont = { 0,844, 360 ,12 };
 	rArt = { 208,5,96,80 };
 	rFightingB = { 0,149,200, 75 };
 	rOf = { 10,5,94,63 };
@@ -40,8 +41,8 @@ bool ModuleSceneSplash::Start()
 
 	Art = App->textures->Load("InitSplash.png");
 
-	printFont = { 0,844, 296 ,12 };
-	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789", printFont, 1);
+	
+	printFontBM = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 
 	if(App->player->IsEnabled() == true) App->player->Disable();
 	return true;
@@ -62,7 +63,7 @@ update_status ModuleSceneSplash::Update()
 {
 	// Draw everything --------------------------------------
 	//App->render->Blit(graphics, 0, 0, &background, 0.75f); 
-	
+	constTimer++;
 	if (timer < 65) {
 		timer += 5;
 		App->render->Blit(Art, (int)timer, 10, &rArt, 0.75f);
@@ -74,7 +75,11 @@ update_status ModuleSceneSplash::Update()
 
 	App->render->Blit(Art, 155, 20, &rOf, 0.75f);
 	
-	App->fonts->BlitText(100, 25, font_start, "hello", printFont);
+	if ((constTimer % 100) == 0)
+	{
+		App->fonts->BlitText(50, 150, printFontBM, "push_1p_or_2p_start_button", printFont);
+	}
+	
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{

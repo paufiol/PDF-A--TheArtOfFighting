@@ -10,11 +10,15 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "SDL/include/SDL.h"
+#include "ModuleSceneSplash.h"
+#include "ModuleFonts.h"
 
 
 ModuleSceneKaruta::ModuleSceneKaruta()
 {
 	background = {0, 0, 538, 240};
+	/*App->scene_splash->printFont = { 0,919,421,16 };*/
+	printWinner = { 595,420,116,40 };
 }
 
 ModuleSceneKaruta::~ModuleSceneKaruta()
@@ -27,6 +31,7 @@ bool ModuleSceneKaruta::Start()
 	bool ret = true;
 	App->audio->PlayMusic("Splash_song.ogg", -1);
 	graphics = App->textures->Load("Karuta.png");
+	/*App->scene_splash->printFontBM= App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz?!._", App->scene_splash->printFont, 1);*/
 
 	App->UI->Enable();
 	App->player->Enable();	
@@ -51,6 +56,11 @@ update_status ModuleSceneKaruta::Update()
 {
 	
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
+	if (App->player->p1Won)
+	{
+		/*App->fonts->BlitText(50, 150, App->scene_splash->printFontBM, "push_1p_or_2p_start_button", App->scene_splash->printFont);*/
+		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f,false,false);
+	}
 	
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
