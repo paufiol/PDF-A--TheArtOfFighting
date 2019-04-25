@@ -68,7 +68,7 @@ void ModuleAudio::StopMusic() {
 		// wait for any fades to complete
 		SDL_Delay(100);
 	}*/
-	Mix_FadeOutMusic(2000);
+	Mix_FadeOutMusic(1000);
 }
 
 Mix_Chunk * ModuleAudio::LoadChunk(const char* path)

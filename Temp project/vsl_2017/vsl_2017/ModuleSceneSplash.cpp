@@ -92,7 +92,7 @@ update_status ModuleSceneSplash::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
 
-		App->fade->FadeToBlack((Module*)App->scene_splash, (Module*)App->scene_karuta, 2.0f);
+		App->fade->FadeToBlack((Module*)App->scene_splash, (Module*)App->scene_karuta, 1.0f);
 
 	}
 	return UPDATE_CONTINUE;
