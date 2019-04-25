@@ -42,12 +42,12 @@ ModulePlayer::ModulePlayer()
 
 	
 
-	/*doubleback.PushBack({275, 595, 59, 107});
+	doubleback.PushBack({275, 595, 59, 107});
 	doubleback.PushBack({334, 596, 89, 106},-80, -10);
 	doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
 	doubleback.PushBack({423, 596, 73, 106}, -80, 10);
 	doubleback.speed = 0.2f;
-	doubleback.lock = true;*/
+	doubleback.lock = true;
 
 
 	jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
@@ -85,19 +85,17 @@ ModulePlayer::ModulePlayer()
 	kick.speed = 0.2f;
 	kick.lock = true;
 
-	crouchidle.PushBack({ 576, 42, 67, 73 }, 0, 30);
+	crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
 	crouchidle.speed = 0.1f;
 
-	crouchpunch.PushBack({ 414, 42, 53, 74}, 0, 30);
-	crouchpunch.PushBack({ 463, 41, 112, 75 },0,30);
-	crouchpunch.PushBack({ 576, 42, 67, 73 },0,30);
-	crouchpunch.speed = 0.2f;
+	crouchpunch.PushBack({ 414, 42, 53, 76}, 0, 34);
+	crouchpunch.PushBack({ 469, 41, 106, 77 },-15,34);
+	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 
-	crouchkick.PushBack({ 866, 169, 55, 66 }, 0, 30);
-	crouchkick.PushBack({ 0, 280, 127, 68 }, 0, 30);
-	crouchkick.PushBack({ 576, 42, 67, 73 }, 0, 30);
-	crouchkick.speed = 0.2f;
+	crouchkick.PushBack({ 866, 169, 55, 66 }, 0, 40);
+	crouchkick.PushBack({ 0, 280, 127, 68 }, -15, 40);
+	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
 	damaged.PushBack({ 866, 754, 59, 99 });
@@ -297,6 +295,8 @@ update_status ModulePlayer::Update()
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 			App->audio->PlayChunk(App->audio->koukenFx);
 		}
+
+		
 	}
 
 //Jumping movement--------------------------------------------
