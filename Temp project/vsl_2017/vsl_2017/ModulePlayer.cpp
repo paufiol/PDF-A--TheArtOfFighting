@@ -32,10 +32,10 @@ ModulePlayer::ModulePlayer()
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
 	forward.speed = 0.1f;
 	
-	flipforward.PushBack({ 691, 348, 56, 109 });
+	flipforward.PushBack({ 691, 348, 56, 109 },0,0);
 	flipforward.PushBack({ 749, 350, 65, 107 }, 10, 0);
-	flipforward.PushBack({ 818, 348, 58, 109 });
-	flipforward.PushBack({ 876, 350, 65, 107 }, 10, 0);
+	flipforward.PushBack({ 818, 348, 58, 109 },0,0);
+	flipforward.PushBack({ 876, 350, 65, 107 }, 9, 0);
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
 	flipforward.speed = 0.1f;
 
@@ -87,6 +87,9 @@ ModulePlayer::ModulePlayer()
 	koukenR.lock = true;
 
 
+	
+
+
 	//AQUI haced que de patadas
 
 	kick.PushBack({ 669, 235, 60, 109 });
@@ -136,6 +139,8 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
+	graphs = App->textures->Load("ryo2.png");
+
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 
 	
@@ -336,6 +341,7 @@ update_status ModulePlayer::Update()
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 			App->audio->PlayChunk(App->audio->koukenFx);
+		
 		}
 		
 		
