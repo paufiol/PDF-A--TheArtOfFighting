@@ -30,7 +30,7 @@ ModuleSceneEnd::~ModuleSceneEnd()
 bool ModuleSceneEnd::Start()
 {
 	LOG("Loading End scene");
-	App->audio->PlayMusic("Splash_song.ogg", -1);
+	App->audio->PlayMusic("MUSIC_FXS/MUSIC/CONTINUE_SONG/Hey_Let_s_Do_It_Again.ogg", -1);
 	UIsprite = App->textures->Load("UI_AOF.png");
 	portraitRyo = App->textures->Load("RyoPortrait.png");
 	startTime = SDL_GetTicks();
