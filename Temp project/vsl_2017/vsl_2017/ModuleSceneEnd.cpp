@@ -19,6 +19,7 @@ ModuleSceneEnd::ModuleSceneEnd()
 	printFont = { 0,844, 360 ,12 };
 	ryoR = { 0,0,128,123 };
 	// Background / sky
+	currenttime = 0;
 
 }
 
@@ -61,12 +62,15 @@ update_status ModuleSceneEnd::Update()
 	App->fonts->BlitText(205, 35, printFontBM, "waiting_for", printFont);
 	App->fonts->BlitText(200, 52, printFontBM, "a_challenger", printFont);
 
-	int currenttime = 0;
+	
 	currenttime = (SDL_GetTicks() - startTime) / 1000;
 
-		currentTimerposX = 800 - (80 * (currenttime - 5));
-		if (currenttime > 10) currentTimerposX = 800 - (80 * (10 - 5)); //si es mayor de 60 se queda en 0.
+		if (currenttime < 10)
+		{
+			currentTimerposX = 720 - (80 * (currenttime - 5));
+		}
 		timerR = { currentTimerposX,253,80,96 };
+
 		App->render->Blit(UIsprite, 200, 72, &timerR, 1.0f, false, false);
 
 
