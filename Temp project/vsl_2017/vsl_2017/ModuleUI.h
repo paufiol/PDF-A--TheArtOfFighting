@@ -27,6 +27,8 @@ public:
 	int startTime;
 
 	int currenthp1, currenthp2;
+
+	int characterID[9];
 	SDL_Texture* graphics = nullptr;
 
 };
