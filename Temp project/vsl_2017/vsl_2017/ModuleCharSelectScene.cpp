@@ -33,9 +33,9 @@ ModuleCharSelectScene::~ModuleCharSelectScene()
 // Load assets
 bool ModuleCharSelectScene::Start()
 {
+	App->scene_characterselect->Disable();
 	LOG("Loading Selector scene");
 	graphics = App->textures->Load("UI_AOF.png");
-
 	printFont = { 4,870, 318 ,13 };
 	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnopqrstuvwxyz", printFont, 1);
 
