@@ -79,6 +79,7 @@ public:
 	Animation doubleback;
 	Animation flipback;
 	Animation flipforward;
+	Animation flipkick;
 	Animation flippunch;
 	iPoint position;
 
