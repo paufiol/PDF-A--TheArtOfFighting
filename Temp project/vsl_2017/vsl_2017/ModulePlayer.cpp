@@ -229,6 +229,8 @@ update_status ModulePlayer::Update()
 			current_animation = &crouchpunch;
 			melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
+			
+			
 
 			if (keyup[SDL_SCANCODE_Q]) {
 				StoreInput(SDL_SCANCODE_Q);
@@ -240,8 +242,9 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_E] && !leaveif)
 		{
 			current_animation = &crouchkick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 90, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
+			
 
 			if (keyup[SDL_SCANCODE_E]) {
 				StoreInput(SDL_SCANCODE_E);

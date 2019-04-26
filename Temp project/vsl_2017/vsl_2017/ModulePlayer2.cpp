@@ -134,6 +134,7 @@ update_status ModulePlayer2::Update()
 		{
 			current_animation = &crouchidle;
 			playerCollider->rect.h = 75;
+			
 		}
 		
 
