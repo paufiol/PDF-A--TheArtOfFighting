@@ -3,6 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
+#include "ModuleCharSelectScene.h"
 #include "ModuleSceneBar.h"
 #include "ModuleSceneKaruta.h"
 #include "ModuleSceneSplash.h"
@@ -27,13 +28,14 @@ Application::Application()
 	modules[6] = scene_bar = new ModuleSceneBar();
 	modules[7] = scene_splash = new ModuleSceneSplash();
 	modules[8] = scene_end = new ModuleSceneEnd();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = player2 = new ModulePlayer2();
-	modules[11] = particles = new ModuleParticles();
-	modules[12] = collision = new ModuleCollision();
-	modules[13] = fade = new ModuleFadeToBlack();
-	modules[14] = UI = new ModuleUI();
-	modules[15] = fonts = new ModuleFonts();
+	modules[9] = scene_characterselect = new ModuleCharSelectScene();
+	modules[10] = player = new ModulePlayer();
+	modules[11] = player2 = new ModulePlayer2();
+	modules[12] = particles = new ModuleParticles();
+	modules[13] = collision = new ModuleCollision();
+	modules[14] = fade = new ModuleFadeToBlack();
+	modules[15] = UI = new ModuleUI();
+	modules[16] = fonts = new ModuleFonts();
 
 	
 }	

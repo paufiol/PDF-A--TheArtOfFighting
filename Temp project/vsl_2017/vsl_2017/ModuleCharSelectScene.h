@@ -24,7 +24,7 @@ public:
 	SDL_Texture* Art = nullptr;
 	int font_start = -1;
 	float timer = 0;
-	SDL_Rect background, printFont, rArt;
+	SDL_Rect background, printFont, rArt, Charactersbox;
 };
 
 #endif 
