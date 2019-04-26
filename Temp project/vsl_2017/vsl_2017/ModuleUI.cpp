@@ -18,12 +18,18 @@ ModuleUI::ModuleUI()
 	currenthp1 = 127;
 	currenthp2 = 127;
 
+	staminabar1rect = { 0,233, 128,8 };
+	staminabar2rect = { 0,233, 128,8 };
+	currentsta1 = 0;
+	currentsta2 = 0;
+	staminatest = 100;
+
 	for (int i = 0; i < 9; i++)
 	{
 		characterID[i] = i * 22;
 	}
-	avatar1rect = {0,characterID[0],23,22};
-	avatar2rect = {0,characterID[0],23,22};
+	avatar1rect = {0,characterID[0],23,23};
+	avatar2rect = {0,characterID[0],23,23};
 }
 ModuleUI::~ModuleUI()
 {
@@ -62,9 +68,8 @@ update_status ModuleUI::Update()
 		timerrect = { currentTimerposX,816,32,24 };
 		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
 	}
-	
-	
 	if (currenttime > 60) timerrect = { 60,816,32,24 };
+	
 	//--------------------------------------------------------------------
 		//Lifebars:
 
@@ -86,12 +91,45 @@ update_status ModuleUI::Update()
 	App->render->Blit(graphics, 9, 17, &lifebar1rect, 1.0f, false, false);
 	App->render->Blit(graphics, 169, 17, &lifebar2rect, 1.0f, false, false);
 	//--------------------------------------------------------------------
+	//STAMINABARS:
+	if (currentsta1 != ReglaDe3(staminatest, 100, 128))
+	{
+		if (currentsta1 > ReglaDe3(staminatest, 100, 128))
+		{
+			currentsta1 -= 1;
+			staminabar1rect = { 128 - currentsta1 ,ColorSelector(currentsta1), 128,8 };
+		}
+		if (currentsta1 < ReglaDe3(staminatest, 100, 128))
+		{
+			currentsta1 += 1;
+			staminabar1rect = { 128 - currentsta1 ,ColorSelector(currentsta1), 128,8 };
+		}
+	}
 
+	if (currentsta2 != ReglaDe3(staminatest, 100, 128))
+	{
+		if (currentsta2 > ReglaDe3(staminatest, 100, 128))
+		{
+			currentsta2 -= 1;
+			staminabar2rect = { 0,ColorSelector(currentsta2), currentsta2,8 };
+		}
+		if (currentsta2 < ReglaDe3(staminatest, 100, 128))
+		{
+			currentsta2 += 1;
+			staminabar2rect = { 0,ColorSelector(currentsta2), currentsta2,8 };
+		}
+	}
+
+	App->render->Blit(graphics, 43, 24, &staminabar1rect, 1.0f, true, false);
+	App->render->Blit(graphics, 168, 24, &staminabar2rect, 1.0f, false, false);
+
+	//---------------------------------------------------------------------------
 	//Pictures:
-	//App->render->DrawQuad({ 33, 16, 26, 24 }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ 32, 66, 48, 50 }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ 518, 66, 48, 50 }, 255, 255, 255, 255, false);
 	App->render->Blit(graphics, 17, 34, &avatar1rect, 1.0f, false, false);
-	//App->render->Blit(graphics, 169, 17, &avatar2rect, 1.0f, false, false);
-
+	App->render->Blit(graphics, 242, 34, &avatar2rect, 1.0f, true, false);
+	//-------------------------------------------------------------------------
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
 	return UPDATE_CONTINUE;
 }
@@ -100,6 +138,24 @@ int ModuleUI::ReglaDe3(float newhp, float hpbase, float pixels)
 {
 	float res = (float)(newhp / hpbase) * pixels;
 	return (int)res;
+}
+
+int ModuleUI::ColorSelector(int currentstamina)
+{
+	if (currentstamina < 30)
+	{
+		return 217;
+	}
+
+	if (currentstamina >= 30 && currentstamina < 70)
+	{
+		return 225;
+	}
+
+	if (currentstamina >= 70)
+	{
+		return 233;
+	}
 }
 
 bool ModuleUI::CleanUp()

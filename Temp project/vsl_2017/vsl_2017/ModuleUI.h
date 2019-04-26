@@ -16,6 +16,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 	int ReglaDe3(float num1, float num2, float num3);
+	int ColorSelector(int currentstamina);
 
 public:
 	SDL_Rect lifebar1rect, lifebar2rect, emptylb, staminabar1rect, staminabar2rect;
@@ -27,6 +28,8 @@ public:
 	int startTime;
 
 	int currenthp1, currenthp2;
+
+	int currentsta1, currentsta2, staminatest;
 
 	int characterID[9];
 	SDL_Texture* graphics = nullptr;
