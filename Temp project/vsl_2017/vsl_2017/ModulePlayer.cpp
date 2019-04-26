@@ -97,6 +97,14 @@ ModulePlayer::ModulePlayer()
 	kick.speed = 0.2f;
 	kick.lock = true;
 
+	flipkick.PushBack({ 669, 235, 60, 109 });
+	flipkick.PushBack({ 729, 235, 61, 113 });
+	flipkick.PushBack({ 790, 235, 103, 113 });
+	flipkick.PushBack({ 729, 235, 61, 113 });
+	flipkick.PushBack({ 669, 235, 60, 109 });
+	flipkick.speed = 0.2f;
+	flipkick.lock = true;
+
 	crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
 	crouchidle.speed = 0.1f;
 
@@ -316,7 +324,8 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E])
 		{
 			current_animation = &kick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+			if(flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 			if (keyup[SDL_SCANCODE_E]) {
 				StoreInput(SDL_SCANCODE_E);
 				keyup[SDL_SCANCODE_E] = false;
