@@ -63,6 +63,7 @@ public:
 	Collider * block = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphs = nullptr;
 	Animation idle;
 	Animation crouchidle;
 	Animation forward;
