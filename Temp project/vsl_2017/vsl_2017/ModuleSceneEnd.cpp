@@ -20,6 +20,7 @@ ModuleSceneEnd::ModuleSceneEnd()
 	ryoR = { 0,0,128,123 };
 	// Background / sky
 
+
 }
 
 ModuleSceneEnd::~ModuleSceneEnd()
@@ -32,6 +33,7 @@ bool ModuleSceneEnd::Start()
 	App->audio->PlayMusic("Splash_song.ogg", -1);
 	UIsprite = App->textures->Load("UI_AOF.png");
 	portraitRyo = App->textures->Load("RyoPortrait.png");
+	startTime = SDL_GetTicks();
 
 	printFontBM = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 	App->player->Disable();
@@ -61,15 +63,19 @@ update_status ModuleSceneEnd::Update()
 	App->fonts->BlitText(205, 35, printFontBM, "waiting_for", printFont);
 	App->fonts->BlitText(200, 52, printFontBM, "a_challenger", printFont);
 
+	//Timer:
 	int currenttime = 0;
 	currenttime = (SDL_GetTicks() - startTime) / 1000;
 
-		currentTimerposX = 800 - (80 * (currenttime - 5));
-		if (currenttime > 10) currentTimerposX = 800 - (80 * (10 - 5)); //si es mayor de 60 se queda en 0.
+		if (currenttime < 10)
+		{
+			currentTimerposX = 720 - (80 * currenttime);
+		}
 		timerR = { currentTimerposX,253,80,96 };
+
 		App->render->Blit(UIsprite, 200, 72, &timerR, 1.0f, false, false);
 
-
+//----------------------------------------------------------------------------------
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
