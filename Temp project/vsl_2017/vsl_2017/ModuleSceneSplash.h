@@ -23,9 +23,9 @@ public:
 	SDL_Texture* UI = nullptr;
 	SDL_Texture* splashTitle = nullptr;
 	int printFontBM = -1;
-	float timer = 0;
+	float timer;
 	int constTimer = 0;
-	SDL_Rect background, printFont,rSNK,rArt,rOf, rFightingB;
+	SDL_Rect background, printFont,rSNK,rArt,rOf, rFightingB, rFighting;
 };
 
 #endif 

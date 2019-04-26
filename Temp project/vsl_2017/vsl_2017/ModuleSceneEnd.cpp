@@ -34,9 +34,10 @@ bool ModuleSceneEnd::Start()
 	App->audio->PlayMusic("MUSIC_FXS/MUSIC/CONTINUE_SONG/Hey_Let_s_Do_It_Again.ogg", -1);
 	UIsprite = App->textures->Load("UI_AOF.png");
 	portraitRyo = App->textures->Load("RyoPortrait.png");
-	startTime = SDL_GetTicks();
-
 	printFontBM = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
+	
+	startTime = SDL_GetTicks();
+	App->render->camera.x = 0;
 	App->player->Disable();
 
 	return true;
@@ -57,26 +58,36 @@ bool ModuleSceneEnd::CleanUp()
 update_status ModuleSceneEnd::Update()
 {
 	// Draw everything --------------------------------------
-	App->render->Blit(UIsprite, 40, 170, &textR, 0.75f);
-	App->render->Blit(portraitRyo, 46, 47, &ryoR, 0.75f);
-	App->fonts->BlitText(50,180, printFontBM, "anytime_anywhere_cross_my_path", printFont);
-	App->fonts->BlitText(50, 196, printFontBM, "again_and_you_are_mine!", printFont);
-	App->fonts->BlitText(205, 35, printFontBM, "waiting_for", printFont);
-	App->fonts->BlitText(200, 52, printFontBM, "a_challenger", printFont);
+	App->render->Blit(UIsprite, 25, 170, &textR, 0.75f);
+	App->render->Blit(portraitRyo, 31, 47, &ryoR, 0.75f);
+	App->fonts->BlitText(35,180, printFontBM, "anytime_anywhere_cross_my_path", printFont);
+	App->fonts->BlitText(35, 196, printFontBM, "again_and_you_are_mine!", printFont);
+	App->fonts->BlitText(190, 35, printFontBM, "waiting_for", printFont);
+	App->fonts->BlitText(185, 52, printFontBM, "a_challenger", printFont);
 
 	//Timer:
 	int currenttime = 0;
 	currenttime = (SDL_GetTicks() - startTime) / 1000;
 
+	/*	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+		{
+			currenttime++;
+		}*/
 		if (currenttime < 10)
 		{
 			currentTimerposX = 720 - (80 * currenttime);
 		}
+		
 		timerR = { currentTimerposX,253,80,96 };
 
 		App->render->Blit(UIsprite, 200, 72, &timerR, 1.0f, false, false);
+		
+		if (currenttime >= 10)
+		{
+			App->fade->FadeToBlack((Module*)App->scene_end, (Module*)App->scene_splash, 1.0f);
+		}
 
-//----------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{

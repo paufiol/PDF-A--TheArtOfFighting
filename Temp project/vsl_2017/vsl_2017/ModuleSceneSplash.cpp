@@ -27,7 +27,7 @@ ModuleSceneSplash::ModuleSceneSplash()
 	rFightingB = { 0,149,200, 75 };
 	rOf = { 10,5,94,63 };
 	rSNK = { 7, 378, 73,19 };
-
+	rFighting = { 0,72,200, 75 };
 }
 
 ModuleSceneSplash::~ModuleSceneSplash()
@@ -40,9 +40,10 @@ bool ModuleSceneSplash::Start()
 	App->audio->PlayMusic("Splash_song.ogg", 1);
 	splashTitle = App->textures->Load("InitSplash.png");
 	UI = App->textures->Load("UI_AOF.png");
-	
 	printFontBM = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 
+	timer = -50;
+	App->render->camera.x = 0;
 	if(App->player->IsEnabled() == true) App->player->Disable();
 	return true;
 }
@@ -66,14 +67,33 @@ update_status ModuleSceneSplash::Update()
 	constTimer++;
 	if (timer < 65) {
 		timer += 5;
-		App->render->Blit(splashTitle, (int)timer, 10, &rArt, 0.75f);
+		App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f);
 	}
-	else if (timer < 80 && timer > 65) { timer += 3; App->render->Blit(splashTitle, (int)timer, 10, &rArt, 0.75f); }
-	else if (timer < 86 && timer > 80) { timer += 2; App->render->Blit(splashTitle, 80, 10, &rArt, 0.75f); }
-	else if (timer < 100 && timer > 86) { timer += 2; App->render->Blit(splashTitle, 170 - (int)timer, 10, &rArt, 0.75f); }
-	else { timer++; (App->render->Blit(splashTitle, 70, 10, &rArt, 0.75f)); }
+	else if (timer < 80 && timer > 65) { timer += 3; App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f); }
+	else if (timer < 86 && timer > 80) { timer += 2; App->render->Blit(splashTitle, 80, 25, &rArt, 0.75f); }
+	else if (timer < 100 && timer > 86) { timer += 2; App->render->Blit(splashTitle, 170 - (int)timer, 25, &rArt, 0.75f); }
+	else { timer++; (App->render->Blit(splashTitle, 70, 25, &rArt, 0.75f)); }
 
-	App->render->Blit(splashTitle, 155, 20, &rOf, 0.75f);
+	App->render->Blit(splashTitle, 155, 35, &rOf, 0.75f);
+
+	if (timer < 235 && timer > 100) { timer+=3; (App->render->Blit(splashTitle, 50, 340 - (int)timer, &rFighting, 0.75f)); }
+	else if (timer < 285 && timer > 235) 
+	{ 
+		timer++;
+		App->render->Blit(splashTitle, 50, 340 - (int)timer, &rFighting, 0.75f);
+		/*App->render->Blit(splashTitle, 70, 310 - (int)timer, &rArt, 0.75f);*/
+	}
+	else if (timer < 295 && timer >285) 
+	{ 
+		timer++; 
+		(App->render->Blit(splashTitle, 50, -230 + (int)timer, &rFighting, 0.75f));
+		/*App->render->Blit(splashTitle, 70, -280 + (int)timer, &rArt, 0.75f);*/
+	}
+	else if (timer > 295) {
+		App->render->Blit(splashTitle, 50, 65, &rFighting, 0.75f);
+	/*	App->render->Blit(splashTitle, 70, 15, &rArt, 0.75f);*/
+	}
+	
 	
 	if (timer > 95) {
 		App->render->Blit(UI, 20, 190, &rSNK, 0.75f);
@@ -84,7 +104,6 @@ update_status ModuleSceneSplash::Update()
 		if (constTimer < 60)
 		{
 			App->fonts->BlitText(80, 155, printFontBM, "push_start_button", printFont);
-			
 		}
 	}
 	
