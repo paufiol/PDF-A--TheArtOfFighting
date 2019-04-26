@@ -37,7 +37,7 @@ ModuleSceneSplash::~ModuleSceneSplash()
 bool ModuleSceneSplash::Start()
 {
 	LOG("Loading Splash scene");
-	App->audio->PlayMusic("Splash_song.ogg", -1);
+	App->audio->PlayMusic("Splash_song.ogg", 1);
 	splashTitle = App->textures->Load("InitSplash.png");
 	UI = App->textures->Load("UI_AOF.png");
 	
