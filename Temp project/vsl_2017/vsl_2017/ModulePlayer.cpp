@@ -37,7 +37,7 @@ ModulePlayer::ModulePlayer()
 	flipforward.PushBack({ 818, 348, 58, 109 });
 	flipforward.PushBack({ 876, 350, 65, 107 }, 10, 0);
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
-	flipforward.speed = 0.05f;
+	flipforward.speed = 0.1f;
 
 	back.PushBack({ 577, 479, 57, 109},-5,0);
 	back.PushBack({ 638, 477, 52, 111});
@@ -65,7 +65,7 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
 	jump.PushBack({ 126, 456, 62, 130 }, 0, -20);
 	jump.PushBack({ 188, 456, 57 , 130 }, 0, -20);
-	jump.PushBack({ 245, 456, 53, 130 }, 0, -20);
+	jump.PushBack({ 245, 495, 54, 91 }, 0, -20);
 	jump.PushBack({ 0, 456, 56, 130 }, 0, -20);
 	jump.PushBack({ 299, 456, 56, 130 }, 0, -20);
 	jump.speed = 0.1f;
