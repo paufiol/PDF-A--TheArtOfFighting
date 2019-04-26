@@ -47,7 +47,7 @@
 #  include <malloc.h>
 # endif
 # if defined(HAVE_STDDEF_H)
-#  include <stddef.h>
+#include <stddef.h>
 # endif
 # if defined(HAVE_STDARG_H)
 #  include <stdarg.h>
