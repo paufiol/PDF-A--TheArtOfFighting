@@ -32,6 +32,12 @@ ModulePlayer::ModulePlayer()
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
 	forward.speed = 0.1f;
 	
+	flipforward.PushBack({ 691, 348, 56, 109 });
+	flipforward.PushBack({ 749, 350, 65, 107 }, 10, 0);
+	flipforward.PushBack({ 818, 348, 58, 109 });
+	flipforward.PushBack({ 876, 350, 65, 107 }, 10, 0);
+	/*forward.PushBack({ 874, 348, 67, 108 });*/
+	flipforward.speed = 0.05f;
 
 	back.PushBack({ 577, 479, 57, 109},-5,0);
 	back.PushBack({ 638, 477, 52, 111});
@@ -40,13 +46,18 @@ ModulePlayer::ModulePlayer()
 	back.PushBack({ 577, 479, 57, 109 },-5,0);
 	back.speed = 0.1f;
 
-	
+	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	flipback.PushBack({ 638, 477, 52, 111 });
+	flipback.PushBack({ 692, 479, 57, 109 }, 5, 0);
+	flipback.PushBack({ 638, 477, 52, 111 });
+	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	flipback.speed = 0.1f;
 
 	doubleback.PushBack({275, 595, 59, 107});
 	doubleback.PushBack({334, 596, 89, 106},-80, -10);
 	doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
 	doubleback.PushBack({423, 596, 73, 106}, -80, 10);
-	doubleback.speed = 0.2f;
+	doubleback.speed = 0.1f;
 	doubleback.lock = true;
 
 
@@ -66,6 +77,7 @@ ModulePlayer::ModulePlayer()
 	punch.speed = 0.2f;
 	punch.lock = true;
 
+	
 	koukenR.PushBack({ 176, 873, 66, 112 });
 	koukenR.PushBack({ 242, 873, 88, 112 });
 	koukenR.PushBack({ 330, 884, 85, 96 });
@@ -204,7 +216,7 @@ update_status ModulePlayer::Update()
 		{
 			current_animation = &crouchidle;
 			playerCollider->rect.h = 75;
-			
+		
 			if (keyup[SDL_SCANCODE_S]) {
 				StoreInput(SDL_SCANCODE_S);
 				keyup[SDL_SCANCODE_S] = false;
@@ -215,7 +227,7 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_Q] && !leaveif)
 		{
 			current_animation = &crouchpunch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 40, 63, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 
 			if (keyup[SDL_SCANCODE_Q]) {
@@ -228,7 +240,7 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_E] && !leaveif)
 		{
 			current_animation = &crouchkick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 60, 70, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			melee = App->collision->AddCollider({ position.x + 50, position.y + 90, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 
 			if (keyup[SDL_SCANCODE_E]) {
@@ -240,12 +252,13 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
 		{
 			if(!flip) current_animation = &forward;
-			if (flip) current_animation = &back;
+			if (flip) current_animation = &flipback;
+
 			speed.x = 2.5f;
 			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_D]) {
 				StoreInput(SDL_SCANCODE_D);
-				if (flip) { block = App->collision->AddCollider({ position.x - 15, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
+				if (flip) { block = App->collision->AddCollider({ position.x - 20, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
 				keyup[SDL_SCANCODE_D] = false; 
 			}
 		}
@@ -253,12 +266,12 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
 		{
 			if(!flip) current_animation = &back;
-			if(flip) current_animation = &forward;
+			if(flip) current_animation = &flipforward;
 			speed.x = -1.5f;
 			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_A]) {
 				StoreInput(SDL_SCANCODE_A);
-				if (!flip) { block = App->collision->AddCollider({ position.x + 55, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+				if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 				keyup[SDL_SCANCODE_A] = false;
 			}
 		}
@@ -289,8 +302,7 @@ update_status ModulePlayer::Update()
 			current_animation = &punch;
 			
 			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			if(flip)  melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			
+			if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 			leaveif = true;
 			if (keyup[SDL_SCANCODE_Q]) {
 				StoreInput(SDL_SCANCODE_Q);
@@ -313,7 +325,7 @@ update_status ModulePlayer::Update()
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 			App->audio->PlayChunk(App->audio->koukenFx);
 		}
-
+		
 		
 	}
 	

@@ -24,12 +24,19 @@ ModulePlayer2::ModulePlayer2()
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
-	forward.PushBack({ 632, 348, 57, 108 });
-	forward.PushBack({ 689, 348, 58, 108 });
-	forward.PushBack({ 747, 348, 69, 108 });
-	forward.PushBack({ 816, 348, 58, 108 });
-	forward.PushBack({ 874, 348, 67, 108 });
-	forward.speed = 0.2f;
+	forward.PushBack({ 691, 348, 56, 109 });
+	forward.PushBack({ 749, 350, 65, 107 }, 10, 0);
+	forward.PushBack({ 818, 348, 58, 109 });
+	forward.PushBack({ 876, 350, 65, 107 }, 9, 0);
+	/*forward.PushBack({ 874, 348, 67, 108 });*/
+	forward.speed = 0.1f;
+
+	back.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	back.PushBack({ 638, 477, 52, 111 });
+	back.PushBack({ 692, 479, 57, 109 }, 5, 0);
+	back.PushBack({ 638, 477, 52, 111 });
+	back.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	back.speed = 0.1f;
 
 	jump.PushBack({ 0,  456, 60, 130 });
 	jump.PushBack({ 60, 456, 66, 130 });
@@ -71,6 +78,9 @@ ModulePlayer2::ModulePlayer2()
 	damaged.PushBack({ 866, 754, 59, 99 });
 	damaged.speed = 0.1f;
 	damaged.lock = true;
+
+	crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
+	crouchidle.speed = 0.1f;
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -93,8 +103,8 @@ update_status ModulePlayer2::Update()
 {
 
 
-	int speed = 1;
-	float speed_y = 2.5f;
+	int speed = 2;
+	float speed_y = 6.5f;
 
 	if (current_animation->Finished() || current_animation->lock == false)
 	{
@@ -109,7 +119,7 @@ update_status ModulePlayer2::Update()
 
 		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 		{
-			current_animation = &forward;
+			current_animation = &back;
 			position.x += speed;
 		}
 
@@ -117,7 +127,15 @@ update_status ModulePlayer2::Update()
 		{
 			current_animation = &forward;
 			position.x -= speed;
+			
 		}
+
+		if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_DOWN)
+		{
+			current_animation = &crouchidle;
+			playerCollider->rect.h = 75;
+		}
+		
 
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;

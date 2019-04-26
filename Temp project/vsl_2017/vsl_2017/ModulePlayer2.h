@@ -21,6 +21,7 @@ public:
 
 	void OnCollision(Collider* A, Collider* B);
 
+
 public:
 
 	int hp = 100;
@@ -44,8 +45,10 @@ public:
 	Animation punch;
 	Animation jump;
 	Animation kick;
+	Animation crouchidle;
 	Animation koukenR;
 	Animation damaged;
+	Animation back;
 	iPoint position;
 
 

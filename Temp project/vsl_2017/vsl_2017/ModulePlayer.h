@@ -25,6 +25,7 @@ public:
 	bool CleanUp();
 
 	void OnCollision(Collider* A, Collider* B);
+	
 	bool TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, SDL_Scancode D);
 	void StoreInput(SDL_Scancode Scancode) {
 		input[inputCount] = Scancode;
@@ -76,6 +77,9 @@ public:
 	Animation damaged;
 	Animation back;
 	Animation doubleback;
+	Animation flipback;
+	Animation flipforward;
+	Animation flippunch;
 	iPoint position;
 
 };
