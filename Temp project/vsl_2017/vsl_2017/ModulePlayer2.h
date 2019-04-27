@@ -25,6 +25,7 @@ public:
 public:
 
 	int hp = 100;
+	int stamina = 100;
 	bool flip = true;
 	jump jumping = JUMP_NOT;
 	bool keyup = true;

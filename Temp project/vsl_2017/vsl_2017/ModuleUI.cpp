@@ -26,10 +26,10 @@ ModuleUI::ModuleUI()
 
 	for (int i = 0; i < 9; i++)
 	{
-		characterID[i] = i * 22;
+		characterID[i] = i * 24;
 	}
-	avatar1rect = {0,characterID[0],23,23};
-	avatar2rect = {0,characterID[0],23,23};
+	avatar1rect = {0,characterID[0],24,24};
+	avatar2rect = {0,characterID[0],24,24};
 }
 ModuleUI::~ModuleUI()
 {
@@ -50,7 +50,7 @@ update_status ModuleUI::Update()
 	//if (currenttime > 60) currenttime %= 60;
 
 	if (currenttime >= 30)
-	{
+	{	
 		currentTimerposX = 928 - (32 * (currenttime - 30));
 		if(currenttime > 60) currentTimerposX = 928 - (32 * (60 - 30)); //si es mayor de 60 se queda en 0.
 		timerrect = { currentTimerposX,792,32,24 };
@@ -92,28 +92,28 @@ update_status ModuleUI::Update()
 	App->render->Blit(graphics, 169, 17, &lifebar2rect, 1.0f, false, false);
 	//--------------------------------------------------------------------
 	//STAMINABARS:
-	if (currentsta1 != ReglaDe3(staminatest, 100, 128))
+	if (currentsta1 != ReglaDe3(App->player->stamina, 100, 128))
 	{
-		if (currentsta1 > ReglaDe3(staminatest, 100, 128))
+		if (currentsta1 > ReglaDe3(App->player->stamina, 100, 128))
 		{
 			currentsta1 -= 1;
 			staminabar1rect = { 128 - currentsta1 ,ColorSelector(currentsta1), 128,8 };
 		}
-		if (currentsta1 < ReglaDe3(staminatest, 100, 128))
+		if (currentsta1 < ReglaDe3(App->player->stamina, 100, 128))
 		{
 			currentsta1 += 1;
 			staminabar1rect = { 128 - currentsta1 ,ColorSelector(currentsta1), 128,8 };
 		}
 	}
 
-	if (currentsta2 != ReglaDe3(staminatest, 100, 128))
+	if (currentsta2 != ReglaDe3(App->player2->stamina, 100, 128))
 	{
-		if (currentsta2 > ReglaDe3(staminatest, 100, 128))
+		if (currentsta2 > ReglaDe3(App->player2->stamina, 100, 128))
 		{
 			currentsta2 -= 1;
 			staminabar2rect = { 0,ColorSelector(currentsta2), currentsta2,8 };
 		}
-		if (currentsta2 < ReglaDe3(staminatest, 100, 128))
+		if (currentsta2 < ReglaDe3(App->player2->stamina, 100, 128))
 		{
 			currentsta2 += 1;
 			staminabar2rect = { 0,ColorSelector(currentsta2), currentsta2,8 };
