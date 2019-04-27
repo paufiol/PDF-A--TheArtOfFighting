@@ -102,10 +102,12 @@ update_status ModuleCharSelectScene::Update()
 	if (iy == 1)
 	{
 		PortraitP1 = { 0, (4 + ix) * 128, 128,128 };
+		NameP1 = { 128, (4 + ix) * 15, 128, 15 };
 	}
 	if (iy == 0)
 	{
 		PortraitP1 = { 0, ix * 128, 128,128 };
+		NameP1 = { 128, ix * 15, 128, 15 };
 	}
 
 	//..................................................................................
@@ -125,7 +127,8 @@ update_status ModuleCharSelectScene::Update()
 	App->render->Blit(graphics, 126, 183, &CharactersR[5], 1.0f, false, false);
 	App->render->Blit(graphics, 154, 183, &CharactersR[6], 1.0f, false, false);
 	App->render->Blit(graphics, 182, 183, &CharactersR[7], 1.0f, false, false);
-	App->render->Blit(graphics2, 0, 0, &PortraitP1, 1.0f, false, false);
+	App->render->Blit(graphics2, 8, 8, &PortraitP1, 1.0f, false, false);
+	App->render->Blit(graphics2, 8, 137, &NameP1, 1.0f, false, false);
 	App->render->Blit(graphics, P1posX[ix], P1posY[iy], &P1Selector, 1.0f, false, false);
 
 

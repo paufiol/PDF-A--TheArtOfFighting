@@ -29,7 +29,7 @@ public:
 
 	bool keyup[69] = { true };
 
-	SDL_Rect printFont, rArt, Charactersbox, P1Selector, P2Selector, CharactersR[8], PortraitP1, PortraitP2;
+	SDL_Rect printFont, rArt, Charactersbox, P1Selector, P2Selector, CharactersR[8], PortraitP1, NameP1, PortraitP2, NameP2;
 
 	int P1posX[4] = {96, 124, 152, 180};
 	int P1posY[2] = {151, 179};
