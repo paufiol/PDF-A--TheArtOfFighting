@@ -25,7 +25,7 @@ bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
 	graphics = App->textures->Load("ryo.png");
-	App->audio->koukenFx = App->audio->LoadChunk("kouken.ogg"); 
+	//App->audio->koukenFx = App->audio->LoadChunk("kouken.ogg"); 
 
 	//kouken.anim.PushBack({ 632, 348, 57, 108 });
 		// Sprites super ataque

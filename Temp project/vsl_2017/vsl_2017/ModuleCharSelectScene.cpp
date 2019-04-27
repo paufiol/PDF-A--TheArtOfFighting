@@ -19,10 +19,10 @@
 ModuleCharSelectScene::ModuleCharSelectScene()
 {
 	// Background / sky
-	//background.x = 15;
-	//background.y = 0;
-	//background.w = 320;
-	//background.h = 240;
+	background.x = 15;
+	background.y = 0;
+	background.w = 320;
+	background.h = 240;
 
 	//rArt = { 5,0,96,80 };
 }

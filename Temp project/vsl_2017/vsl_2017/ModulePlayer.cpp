@@ -341,11 +341,11 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)&& !leaveif) {
+		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)&& !leaveif && (stamina >= 15)) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 			App->audio->PlayChunk(App->audio->chunks[0]);
-		
+			stamina -= 15;
 		}
 		
 		
@@ -357,6 +357,11 @@ update_status ModulePlayer::Update()
 		App->player2->p2Won = true;
 		//current_animation = &death;
 		playerCollider->to_delete = true;
+	}
+
+	if (stamina <= 0)
+	{
+		stamina = 0;
 	}
 
 
