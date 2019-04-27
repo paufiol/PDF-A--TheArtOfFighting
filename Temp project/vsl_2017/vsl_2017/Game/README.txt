@@ -37,11 +37,11 @@ E: Kick
 S, D, Q, E: Kouken
 
 PLAYER 2:
-?: Forward/Backward
-?: Jump
-: Crouch
-: Kick
-: Kouken
+J/L: Forward/Backward
+I: Jump
+K: Crouch
+O: Kick
+K, L, U, O: Kouken
 
 DEBUG:
 F1: Show/hide hitboxes
