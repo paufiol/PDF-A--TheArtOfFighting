@@ -375,15 +375,15 @@ update_status ModulePlayer::Update()
 		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)&& !leaveif && (stamina >= 15)) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
-//<<<<<<< HEAD
+
 			//App->audio->PlayChunk(App->audio->chunks[0]); -> DONE
 			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 			
 		
-//=======
-			App->audio->PlayChunk(App->audio->chunks[0]);
+
+			
 			stamina -= 15;
-//>>>>>>> 2433479078b1082cdc5f9a3c0fc665b00183240a
+
 		}
 		
 		
@@ -408,12 +408,13 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
 	{
+
 		p1Won = !p1Won;
 		if (keyup[SDL_SCANCODE_F2])
 		{
 			keyup[SDL_SCANCODE_F2] = false;
 		}
-		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
+		
 	}
 	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3])
 	{
@@ -422,7 +423,7 @@ update_status ModulePlayer::Update()
 		{
 			keyup[SDL_SCANCODE_F3] = false;
 		}
-		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
+		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Win.wav"));
 	}
 
 //Jumping movement--------------------------------------------

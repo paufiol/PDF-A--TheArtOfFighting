@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
@@ -38,6 +39,20 @@ ModulePlayer2::ModulePlayer2()
 	back.PushBack({ 577, 479, 57, 109 }, 5, 0);
 	back.speed = 0.1f;
 
+	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	flipback.PushBack({ 638, 477, 52, 111 });
+	flipback.PushBack({ 692, 479, 57, 109 }, 5, 0);
+	flipback.PushBack({ 638, 477, 52, 111 });
+	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	flipback.speed = 0.1f;
+
+	doubleback.PushBack({ 275, 595, 59, 107 });
+	doubleback.PushBack({ 334, 596, 89, 106 }, -80, -10);
+	doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
+	doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
+	doubleback.speed = 0.1f;
+	doubleback.lock = true;
+
 	jump.PushBack({ 0,  456, 60, 130 });
 	jump.PushBack({ 60, 456, 66, 130 });
 	jump.PushBack({ 126, 456, 62, 130 });
@@ -70,7 +85,7 @@ ModulePlayer2::ModulePlayer2()
 	kick.PushBack({ 790, 235, 103, 113 });
 	kick.PushBack({ 729, 235, 61, 113 });
 	kick.PushBack({ 669, 235, 60, 109 });
-	kick.speed = 0.2f;
+	kick.speed = 0.1f;
 	kick.lock = true;
 
 	damaged.PushBack({ 866, 754, 59, 99 });
@@ -81,6 +96,35 @@ ModulePlayer2::ModulePlayer2()
 
 	crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
 	crouchidle.speed = 0.1f;
+
+	crouchpunch.PushBack({ 414, 42, 53, 76 }, 0, 34);
+	crouchpunch.PushBack({ 469, 41, 106, 77 }, -15, 34);
+	crouchpunch.speed = 0.15f;
+	crouchpunch.lock = true;
+
+	crouchkick.PushBack({ 866, 169, 55, 66 }, 0, 40);
+	crouchkick.PushBack({ 0, 280, 127, 68 }, -15, 40);
+	crouchkick.speed = 0.125f;
+	crouchkick.lock = true;
+
+	damaged.PushBack({ 0,135,66,107 });
+	damaged.PushBack({ 66,134,708,108 });
+	damaged.PushBack({ 144,135,66,107 });
+	damaged.speed = 0.1f;
+	damaged.lock = true;
+
+	victory.PushBack({ 0, 256, 53, 116 });
+	victory.PushBack({ 65, 266, 69, 106 });
+	victory.speed = 0.1f;
+	victory.lock = true;
+
+	defeat.PushBack({ 0, 0, 66, 115 });
+	defeat.PushBack({ 66, 0, 73, 115 });
+	defeat.PushBack({ 144, 8, 64, 107 });
+	defeat.PushBack({ 208, 29, 62, 86 });
+	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.lock = true;
+	defeat.speed = 0.1f;
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -146,7 +190,8 @@ update_status ModulePlayer2::Update()
 		if (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN) {
 			current_animation = &punch;
 			melee = App->collision->AddCollider({ position.x - 30, position.y + 15, 40, 20 }, COLLIDER_PLAYER2_ATTACK, this);
-
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 		}
 
 		if ((App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN))

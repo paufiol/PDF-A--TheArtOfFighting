@@ -40,6 +40,8 @@ public:
 	Collider * melee = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
+
+
 	Animation idle;
 	Animation forward;
 	Animation backward;
@@ -51,6 +53,16 @@ public:
 	Animation damaged;
 	Animation back;
 	iPoint position;
+	Animation takeDamage;
+	Animation crouchpunch;
+	Animation crouchkick;
+	Animation doubleback;
+	Animation flipback;
+	Animation flipforward;
+	Animation flipkick;
+	Animation flippunch;
+	Animation victory;
+	Animation defeat;
 
 
 };
