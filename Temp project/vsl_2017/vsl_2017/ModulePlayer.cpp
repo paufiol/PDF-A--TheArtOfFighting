@@ -127,7 +127,11 @@ ModulePlayer::ModulePlayer()
 	damaged.speed = 0.1f;
 	damaged.lock = true;
 
-
+	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
+	
+	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
+	//victory------------> 0,256,53 ,116 // 65, 266, 69, 106 
+	//defeat-------------> 0, 0, 66, 115 // 66, 0, 73, 115 // 144, 8, 64, 107 // 208, 29, 62, 86 // 270, 53, 58, 62
 }
 
 ModulePlayer::~ModulePlayer()
