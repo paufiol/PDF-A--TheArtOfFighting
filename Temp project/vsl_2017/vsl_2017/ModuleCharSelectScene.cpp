@@ -20,6 +20,7 @@ ModuleCharSelectScene::ModuleCharSelectScene()
 {
 	Charactersbox = { 111, 0, 112, 56 };
 	P1Selector = { 130, 65, 28 , 31};
+	P2Selector = { 158, 68, 28 , 31};
 	for (int i = 0; i < 8; i++)
 	{
 		CharactersR[i] = { 0,(i * 24),24,24 };
@@ -35,8 +36,10 @@ bool ModuleCharSelectScene::Start()
 	LOG("Loading Selector scene");
 	graphics = App->textures->Load("UI_AOF.png");
 	graphics2 = App->textures->Load("UI_AOF2.png");
-	printFont = { 4,870, 318 ,13 };
-	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnopqrstuvwxyz", printFont, 1);
+	printFont = { 0,844, 360 ,12 };
+	printFont2 = { 0,861, 360 ,8 };
+	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
+	font_mini = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 
 	
 	return true;
@@ -112,6 +115,54 @@ update_status ModuleCharSelectScene::Update()
 
 	//..................................................................................
 	//PLAYER2: ---------------------------------------
+	if (App->input->keyboard[SDL_SCANCODE_I] == 1)
+	{
+		if (jy == 1)
+		{
+			jy = 0;
+		}
+	}
+	if ((App->input->keyboard[SDL_SCANCODE_J] == 1) && keyup[SDL_SCANCODE_J])
+	{
+		if (jx <= 3 && keyup[SDL_SCANCODE_J])
+		{
+			jx--;
+			keyup[SDL_SCANCODE_J] = false;
+		}
+	}
+	if (App->input->keyboard[SDL_SCANCODE_K] == 1)
+	{
+		if (jy == 0)
+		{
+			jy = 1;
+		}
+	}
+	if ((App->input->keyboard[SDL_SCANCODE_L] == 1) && keyup[SDL_SCANCODE_L])
+	{
+		if (jx >= 0 && keyup[SDL_SCANCODE_L])
+		{
+			jx++;
+			keyup[SDL_SCANCODE_L] = false;
+		}
+	}
+	if (jx > 3)
+	{
+		jx = 3;
+	}
+	if (jx < 0)
+	{
+		jx = 0;
+	}
+	if (jy == 1)
+	{
+		PortraitP2 = { 0, (4 + jx) * 128, 128,128 };
+		NameP2 = { 128, (4 + jx) * 15, 128, 15 };
+	}
+	if (jy == 0)
+	{
+		PortraitP2 = { 0, jx * 128, 128,128 };
+		NameP2 = { 128, jx * 15, 128, 15 };
+	}
 
 
 
@@ -127,9 +178,15 @@ update_status ModuleCharSelectScene::Update()
 	App->render->Blit(graphics, 126, 183, &CharactersR[5], 1.0f, false, false);
 	App->render->Blit(graphics, 154, 183, &CharactersR[6], 1.0f, false, false);
 	App->render->Blit(graphics, 182, 183, &CharactersR[7], 1.0f, false, false);
+	App->render->Blit(graphics2, 220, 8, &PortraitP2, 1.0f, true, false);
+	App->render->Blit(graphics2, 168, 137, &NameP2, 1.0f, false, false);
 	App->render->Blit(graphics2, 8, 8, &PortraitP1, 1.0f, false, false);
 	App->render->Blit(graphics2, 8, 137, &NameP1, 1.0f, false, false);
 	App->render->Blit(graphics, P1posX[ix], P1posY[iy], &P1Selector, 1.0f, false, false);
+	App->render->Blit(graphics, P2posX[jx], P2posY[jy], &P2Selector, 1.0f, false, false);
+	App->fonts->BlitText(72, 11, font_start, "vs_mode_select_player", printFont);
+	App->fonts->BlitText(136, 80, font_mini, "time", printFont2);
+	App->fonts->BlitText(144, 87, font_mini, "10", printFont2);
 
 
 	

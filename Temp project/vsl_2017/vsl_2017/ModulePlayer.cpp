@@ -8,7 +8,6 @@
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
-#include "ModuleUI.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -98,7 +97,7 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 790, 235, 103, 113 });
 	kick.PushBack({ 729, 235, 61, 113 });
 	kick.PushBack({ 669, 235, 60, 109 });
-	kick.speed = 0.2f;
+	kick.speed = 0.1f;
 	kick.lock = true;
 
 	flipkick.PushBack({ 669, 235, 60, 109 });
@@ -122,14 +121,28 @@ ModulePlayer::ModulePlayer()
 	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
-	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.PushBack({ 925, 754, 59, 63 });
-	damaged.PushBack({ 866, 754, 59, 99 });
+	damaged.PushBack({ 0,135,66,107 });
+	damaged.PushBack({ 66,134,708,108 });
+	damaged.PushBack({ 144,135,66,107 });
 	damaged.speed = 0.1f;
 	damaged.lock = true;
 
+	victory.PushBack({ 0, 256, 53, 116 });
+	victory.PushBack({ 65, 266, 69, 106 });
+	victory.speed = 0.1f;
+	victory.lock = true;
+
+	defeat.PushBack({0, 0, 66, 115});
+	defeat.PushBack({ 66, 0, 73, 115 });
+	defeat.PushBack({ 144, 8, 64, 107 });
+	defeat.PushBack({ 208, 29, 62, 86 });
+	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.lock = true; 
+	defeat.speed = 0.1f;
+
 	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
-	
+
+
 	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
 	//victory------------> 0,256,53 ,116 // 65, 266, 69, 106 
 	//defeat-------------> 0, 0, 66, 115 // 66, 0, 73, 115 // 144, 8, 64, 107 // 208, 29, 62, 86 // 270, 53, 58, 62
@@ -144,7 +157,9 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	/*graphs = App->textures->Load("ryo2.png");*/
+
+	graphics2 = App->textures->Load("ryo2.png");
+
 
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 
@@ -222,12 +237,16 @@ update_status ModulePlayer::Update()
 			current_animation = &jump;
 			jumping = JUMP_UP;
 			speed.x = 4.5f;
+
+			// NEED JUMP SOUNDS
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
 			speed.x = -4.5f;
+
+			// NEED JUMP SOUNDS
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
@@ -248,6 +267,8 @@ update_status ModulePlayer::Update()
 			melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 			
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 			
 
 			if (keyup[SDL_SCANCODE_Q]) {
@@ -262,6 +283,9 @@ update_status ModulePlayer::Update()
 			current_animation = &crouchkick;
 			melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
+
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
 			
 
 			if (keyup[SDL_SCANCODE_E]) {
@@ -313,6 +337,8 @@ update_status ModulePlayer::Update()
 			current_animation = &jump;
 			jumping = JUMP_UP;
 
+			// NEED JUMP SOUNDS  
+
 			if (keyup[SDL_SCANCODE_W]) {
 				StoreInput(SDL_SCANCODE_W);
 				keyup[SDL_SCANCODE_W] = false;
@@ -322,7 +348,8 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
 			current_animation = &punch;
 			
-			App->audio->PlayChunk(App->audio->chunks[1]);
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 
 			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 			if(flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
@@ -336,7 +363,8 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E])		{
 			current_animation = &kick;
 
-			App->audio->PlayChunk(App->audio->chunks[2]);
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
 
 			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 			if(flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
@@ -349,8 +377,15 @@ update_status ModulePlayer::Update()
 		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)&& !leaveif && (stamina >= 15)) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
+//<<<<<<< HEAD
+			//App->audio->PlayChunk(App->audio->chunks[0]); -> DONE
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
+			
+		
+//=======
 			App->audio->PlayChunk(App->audio->chunks[0]);
 			stamina -= 15;
+//>>>>>>> 2433479078b1082cdc5f9a3c0fc665b00183240a
 		}
 		
 		
@@ -362,6 +397,7 @@ update_status ModulePlayer::Update()
 		App->player2->p2Won = true;
 		//current_animation = &death;
 		playerCollider->to_delete = true;
+		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 	}
 
 	if (stamina <= 0)
@@ -374,21 +410,29 @@ update_status ModulePlayer::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2] || App->UI->currenthp2 <= 0)
 	{
+
 		p1Won = true;
 		App->player2->hp = 0;
+
 		if (keyup[SDL_SCANCODE_F2])
 		{
 			keyup[SDL_SCANCODE_F2] = false;
 		}
+		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 	}
+
 	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] || App->UI->currenthp1 <= 0)
 	{
 		p2Won = true;
 		App->player->hp = 0;
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3])
+	{
+
 		if (keyup[SDL_SCANCODE_F3])
 		{
 			keyup[SDL_SCANCODE_F3] = false;
 		}
+		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 	}
 
 //Jumping movement--------------------------------------------
@@ -437,7 +481,10 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	if (current_animation == &victory || current_animation == &defeat || current_animation == &damaged) {
+		App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}
+	else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
 
@@ -447,13 +494,16 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 		A->to_delete = true;
 		
 		if (current_animation != &damaged)
-		{
-			App->player2->hp -= A->damage;
-			if(!flip) App->player2->position.x += 15;
-			if (flip) App->player2->position.x -= 15;
-			App->player2->current_animation = &damaged;
-		}
-		
+			{
+				App->player2->hp -= A->damage;
+				if (!flip) App->player2->position.x += 15;
+				if (flip) App->player2->position.x -= 15;
+				App->player2->current_animation = &damaged;
+				
+				/*App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Hit.wav"))*/;
+
+			}
+				
 	} 
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
