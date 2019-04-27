@@ -23,8 +23,18 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* Art = nullptr;
 	int font_start = -1;
-	float timer = 0;
-	SDL_Rect background, printFont, rArt, Charactersbox;
+
+	int startTime;
+
+	bool keyup[69] = { true };
+
+	SDL_Rect printFont, rArt, Charactersbox, P1Selector, P2Selector, CharactersR[8], PortraitP1, PortraitP2;
+
+	int P1posX[4] = {96, 124, 152, 180};
+	int P1posY[2] = {151, 179};
+	int ix = 1;
+	int iy = 0;
+	int P2posX, P2posY;
 };
 
 #endif 
