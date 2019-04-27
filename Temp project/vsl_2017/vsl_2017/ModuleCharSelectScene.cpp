@@ -20,7 +20,6 @@ ModuleCharSelectScene::ModuleCharSelectScene()
 {
 	Charactersbox = { 111, 0, 112, 56 };
 	P1Selector = { 130, 65, 28 , 31};
-	PortraitP1 = { 0, 0, 128,123};
 	for (int i = 0; i < 8; i++)
 	{
 		CharactersR[i] = { 0,(i * 24),24,24 };
@@ -35,6 +34,7 @@ bool ModuleCharSelectScene::Start()
 {
 	LOG("Loading Selector scene");
 	graphics = App->textures->Load("UI_AOF.png");
+	graphics2 = App->textures->Load("UI_AOF2.png");
 	printFont = { 4,870, 318 ,13 };
 	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnopqrstuvwxyz", printFont, 1);
 
@@ -99,10 +99,20 @@ update_status ModuleCharSelectScene::Update()
 	{
 		ix = 0;
 	}
+	if (iy == 1)
+	{
+		PortraitP1 = { 0, (4 + ix) * 128, 128,128 };
+	}
+	if (iy == 0)
+	{
+		PortraitP1 = { 0, ix * 128, 128,128 };
+	}
+
+	//..................................................................................
 	//PLAYER2: ---------------------------------------
 
 
-	//PORTRAITS: -----------------------------------------
+
 
 	// Draw everything --------------------------------------
 	App->render->DrawQuad({ 0, 0, 650, 500 }, 0, 0, 255, 255, false);
@@ -115,6 +125,7 @@ update_status ModuleCharSelectScene::Update()
 	App->render->Blit(graphics, 126, 183, &CharactersR[5], 1.0f, false, false);
 	App->render->Blit(graphics, 154, 183, &CharactersR[6], 1.0f, false, false);
 	App->render->Blit(graphics, 182, 183, &CharactersR[7], 1.0f, false, false);
+	App->render->Blit(graphics2, 0, 0, &PortraitP1, 1.0f, false, false);
 	App->render->Blit(graphics, P1posX[ix], P1posY[iy], &P1Selector, 1.0f, false, false);
 
 

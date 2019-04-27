@@ -21,6 +21,7 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics2 = nullptr;
 	SDL_Texture* Art = nullptr;
 	int font_start = -1;
 
