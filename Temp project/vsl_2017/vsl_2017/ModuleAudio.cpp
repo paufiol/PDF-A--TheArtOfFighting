@@ -38,9 +38,7 @@ bool ModuleAudio::Init()
 	Mix_VolumeMusic(DEFAULT_VOLUME);
 
 
-	chunks[0] = LoadChunk("kouken.ogg"); 
-	chunks[2] = LoadChunk("kouken.ogg"); 
-	chunks[1] = LoadChunk("ken.ogg"); //AQUI
+	//chunks[0] = LoadChunk("kouken.ogg"); ->DONE //AQUI
 
 	return ret;
 }
