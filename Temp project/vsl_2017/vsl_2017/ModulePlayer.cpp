@@ -8,6 +8,7 @@
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
+#include "ModuleUI.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -371,17 +372,18 @@ update_status ModulePlayer::Update()
 
 //Debug functionality-----------------------------------------
 
-	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
+	if ((App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2]) || App->UI->currenthp2 <=0)
 	{
-		p1Won = !p1Won;
+		p1Won = true;
+		
 		if (keyup[SDL_SCANCODE_F2])
 		{
 			keyup[SDL_SCANCODE_F2] = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3])
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] || App->UI->currenthp1 <=0)
 	{
-		p2Won = !p2Won;
+		p2Won = true;
 		if (keyup[SDL_SCANCODE_F3])
 		{
 			keyup[SDL_SCANCODE_F3] = false;
