@@ -31,8 +31,14 @@ public:
 
 	int chunk_number = 0;
 
+//<<<<<<< HEAD
+   /* Mix_Chunk* koukenFx; 
+	Mix_Chunk* PunchAttack;*/ //-> DONE
+	//-> Idealmente esto solo es como nombre de comodidad, solo un puntero, lo importante es chunks, para luego limpiar todos los chunks y evitar M. Leaks
+//=======
     Mix_Chunk* koukenFx; // Idealmente esto solo es como nombre de comodidad, solo un puntero, lo importante es chunks, para luego limpiar todos los chunks y evitar M. Leaks
 
+//>>>>>>> 2433479078b1082cdc5f9a3c0fc665b00183240a
 };
 
 #endif // __ModuleAudio_H__

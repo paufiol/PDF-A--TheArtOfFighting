@@ -1,4 +1,4 @@
-#include <math.h>
+//#include <math.h>
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -25,10 +25,14 @@ bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
 	graphics = App->textures->Load("ryo.png");
+//<<<<<<< HEAD
+	//App->audio->koukenFx = App->audio->LoadChunk("kouken.ogg"); ->DONE
+//=======
 	//App->audio->koukenFx = App->audio->LoadChunk("kouken.ogg"); 
+//>>>>>>> 2433479078b1082cdc5f9a3c0fc665b00183240a
 
 	//kouken.anim.PushBack({ 632, 348, 57, 108 });
-		// Sprites super ataque
+		//Sprites super ataque
 		//kouken.anim.PushBack({ 598, 879, 54, 106 });
 		//kouken.anim.PushBack({ 652, 883, 30, 102 });
 

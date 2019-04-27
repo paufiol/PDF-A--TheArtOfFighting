@@ -192,7 +192,10 @@ update_status ModulePlayer2::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	playerCollider->SetPos(position.x, position.y);
-
+	/*
+	if (current_animation == &victory || current_animation == &defeat || current_animation == &damaged) {
+		App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}*/
 	App->render->Blit(graphics, position.x, position.y, &r, 1.0f, flip);
 
 	return UPDATE_CONTINUE;
