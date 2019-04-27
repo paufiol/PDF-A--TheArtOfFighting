@@ -26,6 +26,7 @@ public:
 
 	int currentTimerposX;
 	int startTime;
+	int currenttime = 0;
 
 	int currenthp1, currenthp2;
 

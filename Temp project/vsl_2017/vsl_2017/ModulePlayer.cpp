@@ -144,7 +144,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	graphs = App->textures->Load("ryo2.png");
+	/*graphs = App->textures->Load("ryo2.png");*/
 
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 
@@ -372,18 +372,19 @@ update_status ModulePlayer::Update()
 
 //Debug functionality-----------------------------------------
 
-	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
+	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2] || App->UI->currenthp2 <= 0)
 	{
-		p1Won = !p1Won;
-		
+		p1Won = true;
+		App->player2->hp = 0;
 		if (keyup[SDL_SCANCODE_F2])
 		{
 			keyup[SDL_SCANCODE_F2] = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] )
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] || App->UI->currenthp1 <= 0)
 	{
-		p2Won = p2Won;
+		p2Won = true;
+		App->player->hp = 0;
 		if (keyup[SDL_SCANCODE_F3])
 		{
 			keyup[SDL_SCANCODE_F3] = false;

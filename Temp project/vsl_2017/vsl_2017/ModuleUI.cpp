@@ -45,9 +45,13 @@ bool ModuleUI::Start()
 update_status ModuleUI::Update()
 {
 	//Timer:
-	int currenttime = 0;
-	currenttime = (SDL_GetTicks() - startTime) / 1000;
+
 	//if (currenttime > 60) currenttime %= 60;
+	if (!App->player->p1Won  )
+	{
+		currenttime = 0;
+		currenttime = (SDL_GetTicks() - startTime) / 1000;
+	}
 
 	if (currenttime >= 30)
 	{	
@@ -69,6 +73,7 @@ update_status ModuleUI::Update()
 		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
 	}
 	if (currenttime > 60) timerrect = { 60,816,32,24 };
+
 	
 	//--------------------------------------------------------------------
 		//Lifebars:
