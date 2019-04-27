@@ -97,7 +97,7 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 790, 235, 103, 113 });
 	kick.PushBack({ 729, 235, 61, 113 });
 	kick.PushBack({ 669, 235, 60, 109 });
-	kick.speed = 0.2f;
+	kick.speed = 0.1f;
 	kick.lock = true;
 
 	flipkick.PushBack({ 669, 235, 60, 109 });
@@ -121,14 +121,28 @@ ModulePlayer::ModulePlayer()
 	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
-	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.PushBack({ 925, 754, 59, 63 });
-	damaged.PushBack({ 866, 754, 59, 99 });
+	damaged.PushBack({ 0,135,66,107 });
+	damaged.PushBack({ 66,134,708,108 });
+	damaged.PushBack({ 144,135,66,107 });
 	damaged.speed = 0.1f;
 	damaged.lock = true;
 
+	victory.PushBack({ 0, 256, 53, 116 });
+	victory.PushBack({ 65, 266, 69, 106 });
+	victory.speed = 0.1f;
+	victory.lock = true;
+
+	defeat.PushBack({0, 0, 66, 115});
+	defeat.PushBack({ 66, 0, 73, 115 });
+	defeat.PushBack({ 144, 8, 64, 107 });
+	defeat.PushBack({ 208, 29, 62, 86 });
+	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.lock = true; 
+	defeat.speed = 0.1f;
+
 	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
-	
+
+
 	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
 	//victory------------> 0,256,53 ,116 // 65, 266, 69, 106 
 	//defeat-------------> 0, 0, 66, 115 // 66, 0, 73, 115 // 144, 8, 64, 107 // 208, 29, 62, 86 // 270, 53, 58, 62
@@ -143,7 +157,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	graphs = App->textures->Load("ryo2.png");
+	graphics2 = App->textures->Load("ryo2.png");
 
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 
@@ -434,7 +448,10 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	if (current_animation == &victory || current_animation == &defeat || current_animation == &damaged) {
+		App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}
+	else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
 
