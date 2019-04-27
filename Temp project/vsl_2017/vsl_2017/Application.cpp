@@ -54,6 +54,7 @@ bool Application::Init()
 	player->Disable();
 	player2->Disable();
 	// Disable the map that you do not start with
+	scene_characterselect->Disable();
 	scene_karuta->Disable();
 	scene_bar->Disable();
 	scene_end->Disable();

@@ -26,10 +26,10 @@ ModuleUI::ModuleUI()
 
 	for (int i = 0; i < 9; i++)
 	{
-		characterID[i] = i * 22;
+		characterID[i] = i * 24;
 	}
-	avatar1rect = {0,characterID[0],23,23};
-	avatar2rect = {0,characterID[0],23,23};
+	avatar1rect = {0,characterID[0],24,24};
+	avatar2rect = {0,characterID[0],24,24};
 }
 ModuleUI::~ModuleUI()
 {
