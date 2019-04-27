@@ -36,7 +36,11 @@ bool ModuleAudio::Init()
 	}
 
 	Mix_VolumeMusic(DEFAULT_VOLUME);
-	chunks[0] = LoadChunk("kouken.ogg"); //AQUI
+
+
+	chunks[0] = LoadChunk("kouken.ogg"); 
+	chunks[2] = LoadChunk("kouken.ogg"); 
+	chunks[1] = LoadChunk("ken.ogg"); //AQUI
 
 	return ret;
 }
@@ -71,7 +75,7 @@ void ModuleAudio::StopMusic() {
 	Mix_FadeOutMusic(1000);
 }
 
-Mix_Chunk * ModuleAudio::LoadChunk(const char* path)
+Mix_Chunk * ModuleAudio::LoadChunk( const char* path)
 {
 	Mix_Chunk* chunk = nullptr;
 	chunk = Mix_LoadWAV(path);

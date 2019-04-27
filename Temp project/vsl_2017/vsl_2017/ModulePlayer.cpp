@@ -317,8 +317,10 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
 			current_animation = &punch;
 			
+			App->audio->PlayChunk(App->audio->chunks[1]);
+
 			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+			if(flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 			leaveif = true;
 			if (keyup[SDL_SCANCODE_Q]) {
 				StoreInput(SDL_SCANCODE_Q);
@@ -326,9 +328,11 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E])
-		{
+		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E])		{
 			current_animation = &kick;
+
+			App->audio->PlayChunk(App->audio->chunks[2]);
+
 			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 			if(flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 			if (keyup[SDL_SCANCODE_E]) {
@@ -340,7 +344,7 @@ update_status ModulePlayer::Update()
 		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN)&& !leaveif) {
 			current_animation = &koukenR;
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
-			App->audio->PlayChunk(App->audio->koukenFx);
+			App->audio->PlayChunk(App->audio->chunks[0]);
 		
 		}
 		
