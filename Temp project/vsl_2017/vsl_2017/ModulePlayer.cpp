@@ -427,10 +427,11 @@ update_status ModulePlayer::Update()
 	{
 		p2Won = true;
 		App->player->hp = 0;
-		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
+		
 		if (keyup[SDL_SCANCODE_F3])
 		{
 			keyup[SDL_SCANCODE_F3] = false;
+			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 		}
 	}
 
