@@ -207,7 +207,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (current_animation->Finished() || current_animation->lock == false)
+	if (current_animation->Finished() || current_animation->lock == false && !p1Won)
 	{
 		if (current_animation->Finished()) {
 			current_animation->Reset();
