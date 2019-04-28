@@ -170,6 +170,7 @@ bool ModulePlayer2::Start()
 	bool ret = true;
 	graphics = App->textures->Load("RESOURCES/ryo.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
+	graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 
 	hp = 100;
 	stamina = 100;
@@ -396,7 +397,7 @@ update_status ModulePlayer2::Update()
 
 	}
 
-	if (hp <= 0)
+	if (hp <= 0 && App->player->p1Won != true)
 	{
 		hp = 0;
 		current_animation = &defeat;
