@@ -33,7 +33,7 @@ ModuleUI::~ModuleUI()
 bool ModuleUI::Start()
 {
 	LOG("Loading UI textures");
-	graphics = App->textures->Load("UI_AOF.png");
+	graphics = App->textures->Load("IMAGES/UI_AOF.png");
 	startTime = SDL_GetTicks();
 	currentsta1 = 0;
 	currentsta2 = 0;
