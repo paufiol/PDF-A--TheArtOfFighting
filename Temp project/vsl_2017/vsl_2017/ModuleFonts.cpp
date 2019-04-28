@@ -96,6 +96,6 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text, SDL_Rect
 				break;
 			}
 		}
-		App->render->Blit(font->graphic, x, y, &rect, false);
+		App->render->Blit(font->graphic, x, y, &rect, false, false);
 	}
 }
