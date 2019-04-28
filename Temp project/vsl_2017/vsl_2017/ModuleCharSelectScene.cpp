@@ -70,7 +70,7 @@ update_status ModuleCharSelectScene::Update()
 		if (iy == 1)
 		{
 			iy = 0;
-			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	
 		
@@ -81,7 +81,7 @@ update_status ModuleCharSelectScene::Update()
 		{
 			if (ix != 0)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			ix--;
 			keyup[SDL_SCANCODE_A] = false;
@@ -93,7 +93,7 @@ update_status ModuleCharSelectScene::Update()
 		if (iy == 0)
 		{
 			iy = 1;
-			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
 	if ((App->input->keyboard[SDL_SCANCODE_D] == 1) && keyup[SDL_SCANCODE_D])
@@ -102,7 +102,7 @@ update_status ModuleCharSelectScene::Update()
 		{
 			if (ix != 3)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			ix++;
 			keyup[SDL_SCANCODE_D] = false;	
@@ -135,7 +135,7 @@ update_status ModuleCharSelectScene::Update()
 		if (jy == 1)
 		{
 			jy = 0;
-			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
 	if ((App->input->keyboard[SDL_SCANCODE_J] == 1) && keyup[SDL_SCANCODE_J])
@@ -144,7 +144,7 @@ update_status ModuleCharSelectScene::Update()
 		{
 			if (ix != 0)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			jx--;
 			keyup[SDL_SCANCODE_J] = false;
@@ -155,14 +155,14 @@ update_status ModuleCharSelectScene::Update()
 		if (jy == 0)
 		{
 			jy = 1;
-			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
 	if ((App->input->keyboard[SDL_SCANCODE_L] == 1) && keyup[SDL_SCANCODE_L])
 	{
 		if (jx >= 0 && keyup[SDL_SCANCODE_L])
 		{			
-			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 			jx++;
 			keyup[SDL_SCANCODE_L] = false;
 		}
