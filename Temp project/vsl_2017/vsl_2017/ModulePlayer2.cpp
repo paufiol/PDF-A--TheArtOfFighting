@@ -170,11 +170,12 @@ bool ModulePlayer2::Start()
 	bool ret = true;
 	graphics = App->textures->Load("RESOURCES/ryo.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
+	graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 
 	hp = 100;
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER2, this);
-
+	winFrame2 = {65,266,69,106 };
 	return ret;
 }
 
@@ -396,10 +397,10 @@ update_status ModulePlayer2::Update()
 
 	}
 
-	if (hp <= 0)
+	if (hp <= 0 && App->player->p1Won != true)
 	{
 		hp = 0;
-		current_animation = &defeat;
+		/*current_animation = &defeat;*/
 
 		App->player->p1Won = true;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
@@ -484,14 +485,29 @@ update_status ModulePlayer2::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	if (!p1Won)
+	if (!p2Won)
 	{
 		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
-			if (wFrame <= 1) {
-				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-			}
+
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}
+
+	if (p2Won)
+	{
+		if (wFrame > 0)
+		{
+			//current_animation = &victory;
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
+		}
+		if (wFrame == 0)
+		{
+			current_animation = &victory;
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip);
+		}
+		wFrame++;
 	}
 	return UPDATE_CONTINUE;
 }
