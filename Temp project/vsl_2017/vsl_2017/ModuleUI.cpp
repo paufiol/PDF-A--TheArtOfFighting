@@ -70,7 +70,7 @@ update_status ModuleUI::Update()
 		currentTimerposX = 928 - (32 * (currenttime - 30));
 		if (currenttime > 60) currentTimerposX = 928 - (32 * (60 - 30)); //si es mayor de 60 se queda en 0.
 		timerrect = { currentTimerposX,792,32,24 };
-		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
+		App->render->Blit(graphics, 146, 8, &timerrect, 1.0f, false, false);
 
 		if (currenttime == 60) //Victory in case of time up.
 		{
@@ -82,7 +82,7 @@ update_status ModuleUI::Update()
 	{
 		currentTimerposX = 928 - (32 * currenttime);
 		timerrect = { currentTimerposX,816,32,24 };
-		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
+		App->render->Blit(graphics, 146, 8, &timerrect, 1.0f, false, false);
 	}
 	if (currenttime > 60) timerrect = { 60,816,32,24 };
 
@@ -90,8 +90,8 @@ update_status ModuleUI::Update()
 	//--------------------------------------------------------------------
 		//Lifebars:
 
-	App->render->Blit(graphics, 8, 16, &emptylb, 1.0f, false, false);
-	App->render->Blit(graphics, 303, 16, &emptylb, 1.0f, false, false);
+	App->render->Blit(graphics, 18, 16, &emptylb, 1.0f, false, false);
+	App->render->Blit(graphics, 178, 16, &emptylb, 1.0f, false, false);
 
 	if (currenthp1 > ReglaDe3(App->player->hp, 100, 127))
 	{
@@ -105,8 +105,8 @@ update_status ModuleUI::Update()
 
 		lifebar2rect = { 766,1, currenthp2,7 };
 	}
-	App->render->Blit(graphics, 9, 17, &lifebar1rect, 1.0f, false, false);
-	App->render->Blit(graphics, 169, 17, &lifebar2rect, 1.0f, false, false);
+	App->render->Blit(graphics, 19, 17, &lifebar1rect, 1.0f, false, false);
+	App->render->Blit(graphics, 179, 17, &lifebar2rect, 1.0f, false, false);
 	//--------------------------------------------------------------------
 	//STAMINABARS:
 	if (currentsta1 != ReglaDe3(App->player->stamina, 100, 128))
@@ -137,19 +137,19 @@ update_status ModuleUI::Update()
 		}
 	}
 
-	App->render->Blit(graphics, 43, 24, &staminabar1rect, 1.0f, true, false);
-	App->render->Blit(graphics, 168, 24, &staminabar2rect, 1.0f, false, false);
+	App->render->Blit(graphics, 53, 24, &staminabar1rect, 1.0f, true, false);
+	App->render->Blit(graphics, 178, 24, &staminabar2rect, 1.0f, false, false);
 
 	//---------------------------------------------------------------------------
 	//Pictures:
-	App->render->DrawQuad({ 32, 66, 52, 52 }, 255, 255, 255, 255, false);
-	App->render->DrawQuad({ 561, 66, 52, 52 }, 255, 255, 255, 255, false);
-	App->render->Blit(graphics, 17, 34, &avatar1rect, 1.0f, false, false);
-	App->render->Blit(graphics, 265, 34, &avatar2rect, 1.0f, true, false);
-	App->fonts->BlitText(24, 3, font_start, "beat_by_0", printFont1);
-	App->fonts->BlitText(200, 3, font_start, "beat_by_0", printFont1);
-	App->fonts->BlitText(40, 32, font_mini, "ryo", printFont2);
-	App->fonts->BlitText(240, 32, font_mini, "ryo", printFont2);
+	App->render->DrawQuad({ 52, 66, 52, 52 }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ 541, 66, 52, 52 }, 255, 255, 255, 255, false);
+	App->render->Blit(graphics, 27, 34, &avatar1rect, 1.0f, false, false);
+	App->render->Blit(graphics, 255, 34, &avatar2rect, 1.0f, true, false);
+	App->fonts->BlitText(34, 3, font_start, "beat_by_0", printFont1);
+	App->fonts->BlitText(210, 3, font_start, "beat_by_0", printFont1);
+	App->fonts->BlitText(50, 32, font_mini, "ryo", printFont2);
+	App->fonts->BlitText(230, 32, font_mini, "ryo", printFont2);
 	//Rounds:------------------------------------------------------------------
 	//SDL_Rect r = current_animation->GetCurrentFrame();
 	//App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);

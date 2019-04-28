@@ -34,6 +34,7 @@ ModuleCharSelectScene::~ModuleCharSelectScene()
 bool ModuleCharSelectScene::Start()
 {
 	LOG("Loading Selector scene");
+	startTime = SDL_GetTicks();
 	graphics = App->textures->Load("RESOURCES/UI_AOF.png");
 	graphics2 = App->textures->Load("RESOURCES/UI_AOF2.png");
 	printFont = { 0,844, 360 ,12 };
@@ -194,7 +195,6 @@ update_status ModuleCharSelectScene::Update()
 
 
 
-
 	// Draw everything --------------------------------------
 	App->render->DrawQuad({ 0, 0, 650, 500 }, 0, 0, 255, 255, false);
 	App->render->Blit(graphics, 96, 154, &Charactersbox, 1.0f, false, false);
@@ -214,7 +214,24 @@ update_status ModuleCharSelectScene::Update()
 	App->render->Blit(graphics, P2posX[jx], P2posY[jy], &P2Selector, 1.0f, false, false);
 	App->fonts->BlitText(72, 11, font_start, "vs_mode_select_player", printFont);
 	App->fonts->BlitText(136, 80, font_mini, "time", printFont2);
-	App->fonts->BlitText(144, 87, font_mini, "10", printFont2);
+	//App->fonts->BlitText(144, 87, font_mini, "10", printFont2);
+//TIMER----------------------------------------------------------
+	int currenttime = 0;
+	currenttime = (SDL_GetTicks() - startTime) / 1000;
+
+	if (currenttime <= 10)
+	{
+		currentTimerposX = 731 + (8 *currenttime);
+	}
+
+	timerR = { 1008,currentTimerposX,16,8 };
+
+	App->render->Blit(graphics, 150, 87, &timerR, 1.0f, false, false);
+
+	if (currenttime >= 10)
+	{
+		App->fade->FadeToBlack((Module*)App->scene_characterselect, (Module*)App->scene_karuta, 1.0f);
+	}
 
 
 	

@@ -27,6 +27,10 @@ public:
 	float timer;
 	int constTimer = 0;
 	SDL_Rect background, printFont,rSNK,rArt,rOf, rFighting , rFightingB, rArtB, rOfB;
+
+	int startTime;
+	int currentTIMEY;
+	SDL_Rect timerR;
 };
 
 #endif 

@@ -272,8 +272,8 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_Q] && !leaveif)
 		{
 			current_animation = &crouchpunch;
-			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
-			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 			leaveif = true;
 
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
@@ -289,8 +289,8 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_E] && !leaveif)
 		{
 			current_animation = &crouchkick;
-			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
-			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 			leaveif = true;
 
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
@@ -500,7 +500,7 @@ update_status ModulePlayer::Update()
 	{
 		if ( current_animation == &victory || current_animation == &defeat) {
 			
-				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 			
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);

@@ -48,6 +48,7 @@ bool ModuleSceneSplash::Start()
 	timer = -50;
 	App->render->camera.x = 0;
 	if(App->player->IsEnabled() == true) App->player->Disable();
+	startTime = SDL_GetTicks();
 	return true;
 }
 
@@ -138,12 +139,23 @@ update_status ModuleSceneSplash::Update()
 		}
 	}
 	
-	
+	//TIMER:----------------
+	int currenttime = 0;
+	currenttime = (SDL_GetTicks() - startTime) / 1000;
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (currenttime <= 30)
+	{
+		currentTIMEY = 571 + (8 * currenttime);
+	}
+
+	timerR = { 1008,currentTIMEY,16,8 };
+
+	App->render->Blit(UI, 150, 140, &timerR, 1.0f, false, false);
+
+	if (currenttime >= 30)
 	{
 		App->fade->FadeToBlack((Module*)App->scene_splash, (Module*)App->scene_characterselect, 1.0f);
-
 	}
+
 	return UPDATE_CONTINUE;
 }
