@@ -37,7 +37,7 @@ ModuleSceneSplash::~ModuleSceneSplash()
 bool ModuleSceneSplash::Start()
 {
 	LOG("Loading Splash scene");
-	App->audio->PlayMusic("Splash_song.ogg", 1);
+	App->audio->PlayMusic("RESOURCES/Splash_song.ogg", 1);
 	splashTitle = App->textures->Load("RESOURCES/InitSplash.png");
 	UI = App->textures->Load("RESOURCES/UI_AOF.png");
 	printFontBM = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
