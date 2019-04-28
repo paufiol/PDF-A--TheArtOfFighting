@@ -31,7 +31,7 @@ bool ModuleSceneEnd::Start()
 {
 	LOG("Loading End scene");
     bool ret = true;
-	App->audio->PlayMusic("MUSIC_FXS/MUSIC/CONTINUE_SONG/Hey_Let_s_Do_It_Again.ogg", -1);
+	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/CONTINUE_SONG/Hey_Let_s_Do_It_Again.ogg", -1);
 	UIsprite = App->textures->Load("RESOURCES/UI_AOF.png");
 	portraitRyo = App->textures->Load("RESOURCES/RyoPortrait.png");
 	printFontBM = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);

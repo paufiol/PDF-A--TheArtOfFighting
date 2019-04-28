@@ -31,7 +31,7 @@ bool ModuleSceneKaruta::Start()
 	bool ret = true;
 	App->player->p1Won = false;
 	App->player->p2Won = false;
-	App->audio->PlayMusic("MUSIC_FXS/MUSIC/FIGHT_SONG/Ryuhaku_Todoh.ogg", -1);
+	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/FIGHT_SONG/Ryuhaku_Todoh.ogg", -1);
 	graphics = App->textures->Load("RESOURCES/Karuta.png");
 	/*App->scene_splash->printFontBM= App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz?!._", App->scene_splash->printFont, 1);*/
 
