@@ -34,12 +34,12 @@ ModuleCharSelectScene::~ModuleCharSelectScene()
 bool ModuleCharSelectScene::Start()
 {
 	LOG("Loading Selector scene");
-	graphics = App->textures->Load("UI_AOF.png");
-	graphics2 = App->textures->Load("UI_AOF2.png");
+	graphics = App->textures->Load("RESOURCES/UI_AOF.png");
+	graphics2 = App->textures->Load("RESOURCES/UI_AOF2.png");
 	printFont = { 0,844, 360 ,12 };
 	printFont2 = { 0,861, 360 ,8 };
-	font_start = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
-	font_mini = App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
+	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
+	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 	App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/MUSIC/CHAMP_SELECT/champ_select_theme.ogg"));
 
 	

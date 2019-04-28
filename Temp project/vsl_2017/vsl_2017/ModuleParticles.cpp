@@ -24,7 +24,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("ryo.png");
+	graphics = App->textures->Load("RESOURCES/ryo.png");
 //<<<<<<< HEAD
 	//App->audio->koukenFx = App->audio->LoadChunk("kouken.ogg"); ->DONE
 //=======

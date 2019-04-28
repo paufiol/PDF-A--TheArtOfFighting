@@ -143,7 +143,7 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("ryo.png");
+	graphics = App->textures->Load("RESOURCES/ryo.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
 
 	hp = 100;

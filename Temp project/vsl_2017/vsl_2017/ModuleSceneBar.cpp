@@ -33,7 +33,7 @@ bool ModuleSceneBar::Start()
 {
 	LOG("Loading Bar scene");
 	App->audio->PlayMusic("Splash_song.ogg", -1);
-	graphics = App->textures->Load("Bar.png");
+	graphics = App->textures->Load("RESOURCES/Bar.png");
 
 	// TODO 1: Enable (and properly disable) the player module
 	App->player->Enable();

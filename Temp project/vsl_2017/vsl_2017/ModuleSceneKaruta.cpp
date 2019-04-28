@@ -30,7 +30,7 @@ bool ModuleSceneKaruta::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	App->audio->PlayMusic("MUSIC_FXS/MUSIC/FIGHT_SONG/Ryuhaku_Todoh.ogg", -1);
-	graphics = App->textures->Load("Karuta.png");
+	graphics = App->textures->Load("RESOURCES/Karuta.png");
 	/*App->scene_splash->printFontBM= App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz?!._", App->scene_splash->printFont, 1);*/
 
 	App->UI->Enable();
@@ -76,10 +76,10 @@ update_status ModuleSceneKaruta::Update()
 		}
 	}
 
-	//if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-	//{
-	//	App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
-	//}
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	{
+		App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
+	}
 	
 
 	return UPDATE_CONTINUE;

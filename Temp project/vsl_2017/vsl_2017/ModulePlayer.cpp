@@ -157,8 +157,8 @@ bool ModulePlayer::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("ryo.png");
-	graphics2 = App->textures->Load("ryo2.png");
+	graphics = App->textures->Load("RESOURCES/ryo.png");
+	graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 
 	hp = 100;
 	stamina = 100;
