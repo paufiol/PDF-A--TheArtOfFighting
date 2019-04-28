@@ -26,8 +26,9 @@ public:
 	int font_start = -1;
 	int font_mini = -1;
 
+	int currentTimerposX;
 	int startTime;
-	int currenttime = 2;
+	SDL_Rect timerR;
 
 	bool keyup[69] = { true };
 
