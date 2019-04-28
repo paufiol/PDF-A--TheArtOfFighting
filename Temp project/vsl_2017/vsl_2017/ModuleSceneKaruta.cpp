@@ -67,6 +67,11 @@ update_status ModuleSceneKaruta::Update()
 		{
 			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
 		}
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		{
+			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
+		}
+
 	}
 	if (App->player->p2Won)
 	{
@@ -76,12 +81,13 @@ update_status ModuleSceneKaruta::Update()
 		{
 			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
 		}
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		{
+			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
+		}
+
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-	{
-		App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_end, 3.0f);
-	}
 	
 
 	return UPDATE_CONTINUE;
