@@ -40,7 +40,7 @@ bool ModuleCharSelectScene::Start()
 	printFont2 = { 0,861, 360 ,8 };
 	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
-	App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/MUSIC/CHAMP_SELECT/champ_select_theme.ogg"));
+	App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/MUSIC/CHAMP_SELECT/champ_select_theme.ogg"));
 
 	
 	return true;
