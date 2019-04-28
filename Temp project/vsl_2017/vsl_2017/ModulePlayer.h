@@ -55,7 +55,7 @@ public:
 	int font_start = -1;
 	int wFrame = 0;
 
-	bool p1Won = false, p2Won = false, godMode = false;
+	bool p1Won = false, p2Won = false;
 
 	Animation* current_animation = &idle;
 

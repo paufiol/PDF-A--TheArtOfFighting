@@ -435,15 +435,7 @@ update_status ModulePlayer::Update()
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F4])
-	{
-		godMode = !godMode;
 
-		if (keyup[SDL_SCANCODE_F4])
-		{
-			keyup[SDL_SCANCODE_F4] = false;
-		}
-	}
 
 	//Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
@@ -512,7 +504,7 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 
 		if (current_animation != &damaged)
 		{
-			if(!godMode){ App->player2->hp -= A->damage; }
+			App->player2->hp -= A->damage;
 			if (!flip) App->player2->position.x += 15;
 			if (flip) App->player2->position.x -= 15;
 			App->player2->current_animation = &damaged;
