@@ -245,7 +245,8 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_Q] && !leaveif)
 		{
 			current_animation = &crouchpunch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 
 			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
@@ -261,7 +262,8 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_E] && !leaveif)
 		{
 			current_animation = &crouchkick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 
 			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
@@ -382,7 +384,7 @@ update_status ModulePlayer::Update()
 
 	//Debug functionality-----------------------------------------
 
-	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2] || App->UI->currenthp2 <= 0)
+	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
 	{
 		p1Won = true;
 		App->player2->hp = 0;
@@ -392,7 +394,7 @@ update_status ModulePlayer::Update()
 			keyup[SDL_SCANCODE_F2] = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] || App->UI->currenthp1 <= 0)
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3])
 	{
 		p2Won = true;
 		App->player->hp = 0;
@@ -450,7 +452,11 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+
+	if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
+		App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}
+	else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
 
