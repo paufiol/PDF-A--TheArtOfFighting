@@ -40,7 +40,7 @@ bool ModuleCharSelectScene::Start()
 	printFont2 = { 0,861, 360 ,8 };
 	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
-	App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/MUSIC/CHAMP_SELECT/champ_select_theme.ogg"));
+	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/CHAMP_SELECT/champ_select_theme.ogg", -1);
 
 	
 	return true;
@@ -49,8 +49,10 @@ bool ModuleCharSelectScene::Start()
 // UnLoad assets
 bool ModuleCharSelectScene::CleanUp()
 {
+	App->audio->StopMusic();
 	SDL_DestroyTexture(graphics);
 	LOG("Unloading Selector scene");
+	
 
 	return true;
 }
@@ -142,7 +144,7 @@ update_status ModuleCharSelectScene::Update()
 	{
 		if (jx <= 3 && keyup[SDL_SCANCODE_J])
 		{
-			if (ix != 0)
+			if (jx != 0)
 			{
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
@@ -162,10 +164,14 @@ update_status ModuleCharSelectScene::Update()
 	{
 		if (jx >= 0 && keyup[SDL_SCANCODE_L])
 		{			
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			if (jx != 3)
+			{
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			}
 			jx++;
 			keyup[SDL_SCANCODE_L] = false;
 		}
+		
 	}
 	if (jx > 3)
 	{
