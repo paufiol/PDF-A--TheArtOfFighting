@@ -248,12 +248,14 @@ update_status ModulePlayer2::Update()
 			current_animation = &jump;
 			jumping = JUMP_UP;
 			speed.x = 4.5f;
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
 			speed.x = -4.5f;
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_DOWN)
@@ -343,6 +345,7 @@ update_status ModulePlayer2::Update()
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 
 			if (keyup[SDL_SCANCODE_I]) {
 				StoreInput(SDL_SCANCODE_I);
