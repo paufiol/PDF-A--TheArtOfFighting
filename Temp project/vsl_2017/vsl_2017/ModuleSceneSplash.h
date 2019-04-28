@@ -22,10 +22,11 @@ public:
 
 	SDL_Texture* UI = nullptr;
 	SDL_Texture* splashTitle = nullptr;
+	bool art = false, of = false;
 	int printFontBM = -1;
 	float timer;
 	int constTimer = 0;
-	SDL_Rect background, printFont,rSNK,rArt,rOf, rFightingB, rFighting;
+	SDL_Rect background, printFont,rSNK,rArt,rOf, rFighting , rFightingB, rArtB, rOfB;
 };
 
 #endif 

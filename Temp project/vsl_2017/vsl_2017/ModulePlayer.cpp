@@ -232,7 +232,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (current_animation->Finished() || current_animation->lock == false && !p1Won)
+	if (current_animation->Finished() || current_animation->lock == false && !p1Won && !p2Won)
 	{
 		if (current_animation->Finished()) {
 			current_animation->Reset();
@@ -412,7 +412,7 @@ update_status ModulePlayer::Update()
 	if (hp <= 0)
 	{
 		hp = 0;
-		App->player2->p2Won = true;
+		App->player->p2Won = true;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 		//current_animation = &death;
 		playerCollider->to_delete = true;
@@ -445,6 +445,16 @@ update_status ModulePlayer::Update()
 		{
 			keyup[SDL_SCANCODE_F3] = false;
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
+		}
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F4])
+	{
+		godMode = !godMode;
+
+		if (keyup[SDL_SCANCODE_F4])
+		{
+			keyup[SDL_SCANCODE_F4] = false;
 		}
 	}
 
@@ -516,7 +526,7 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 
 		if (current_animation != &damaged)
 		{
-			App->player2->hp -= A->damage;
+			if (!godMode) { App->player2->hp -= A->damage; }
 			if (!flip) App->player2->position.x += 15;
 			if (flip) App->player2->position.x -= 15;
 			App->player2->current_animation = &damaged;
