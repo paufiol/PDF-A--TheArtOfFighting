@@ -131,10 +131,10 @@ ModulePlayer::ModulePlayer()
 	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
-	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.PushBack({ 925, 754, 59, 63 });
-	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.speed = 0.1f;
+	damaged.PushBack({ 0,135,66 ,107 });
+	damaged.PushBack({ 66,134, 78, 138 });
+	//damaged.PushBack({ 144, 135, 66, 107 });
+	damaged.speed = 0.05f;
 	damaged.lock = true;
 
 	victory.PushBack({ 0, 256, 53, 116 });

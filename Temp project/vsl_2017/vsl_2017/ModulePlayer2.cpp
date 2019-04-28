@@ -175,7 +175,7 @@ bool ModulePlayer2::Start()
 	hp = 100;
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER2, this);
-
+	winFrame2 = {65,266,69,106 };
 	return ret;
 }
 
@@ -485,13 +485,29 @@ update_status ModulePlayer2::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	if (!p1Won)
+	if (!p2Won)
 	{
 		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
-		
+
 			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}
+
+	if (p2Won)
+	{
+		if (wFrame > 0)
+		{
+			//current_animation = &victory;
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
+		}
+		if (wFrame == 0)
+		{
+			current_animation = &victory;
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip);
+		}
+		wFrame++;
 	}
 	return UPDATE_CONTINUE;
 }
