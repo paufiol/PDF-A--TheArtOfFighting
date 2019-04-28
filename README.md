@@ -77,25 +77,25 @@ when the round time is up.
 ### Controls
 SPACE as enter Key (To enter game, select character etc.)
 
-PLAYER 1:
-A/D: Forward/Backward
-W: Jump
-S: Crouch
-Q: Punch
-E: Kick
-S, D, Q, E: Kouken
+**PLAYER 1:**
+- A/D: Forward/Backward
+- W: Jump
+- S: Crouch
+- Q: Punch
+- E: Kick
+- S, D, Q, E: Kouken
 
-PLAYER 2:
-J/L: Forward/Backward
-I: Jump
-K: Crouch
-U: Punch
-O: Kick
-K, L, U, O: Kouken
+**PLAYER 2:**
+- J/L: Forward/Backward
+- I: Jump
+- K: Crouch
+- U: Punch
+- O: Kick
+- K, L, U, O: Kouken
 
-DEBUG:
-F1: Show/hide hitboxes
-F2: Instant win P1
-F3: Instant win P2
-F4: God Mode
-F6: Automatic Kouken
+**DEBUG:**
+- F1: Show/hide hitboxes
+- F2: Instant win P1
+- F3: Instant win P2
+- F4: God Mode
+- F6: Automatic Kouken
