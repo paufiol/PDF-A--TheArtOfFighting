@@ -34,6 +34,7 @@ ModuleCharSelectScene::~ModuleCharSelectScene()
 bool ModuleCharSelectScene::Start()
 {
 	LOG("Loading Selector scene");
+	startTime = SDL_GetTicks();
 	graphics = App->textures->Load("RESOURCES/UI_AOF.png");
 	graphics2 = App->textures->Load("RESOURCES/UI_AOF2.png");
 	printFont = { 0,844, 360 ,12 };
@@ -218,10 +219,6 @@ update_status ModuleCharSelectScene::Update()
 	int currenttime = 0;
 	currenttime = (SDL_GetTicks() - startTime) / 1000;
 
-	/*	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
-		{
-			currenttime++;
-		}*/
 	if (currenttime <= 10)
 	{
 		currentTimerposX = 731 + (8 *currenttime);
