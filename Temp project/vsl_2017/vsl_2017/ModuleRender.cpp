@@ -79,15 +79,17 @@ update_status ModuleRender::Update()
 		if (!App->player->p1Won)
 		{
 			camera.x = -(App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) + SCREEN_WIDTH;
+
+
 		}
 		else if (App->player->p1Won)
 		{
 			/*camera.x = -(App->player->position.x - (App->player->playerCollider->rect.w / 2) - SCREEN_WIDTH);*/
-			if (camera.x  >  App->player->position.x + (App->player->playerCollider->rect.w / 2) - (SCREEN_WIDTH / 2))
+			if (camera.x  >= -((App->player->position.x + (App->player->playerCollider->rect.w / 2) )*2 - SCREEN_WIDTH) )//+ /*(App->player->playerCollider->rect.w / 2)*/ - (SCREEN_WIDTH/2))
 			{
-				camera.x-=speed;
+				camera.x -= speed;
 			}
-			if (camera.x < App->player->position.x + (App->player->playerCollider->rect.w / 2) - (SCREEN_WIDTH / 2))
+			if (camera.x < -((App->player->position.x + (App->player->playerCollider->rect.w / 2))*2 - SCREEN_WIDTH))//+ /*(App->player->playerCollider->rect.w / 2) <*/- (SCREEN_WIDTH/2))
 			{
 				camera.x += speed;
 			}
@@ -95,8 +97,7 @@ update_status ModuleRender::Update()
 		}
 	}
 	if (camera.x > 0) camera.x = 0;
-	if ((camera.x) < -595 + SCREEN_WIDTH/2) camera.x = -595 + SCREEN_WIDTH / 2;
-
+	if ((camera.x) < -595 + SCREEN_WIDTH / 2) camera.x = -595 + SCREEN_WIDTH / 2;
 	return update_status::UPDATE_CONTINUE;
 }
 

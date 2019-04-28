@@ -128,6 +128,20 @@ ModulePlayer::ModulePlayer()
 	damaged.speed = 0.1f;
 	damaged.lock = true;
 
+	victory.PushBack({ 0, 256, 53, 116 });
+	victory.PushBack({ 65, 266, 69, 106 });
+	victory.speed = 0.1f;
+	victory.lock = true;
+
+	defeat.PushBack({ 0, 0, 66, 115 });
+	defeat.PushBack({ 66, 0, 73, 115 });
+	defeat.PushBack({ 144, 8, 64, 107 });
+	defeat.PushBack({ 208, 29, 62, 86 });
+	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.lock = true;
+	defeat.speed = 0.1f;
+
+
 	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
 
 	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
@@ -144,11 +158,12 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	/*graphs = App->textures->Load("ryo2.png");*/
+	graphics2 = App->textures->Load("ryo2.png");
 
 	hp = 100;
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
+	winFrame2 = { 65, 266, 69, 106 };
 
 	return ret;
 }
@@ -208,7 +223,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (current_animation->Finished() || current_animation->lock == false)
+	if (current_animation->Finished() || current_animation->lock == false && !p1Won)
 	{
 		if (current_animation->Finished()) {
 			current_animation->Reset();
@@ -246,7 +261,8 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_Q] && !leaveif)
 		{
 			current_animation = &crouchpunch;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 
 			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
@@ -262,7 +278,8 @@ update_status ModulePlayer::Update()
 			&& keyup[SDL_SCANCODE_E] && !leaveif)
 		{
 			current_animation = &crouchkick;
-			melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
+			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this);
 			leaveif = true;
 
 			App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
@@ -362,6 +379,19 @@ update_status ModulePlayer::Update()
 			App->audio->PlayChunk(App->audio->chunks[0]);
 			stamina -= 15;
 		}
+		int wFrame = 0;
+		if (p1Won)
+		{
+			if (wFrame >= 1)
+			{
+				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
+			}
+			if (wFrame = 0)
+			{
+				current_animation = &victory;
+			}
+			wFrame++;
+		}
 
 
 	}
@@ -383,7 +413,7 @@ update_status ModulePlayer::Update()
 
 	//Debug functionality-----------------------------------------
 
-	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2] || App->UI->currenthp2 <= 0)
+	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
 	{
 		p1Won = true;
 		App->player2->hp = 0;
@@ -393,7 +423,7 @@ update_status ModulePlayer::Update()
 			keyup[SDL_SCANCODE_F2] = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] || App->UI->currenthp1 <= 0)
+	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3])
 	{
 		p2Won = true;
 		App->player->hp = 0;
@@ -403,6 +433,7 @@ update_status ModulePlayer::Update()
 			keyup[SDL_SCANCODE_F3] = false;
 		}
 	}
+
 
 	//Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
@@ -451,7 +482,14 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	if (!p1Won)
+	{
+		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+		}
+		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	}
+	
 	return UPDATE_CONTINUE;
 }
 

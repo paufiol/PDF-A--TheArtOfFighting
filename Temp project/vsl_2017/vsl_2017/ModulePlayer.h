@@ -65,6 +65,8 @@ public:
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics2 = nullptr;
 	
+	SDL_Rect winFrame2;
+
 	Animation idle;
 	Animation crouchidle;
 	Animation forward;
