@@ -494,6 +494,7 @@ update_status ModulePlayer2::Update()
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	}
+
 	if (p2Won)
 	{
 		if (wFrame > 0)
