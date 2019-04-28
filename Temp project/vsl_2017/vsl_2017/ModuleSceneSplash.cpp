@@ -24,10 +24,13 @@ ModuleSceneSplash::ModuleSceneSplash()
 
 	printFont = { 0,844, 360 ,12 };
 	rArt = { 208,5,96,80 };
-	rFightingB = { 0,149,200, 75 };
 	rOf = { 10,5,94,63 };
 	rSNK = { 7, 378, 73,19 };
 	rFighting = { 0,72,200, 75 };
+
+	rFightingB = { 0,149,200, 75 };
+	rOfB = { 105,6,94,63 };
+	rArtB = { 208,92,96,80 };
 }
 
 ModuleSceneSplash::~ModuleSceneSplash()
@@ -68,30 +71,58 @@ update_status ModuleSceneSplash::Update()
 	if (timer < 65) {
 		timer += 5;
 		App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f);
+		App->render->Blit(splashTitle, 155, -50 + (int)timer, &rOf, 0.75f);
 	}
-	else if (timer < 80 && timer > 65) { timer += 3; App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f); }
-	else if (timer < 86 && timer > 80) { timer += 2; App->render->Blit(splashTitle, 80, 25, &rArt, 0.75f); }
-	else if (timer < 100 && timer > 86) { timer += 2; App->render->Blit(splashTitle, 170 - (int)timer, 25, &rArt, 0.75f); }
-	else { timer++; (App->render->Blit(splashTitle, 70, 25, &rArt, 0.75f)); }
+	else if (timer < 80 && timer > 65) { 
+		timer += 3; 
+		App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f); 
+		App->render->Blit(splashTitle, 155, -50 + (int)timer, &rOf, 0.75f);
+	}
+	else if (timer < 86 && timer > 80) { 
+		timer += 2;
+		App->render->Blit(splashTitle, 80, 25, &rArt, 0.75f); 
+		App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f); }
+	else if (timer < 100 && timer > 86) { 
+		timer += 2; 
+		App->render->Blit(splashTitle, 170 - (int)timer, 25, &rArt, 0.75f); 
+		App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f);}
+	else if (!art || !of) { timer++; App->render->Blit(splashTitle, 70, 25, &rArt, 0.75f);  App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f);}
+	else { timer++;}
 
-	App->render->Blit(splashTitle, 155, 35, &rOf, 0.75f);
-
-	if (timer < 235 && timer > 100) { timer+=3; (App->render->Blit(splashTitle, 50, 340 - (int)timer, &rFighting, 0.75f)); }
+	if (timer < 235 && timer > 100)
+	{
+		timer += 3;
+		App->render->Blit(splashTitle, 50, 340 - (int)timer, &rFighting, 0.75f);
+	}
 	else if (timer < 285 && timer > 235) 
 	{ 
 		timer++;
+		if (timer > 260) {
+			art = true; 
+			of = true;
+			App->render->Blit(splashTitle, 70, 285 - (int)timer, &rArt, 0.75f);
+			App->render->Blit(splashTitle, 155, 290 - (int)timer, &rOf, 0.75f);
+		}
 		App->render->Blit(splashTitle, 50, 340 - (int)timer, &rFighting, 0.75f);
-		/*App->render->Blit(splashTitle, 70, 310 - (int)timer, &rArt, 0.75f);*/
 	}
 	else if (timer < 295 && timer >285) 
 	{ 
+		
 		timer++; 
-		(App->render->Blit(splashTitle, 50, -230 + (int)timer, &rFighting, 0.75f));
-		/*App->render->Blit(splashTitle, 70, -280 + (int)timer, &rArt, 0.75f);*/
+		App->render->Blit(splashTitle, 155, -275 + (int)timer, &rOf, 0.75f);
+		App->render->Blit(splashTitle, 70, -285 + (int)timer, &rArt, 0.75f);
+		App->render->Blit(splashTitle, 50, -235 + (int)timer, &rFighting, 0.75f);
+
 	}
 	else if (timer > 295) {
-		App->render->Blit(splashTitle, 50, 65, &rFighting, 0.75f);
-	/*	App->render->Blit(splashTitle, 70, 15, &rArt, 0.75f);*/
+		App->render->Blit(splashTitle, 159, 30, &rOfB, 0.75f);
+		App->render->Blit(splashTitle, 74, 20, &rArtB, 0.75f);
+		App->render->Blit(splashTitle, 54, 70, &rFightingB, 0.75f);
+		
+		App->render->Blit(splashTitle, 155, 20, &rOf, 0.75f);
+		App->render->Blit(splashTitle, 70, 10, &rArt, 0.75f);
+		App->render->Blit(splashTitle, 50, 60, &rFighting, 0.75f);
+		
 	}
 	
 	

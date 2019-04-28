@@ -370,7 +370,7 @@ update_status ModulePlayer2::Update()
 	{
 		hp = 0;
 
-		App->player2->p1Won = true;
+		App->player->p1Won = true;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 
 		//current_animation = &death;
