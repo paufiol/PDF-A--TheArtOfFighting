@@ -91,7 +91,7 @@ update_status ModuleUI::Update()
 		//Lifebars:
 
 	App->render->Blit(graphics, 8, 16, &emptylb, 1.0f, false, false);
-	App->render->Blit(graphics, 168, 16, &emptylb, 1.0f, false, false);
+	App->render->Blit(graphics, 303, 16, &emptylb, 1.0f, false, false);
 
 	if (currenthp1 > ReglaDe3(App->player->hp, 100, 127))
 	{
@@ -151,9 +151,9 @@ update_status ModuleUI::Update()
 	App->fonts->BlitText(40, 32, font_mini, "ryo", printFont2);
 	App->fonts->BlitText(240, 32, font_mini, "ryo", printFont2);
 	//Rounds:------------------------------------------------------------------
-	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
-	App->render->Blit(graphics, 64, 40, &r, 1.0f, false, false);
+	//SDL_Rect r = current_animation->GetCurrentFrame();
+	//App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
+	//App->render->Blit(graphics, 64, 40, &r, 1.0f, false, false);
 	//-------------------------------------------------------------------------
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
 	return UPDATE_CONTINUE;
