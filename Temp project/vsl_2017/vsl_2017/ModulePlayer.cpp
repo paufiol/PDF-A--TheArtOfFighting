@@ -131,10 +131,10 @@ ModulePlayer::ModulePlayer()
 	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
-	damaged.PushBack({ 0,135,66 ,107 });
-	damaged.PushBack({ 66,134, 78, 138 });
-	//damaged.PushBack({ 144, 135, 66, 107 });
-	damaged.speed = 0.05f;
+	damaged.PushBack({ 869,751, 66 ,107 });
+	damaged.PushBack({ 935,750, 78, 138 });
+	damaged.PushBack({869, 751, 66, 107 });
+	damaged.speed = 0.2f;
 	damaged.lock = true;
 
 	victory.PushBack({ 0, 256, 53, 116 });
@@ -498,7 +498,7 @@ update_status ModulePlayer::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (!p1Won)
 	{
-		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
+		if ( current_animation == &victory || current_animation == &defeat) {
 			
 				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 			

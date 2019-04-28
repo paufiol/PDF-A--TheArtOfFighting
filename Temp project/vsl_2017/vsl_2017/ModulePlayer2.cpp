@@ -137,11 +137,11 @@ ModulePlayer2::ModulePlayer2()
 	if (!flip) crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
-	damaged.PushBack({ 866, 754, 59, 99 });
-	damaged.PushBack({ 925, 754, 59, 63 });
-	damaged.PushBack({ 866, 754, 59, 99 });
+	damaged.PushBack({ 869,751, 66 ,107 });
+	damaged.PushBack({ 935,750, 78, 138 });
+	damaged.PushBack({ 869, 751, 66, 107 });
 	if (flip) damaged.speed = 0.1f;
-	if (!flip) damaged.speed = 0.05f;
+	if (!flip) damaged.speed = 0.2f;
 	damaged.lock = true;
 
 	defeat.PushBack({ 0, 0, 66, 115 });
@@ -487,7 +487,7 @@ update_status ModulePlayer2::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (!p2Won)
 	{
-		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
+		if ( current_animation == &victory || current_animation == &defeat) {
 
 			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 
