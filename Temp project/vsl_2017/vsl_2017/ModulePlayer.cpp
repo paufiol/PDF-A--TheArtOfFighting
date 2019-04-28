@@ -146,8 +146,9 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("ryo.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
 
+	hp = 100;
+	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
-
 
 	return ret;
 }

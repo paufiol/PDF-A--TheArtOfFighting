@@ -75,13 +75,13 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModulePlayer2.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCharSelectScene.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer2.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -137,13 +137,13 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModulePlayer2.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleFonts.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCharSelectScene.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayer2.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

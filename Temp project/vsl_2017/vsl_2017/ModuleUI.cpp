@@ -12,24 +12,19 @@
 ModuleUI::ModuleUI()
 {
 
-	lifebar1rect = { 766,1, 127,7 };
-	lifebar2rect = { 766,1, 127,7 };
 	emptylb = { 765,9, 128,9 };
-	currenthp1 = 127;
-	currenthp2 = 127;
 
 	staminabar1rect = { 0,233, 128,8 };
 	staminabar2rect = { 0,233, 128,8 };
-	currentsta1 = 0;
-	currentsta2 = 0;
-	staminatest = 100;
+
+	//staminatest = 100;
 
 	for (int i = 0; i < 9; i++)
 	{
 		characterID[i] = i * 24;
 	}
-	avatar1rect = {0,characterID[0],24,24};
-	avatar2rect = {0,characterID[0],24,24};
+	avatar1rect = {0,characterID[2],24,24};
+	avatar2rect = {0,characterID[2],24,24};
 }
 ModuleUI::~ModuleUI()
 {
@@ -40,6 +35,12 @@ bool ModuleUI::Start()
 	LOG("Loading UI textures");
 	graphics = App->textures->Load("UI_AOF.png");
 	startTime = SDL_GetTicks();
+	currentsta1 = 0;
+	currentsta2 = 0;
+	currenthp1 = 127;
+	currenthp2 = 127;
+	lifebar1rect = { 766,1, 127,7 };
+	lifebar2rect = { 766,1, 127,7 };
 	return true;
 }
 update_status ModuleUI::Update()
@@ -130,8 +131,8 @@ update_status ModuleUI::Update()
 
 	//---------------------------------------------------------------------------
 	//Pictures:
-	App->render->DrawQuad({ 32, 66, 48, 50 }, 255, 255, 255, 255, false);
-	App->render->DrawQuad({ 518, 66, 48, 50 }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ 32, 66, 52, 52 }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ 515, 66, 52, 52 }, 255, 255, 255, 255, false);
 	App->render->Blit(graphics, 17, 34, &avatar1rect, 1.0f, false, false);
 	App->render->Blit(graphics, 242, 34, &avatar2rect, 1.0f, true, false);
 	//-------------------------------------------------------------------------
