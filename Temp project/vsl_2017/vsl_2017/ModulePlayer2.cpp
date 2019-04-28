@@ -233,7 +233,7 @@ update_status ModulePlayer2::Update()
 		}
 	}
 
-	if (current_animation->Finished() || current_animation->lock == false)
+	if (current_animation->Finished() || current_animation->lock == false && !App->player->p1Won && !App->player->p2Won)
 	{
 		if (current_animation->Finished()) {
 			current_animation->Reset();
@@ -248,12 +248,14 @@ update_status ModulePlayer2::Update()
 			current_animation = &jump;
 			jumping = JUMP_UP;
 			speed.x = 4.5f;
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
 			speed.x = -4.5f;
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_K] == KEY_STATE::KEY_DOWN)
@@ -343,6 +345,7 @@ update_status ModulePlayer2::Update()
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 
 			if (keyup[SDL_SCANCODE_I]) {
 				StoreInput(SDL_SCANCODE_I);
@@ -398,7 +401,7 @@ update_status ModulePlayer2::Update()
 		hp = 0;
 		current_animation = &defeat;
 
-		App->player2->p2Won = true;
+		App->player->p1Won = true;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 
 		//current_animation = &death;
@@ -500,7 +503,7 @@ void ModulePlayer2::OnCollision(Collider* A, Collider* B) {
 
 		if (current_animation != &damaged)
 		{
-			App->player->hp -= A->damage;
+			if (!App->player->godMode) { App->player->hp -= A->damage; }
 			if (!flip) App->player->position.x += 15;
 			if (flip) App->player->position.x -= 15;
 			App->player->current_animation = &damaged;
