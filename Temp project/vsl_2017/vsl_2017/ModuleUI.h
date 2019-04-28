@@ -21,8 +21,13 @@ public:
 public:
 	SDL_Rect lifebar1rect, lifebar2rect, emptylb, staminabar1rect, staminabar2rect;
 	SDL_Rect timerrect, avatar1rect, avatar2rect;
-
+	SDL_Rect printFont1, printFont2;
+	Animation* current_animation = &Roundball;
 	Animation Roundball;
+	SDL_Rect BallRec[4];
+
+	int font_start = -1;
+	int font_mini = -1;
 
 	int currentTimerposX;
 	int startTime;
