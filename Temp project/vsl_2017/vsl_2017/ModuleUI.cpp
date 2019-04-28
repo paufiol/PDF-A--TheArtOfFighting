@@ -1,9 +1,11 @@
 #include "ModuleUI.h"
 #include "Globals.h"
 #include "Application.h"
+#include "Animation.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleFonts.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleParticles.h"
@@ -16,15 +18,21 @@ ModuleUI::ModuleUI()
 
 	staminabar1rect = { 0,233, 128,8 };
 	staminabar2rect = { 0,233, 128,8 };
-
+	printFont1 = { 0,844, 360 ,12 };
+	printFont2 = { 0,861, 360 ,8 };
 	//staminatest = 100;
 
 	for (int i = 0; i < 9; i++)
 	{
 		characterID[i] = i * 24;
 	}
-	avatar1rect = {0,characterID[2],24,24};
-	avatar2rect = {0,characterID[2],24,24};
+	avatar1rect = { 0,characterID[2],24,24 };
+	avatar2rect = { 0,characterID[2],24,24 };
+
+	Roundball.PushBack({ 49,0,15,15 });
+	Roundball.PushBack({ 64,0,15,15 });
+	Roundball.PushBack({ 79,0,15,15 });
+	Roundball.speed = 0.1f;
 }
 ModuleUI::~ModuleUI()
 {
@@ -37,8 +45,11 @@ bool ModuleUI::Start()
 	startTime = SDL_GetTicks();
 	currentsta1 = 0;
 	currentsta2 = 0;
+
 	currenthp1 = 127;
 	currenthp2 = 127;
+	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont1, 1);
+	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont2, 1);
 	lifebar1rect = { 766,1, 127,7 };
 	lifebar2rect = { 766,1, 127,7 };
 	return true;
@@ -48,19 +59,19 @@ update_status ModuleUI::Update()
 	//Timer:
 
 	//if (currenttime > 60) currenttime %= 60;
-	if (!App->player->p1Won  )
+	if (!App->player->p1Won)
 	{
 		currenttime = 0;
 		currenttime = (SDL_GetTicks() - startTime) / 1000;
 	}
 
 	if (currenttime >= 30)
-	{	
+	{
 		currentTimerposX = 928 - (32 * (currenttime - 30));
-		if(currenttime > 60) currentTimerposX = 928 - (32 * (60 - 30)); //si es mayor de 60 se queda en 0.
+		if (currenttime > 60) currentTimerposX = 928 - (32 * (60 - 30)); //si es mayor de 60 se queda en 0.
 		timerrect = { currentTimerposX,792,32,24 };
 		App->render->Blit(graphics, 136, 8, &timerrect, 1.0f, false, false);
-		
+
 		if (currenttime == 60) //Victory in case of time up.
 		{
 			if (App->player->hp > App->player2->hp)  App->player->p1Won = true;
@@ -75,17 +86,17 @@ update_status ModuleUI::Update()
 	}
 	if (currenttime > 60) timerrect = { 60,816,32,24 };
 
-	
+
 	//--------------------------------------------------------------------
 		//Lifebars:
 
 	App->render->Blit(graphics, 8, 16, &emptylb, 1.0f, false, false);
 	App->render->Blit(graphics, 168, 16, &emptylb, 1.0f, false, false);
 
-	if  (currenthp1 > ReglaDe3(App->player->hp, 100, 127))
+	if (currenthp1 > ReglaDe3(App->player->hp, 100, 127))
 	{
 		currenthp1 -= 1;
-		
+
 		lifebar1rect = { 766,1, currenthp1,7 };
 	}
 	if (currenthp2 > ReglaDe3(App->player2->hp, 100, 127))
@@ -132,9 +143,17 @@ update_status ModuleUI::Update()
 	//---------------------------------------------------------------------------
 	//Pictures:
 	App->render->DrawQuad({ 32, 66, 52, 52 }, 255, 255, 255, 255, false);
-	App->render->DrawQuad({ 515, 66, 52, 52 }, 255, 255, 255, 255, false);
+	App->render->DrawQuad({ 561, 66, 52, 52 }, 255, 255, 255, 255, false);
 	App->render->Blit(graphics, 17, 34, &avatar1rect, 1.0f, false, false);
-	App->render->Blit(graphics, 242, 34, &avatar2rect, 1.0f, true, false);
+	App->render->Blit(graphics, 265, 34, &avatar2rect, 1.0f, true, false);
+	App->fonts->BlitText(24, 3, font_start, "beat_by_0", printFont1);
+	App->fonts->BlitText(200, 3, font_start, "beat_by_0", printFont1);
+	App->fonts->BlitText(40, 32, font_mini, "ryo", printFont2);
+	App->fonts->BlitText(240, 32, font_mini, "ryo", printFont2);
+	//Rounds:------------------------------------------------------------------
+	SDL_Rect r = current_animation->GetCurrentFrame();
+	App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
+	App->render->Blit(graphics, 64, 40, &r, 1.0f, false, false);
 	//-------------------------------------------------------------------------
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
 	return UPDATE_CONTINUE;
