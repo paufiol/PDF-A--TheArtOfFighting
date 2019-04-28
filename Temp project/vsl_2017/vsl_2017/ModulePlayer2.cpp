@@ -369,8 +369,7 @@ update_status ModulePlayer2::Update()
 	if (hp <= 0)
 	{
 		hp = 0;
-
-		App->player2->p1Won = true;
+		App->player->p1Won = true;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 
 		//current_animation = &death;
@@ -464,7 +463,7 @@ void ModulePlayer2::OnCollision(Collider* A, Collider* B) {
 
 		if (current_animation != &damaged)
 		{
-			App->player->hp -= A->damage;
+			if (!App->player->godMode) { App->player->hp -= A->damage; }
 			if (!flip) App->player->position.x += 15;
 			if (flip) App->player->position.x -= 15;
 			App->player->current_animation = &damaged;
