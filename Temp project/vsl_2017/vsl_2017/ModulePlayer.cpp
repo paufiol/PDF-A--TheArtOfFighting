@@ -392,24 +392,9 @@ update_status ModulePlayer::Update()
 			stamina -= 15;
 		}
 		
-		if (p1Won)
-		{
-			if (wFrame >= 1)
-			{
-				current_animation = &victory;
-				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
-			}
-			if (wFrame = 0)
-			{
-				current_animation = &victory;
-			}
-			wFrame++;
-		}
 
 
-	}
-
-	if (hp <= 0)
+	if (hp <= 0 && App->player->p2Won != true)
 	{
 		hp = 0;
 		App->player->p2Won = true;
@@ -423,6 +408,7 @@ update_status ModulePlayer::Update()
 		stamina = 0;
 	}
 
+	}
 
 	//Debug functionality-----------------------------------------
 
@@ -504,18 +490,35 @@ update_status ModulePlayer::Update()
 		position.x = (App->player->position.x + (App->player2->playerCollider->rect.w / 2) + App->player2->position.x + (App->player->playerCollider->rect.w / 2)) / 2 + SCREEN_WIDTH / 2 - playerCollider->rect.w;
 	}
 
+	if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_STATE::KEY_DOWN) {
+		wFrame;
+	}
+
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (!p1Won)
 	{
 		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
-			if (wFrame <= 1) {
+			
 				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-			}
+			
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	}
-	
+	if (p1Won)
+	{
+		if (wFrame > 0)
+		{
+			//current_animation = &victory;
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
+		}
+		if (wFrame == 0)
+		{
+			current_animation = &victory;
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip);
+		}
+		wFrame++;
+	}
 	return UPDATE_CONTINUE;
 }
 
