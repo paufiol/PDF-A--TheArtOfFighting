@@ -26,7 +26,7 @@ when the round time is up.
 
 Controls
 ________
-SPACE to start game.
+SPACE as enter Key (To enter game, select character etc.)
 
 PLAYER 1:
 A/D: Forward/Backward
@@ -45,6 +45,8 @@ K, L, U, O: Kouken
 
 DEBUG:
 F1: Show/hide hitboxes
-F2: Instant win
+F2: Instant win P1
+F3: Instant win P2
+F4: God Mode
 
 F6: Automatic Kouken

@@ -128,6 +128,20 @@ ModulePlayer::ModulePlayer()
 	damaged.speed = 0.1f;
 	damaged.lock = true;
 
+	victory.PushBack({ 0, 256, 53, 116 });
+	victory.PushBack({ 65, 266, 69, 106 });
+	victory.speed = 0.1f;
+	victory.lock = true;
+
+	defeat.PushBack({ 0, 0, 66, 115 });
+	defeat.PushBack({ 66, 0, 73, 115 });
+	defeat.PushBack({ 144, 8, 64, 107 });
+	defeat.PushBack({ 208, 29, 62, 86 });
+	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.lock = true;
+	defeat.speed = 0.1f;
+
+
 	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
 
 	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
@@ -144,10 +158,10 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("ryo.png");
-	/*graphs = App->textures->Load("ryo2.png");*/
+	graphics2 = App->textures->Load("ryo2.png");
 
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
-
+	winFrame2 = { 65, 266, 69, 106 };
 
 	return ret;
 }
@@ -363,6 +377,19 @@ update_status ModulePlayer::Update()
 			App->audio->PlayChunk(App->audio->chunks[0]);
 			stamina -= 15;
 		}
+		int wFrame = 0;
+		if (p1Won)
+		{
+			if (wFrame >= 1)
+			{
+				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
+			}
+			if (wFrame = 0)
+			{
+				current_animation = &victory;
+			}
+			wFrame++;
+		}
 
 
 	}
@@ -404,6 +431,7 @@ update_status ModulePlayer::Update()
 			keyup[SDL_SCANCODE_F3] = false;
 		}
 	}
+
 
 	//Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
@@ -452,11 +480,14 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-
-	if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
-		App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	if (!p1Won)
+	{
+		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+		}
+		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	}
-	else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	
 	return UPDATE_CONTINUE;
 }
 
