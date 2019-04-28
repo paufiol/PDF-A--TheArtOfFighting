@@ -113,7 +113,7 @@ update_status ModuleSceneSplash::Update()
 		App->render->Blit(splashTitle, 70, -285 + (int)timer, &rArt, 0.75f);
 		App->render->Blit(splashTitle, 50, -235 + (int)timer, &rFighting, 0.75f);
 
-	}
+	} 
 	else if (timer > 295) {
 		App->render->Blit(splashTitle, 159, 30, &rOfB, 0.75f);
 		App->render->Blit(splashTitle, 74, 20, &rArtB, 0.75f);
