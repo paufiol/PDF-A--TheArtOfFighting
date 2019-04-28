@@ -53,6 +53,7 @@ public:
 	bool keyup[69] = { true };//This is not a joke.
 
 	int font_start = -1;
+	int wFrame = 0;
 
 	bool p1Won = false, p2Won = false;
 

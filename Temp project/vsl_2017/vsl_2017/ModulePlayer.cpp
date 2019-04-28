@@ -379,11 +379,12 @@ update_status ModulePlayer::Update()
 			App->audio->PlayChunk(App->audio->chunks[0]);
 			stamina -= 15;
 		}
-		int wFrame = 0;
+		
 		if (p1Won)
 		{
 			if (wFrame >= 1)
 			{
+				current_animation = &victory;
 				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
 			}
 			if (wFrame = 0)
@@ -486,7 +487,9 @@ update_status ModulePlayer::Update()
 	if (!p1Won)
 	{
 		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+			if (wFrame <= 1) {
+				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+			}
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	}
