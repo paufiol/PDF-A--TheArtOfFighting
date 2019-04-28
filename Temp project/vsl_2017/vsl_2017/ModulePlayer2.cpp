@@ -399,7 +399,7 @@ update_status ModulePlayer2::Update()
 	if (hp <= 0)
 	{
 		hp = 0;
-		current_animation = &defeat;
+		/*current_animation = &defeat;*/
 
 		App->player->p1Won = true;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
@@ -487,9 +487,8 @@ update_status ModulePlayer2::Update()
 	if (!p1Won)
 	{
 		if (current_animation == &damaged || current_animation == &victory || current_animation == &defeat) {
-			if (wFrame <= 1) {
-				App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-			}
+		
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 		}
 		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	}
