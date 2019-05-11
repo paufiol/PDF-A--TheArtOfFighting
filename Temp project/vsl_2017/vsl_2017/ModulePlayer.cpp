@@ -139,7 +139,7 @@ ModulePlayer::ModulePlayer()
 
 	victory.PushBack({ 0, 256, 53, 116 });
 	victory.PushBack({ 65, 266, 69, 106 });
-	victory.speed = 0.1f;
+	victory.speed = 0.05f;
 	victory.lock = true;
 
 	defeat.PushBack({ 0, 0, 66, 115 });
