@@ -23,6 +23,31 @@ bool ModuleInput::Init()
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
+	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0)
+	{
+		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+
+	//SDL_GameControllerAddMappingsFromFile();
+
+	if (SDL_NumJoysticks() > 0) {
+		joystick = SDL_JoystickOpen(0);
+		if (!joystick) {
+			LOG("Can't open joystick");
+		}
+	}
+
+	// int control = SDL_NumJoysticks();
+	for (int i = 0; i < SDL_NumJoysticks(); i++) {
+		if (SDL_IsGameController(i)) {
+			controller[i] = SDL_GameControllerOpen(i);
+			if (controller[i] == NULL) {
+				LOG("Can't open controller %s", SDL_GetError());
+
+			}
+		}
+	}
 
 	return ret;
 }
@@ -34,6 +59,16 @@ update_status ModuleInput::PreUpdate()
 	SDL_PumpEvents();
 
 	keyboard = (Uint8*)SDL_GetKeyboardState(NULL);
+
+	for (int i = 0; i < SDL_NumJoysticks(); i++) {
+		if (SDL_IsGameController(i)) {
+			controller[i] = SDL_GameControllerOpen(i);
+			if (controller[i] == NULL) {
+				LOG("Can't open controller %s", SDL_GetError());
+
+			}
+		}
+	}
 	
 	/*if (keyboard != nullptr && oldkeyboard != nullptr) {
 		//SDL_SCANCODE_Z; SDL_SCANCODE_A; SDL_SCANCODE_SPACE;
@@ -46,6 +81,9 @@ update_status ModuleInput::PreUpdate()
 	oldkeyboard = keyboard;*/
 
 	if(keyboard[SDL_SCANCODE_ESCAPE])
+	return update_status::UPDATE_STOP;
+
+	if (SDL_GameControllerGetButton(controller[0], SDL_CONTROLLER_BUTTON_BACK))
 	return update_status::UPDATE_STOP;
 
 	return update_status::UPDATE_CONTINUE;

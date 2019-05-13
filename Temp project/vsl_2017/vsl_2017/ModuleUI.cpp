@@ -142,8 +142,8 @@ update_status ModuleUI::Update()
 
 	//---------------------------------------------------------------------------
 	//Pictures:
-	App->render->DrawQuad({ 52, 66, 52, 52 }, 255, 255, 255, 255, false);
-	App->render->DrawQuad({ 541, 66, 52, 52 }, 255, 255, 255, 255, false);
+	//App->render->DrawQuad({ 52, 66, 52, 52 }, 255, 255, 255, 255, false);
+	//App->render->DrawQuad({ 541, 66, 52, 52 }, 255, 255, 255, 255, false);
 	App->render->Blit(graphics, 27, 34, &avatar1rect, 1.0f, false, false);
 	App->render->Blit(graphics, 255, 34, &avatar2rect, 1.0f, true, false);
 	App->fonts->BlitText(34, 3, font_start, "beat_by_0", printFont1);

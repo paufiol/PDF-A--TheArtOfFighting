@@ -40,6 +40,8 @@ bool ModuleRender::Init()
 		ret = false;
 	}
 
+	if (WIN_FULLSCREEN_DESKTOP) SDL_RenderSetLogicalSize(renderer, 320, 240);
+
 	return ret;
 }
 
@@ -82,7 +84,7 @@ update_status ModuleRender::Update()
 
 
 		}
-		 if (App->player->p1Won)
+		if (App->player->p1Won)
 		{
 			/*camera.x = -(App->player->position.x - (App->player->playerCollider->rect.w / 2) - SCREEN_WIDTH);*/
 			if (camera.x  >= -((App->player->position.x + (App->player->playerCollider->rect.w / 2) )*2 - SCREEN_WIDTH) )//+ /*(App->player->playerCollider->rect.w / 2)*/ - (SCREEN_WIDTH/2))
@@ -95,8 +97,8 @@ update_status ModuleRender::Update()
 			}
 			
 		}
-		 if (App->player2->p2Won)
-		 {
+		if (App->player2->p2Won)
+		{
 			 /*camera.x = -(App->player->position.x - (App->player->playerCollider->rect.w / 2) - SCREEN_WIDTH);*/
 			 if (camera.x >= -((App->player2->position.x + (App->player2->playerCollider->rect.w / 2)) * 2 - SCREEN_WIDTH))//+ /*(App->player->playerCollider->rect.w / 2)*/ - (SCREEN_WIDTH/2))
 			 {
@@ -107,7 +109,7 @@ update_status ModuleRender::Update()
 				 camera.x += speed;
 			 }
 
-		 }
+		}
 	
 	}
 	if (camera.x > 0) camera.x = 0;
@@ -166,7 +168,6 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 
 	rect.w *= SCREEN_SIZE;
 	rect.h *= SCREEN_SIZE;
-	
 	
 	if (flip) {
 		rect.x -= (section->w - 57);

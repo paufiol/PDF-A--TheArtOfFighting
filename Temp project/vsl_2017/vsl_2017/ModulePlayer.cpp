@@ -302,7 +302,7 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || SDL_GameControllerGetAxis(App->input->controller[0], SDL_CONTROLLER_AXIS_LEFTX) > 0)
 		{
 			if (!flip) current_animation = &forward;
 			if (flip) current_animation = &flipback;
