@@ -5,6 +5,7 @@
 
 #define NUM_MODULES 17
 
+
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
@@ -12,6 +13,7 @@ class ModuleRender;
 class ModuleCharSelectScene;
 class ModuleSceneBar;
 class ModuleSceneKaruta;
+class ModuleSceneLee;
 class ModuleSceneSplash;
 class ModuleSceneEnd;
 class ModulePlayer;
@@ -36,6 +38,7 @@ public:
 	ModuleCharSelectScene *scene_characterselect;
 	ModuleSceneBar* scene_bar;
 	ModuleSceneKaruta* scene_karuta;
+	ModuleSceneLee* scene_lee;
 	ModuleSceneSplash *scene_splash;
 	ModuleSceneEnd *scene_end;
 	ModulePlayer* player;
@@ -46,6 +49,7 @@ public:
 	ModuleCollision* collision;
 	ModuleUI* UI;
 	ModuleFonts* fonts;
+
 
 public:
 

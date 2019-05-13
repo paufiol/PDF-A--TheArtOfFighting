@@ -16,6 +16,7 @@
 #include "ModuleCollision.h"
 #include "ModuleUI.h"
 #include "ModuleFonts.h"
+#include "ModuleSceneLee.h"
 
 Application::Application()
 {
@@ -36,6 +37,7 @@ Application::Application()
 	modules[14] = fade = new ModuleFadeToBlack();
 	modules[15] = UI = new ModuleUI();
 	modules[16] = fonts = new ModuleFonts();
+	modules[17] = scene_lee = new ModuleSceneLee();
 
 	
 }	

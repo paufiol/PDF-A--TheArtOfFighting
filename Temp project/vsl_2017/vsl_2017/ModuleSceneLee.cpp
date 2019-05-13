@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneKaruta.h"
+#include "ModuleSceneLee.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
@@ -10,22 +10,23 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "SDL/include/SDL.h"
-#include "ModuleSceneSplash.h"
+#include "ModuleSceneEnd.h"
 #include "ModuleFonts.h"
 
 
-ModuleSceneKaruta::ModuleSceneKaruta()
+
+ModuleSceneLee::ModuleSceneLee()
 {
-	background = {0, 0, 538, 240};
+	background = { 0, 0, 538, 240 };
 	/*App->scene_splash->printFont = { 0,919,421,16 };*/
-	
+
 }
 
-ModuleSceneKaruta::~ModuleSceneKaruta()
+ModuleSceneLee::~ModuleSceneLee()
 {}
 
 // Load assets
-bool ModuleSceneKaruta::Start()
+bool ModuleSceneLee::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
@@ -36,18 +37,18 @@ bool ModuleSceneKaruta::Start()
 	/*App->scene_splash->printFontBM= App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz?!._", App->scene_splash->printFont, 1);*/
 
 	App->UI->Enable();
-	App->player->Enable();	
+	App->player->Enable();
 	App->player2->Enable();
 	return ret;
 }
 
 // Load assets
-bool ModuleSceneKaruta::CleanUp()
+bool ModuleSceneLee::CleanUp()
 {
-	
+
 	App->audio->StopMusic();
 	SDL_DestroyTexture(graphics);
-	LOG("Unloading Karuta stage");
+	LOG("Unloading Lee stage");
 	App->player->Disable();
 	App->player2->Disable();
 	App->UI->Disable();
@@ -55,21 +56,21 @@ bool ModuleSceneKaruta::CleanUp()
 }
 
 // Update: draw background
-update_status ModuleSceneKaruta::Update()
+update_status ModuleSceneLee::Update()
 {
-	
+
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	if (App->player->p1Won)
 	{
 		printWinner = { 595,420,116,40 };
-		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f,false,false);
+		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_lee, (Module*)App->scene_end, 3.0f);
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_lee, (Module*)App->scene_end, 3.0f);
 		}
 
 	}
@@ -79,16 +80,16 @@ update_status ModuleSceneKaruta::Update()
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_lee, (Module*)App->scene_end, 3.0f);
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_lee, (Module*)App->scene_end, 3.0f);
 		}
 
 	}
 
-	
+
 
 	return UPDATE_CONTINUE;
 }
