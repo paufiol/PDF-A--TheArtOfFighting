@@ -60,9 +60,6 @@
     <ClInclude Include="ModuleSceneEnd.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneKaruta.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleSceneSplash.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -84,7 +81,7 @@
     <ClInclude Include="ModulePlayer2.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneLee.h">
+    <ClInclude Include="ModuleSceneChina.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,9 +122,6 @@
     <ClCompile Include="ModuleSceneEnd.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneKaruta.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleSceneSplash.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
@@ -149,7 +143,7 @@
     <ClCompile Include="ModulePlayer2.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneLee.cpp">
+    <ClCompile Include="ModuleSceneChina.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

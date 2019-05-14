@@ -5,7 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModuleCharSelectScene.h"
 #include "ModuleSceneBar.h"
-#include "ModuleSceneKaruta.h"
+#include "ModuleSceneChina.h"
 #include "ModuleSceneSplash.h"
 #include "ModuleSceneEnd.h"
 #include "ModulePlayer.h"
@@ -16,7 +16,6 @@
 #include "ModuleCollision.h"
 #include "ModuleUI.h"
 #include "ModuleFonts.h"
-#include "ModuleSceneLee.h"
 
 Application::Application()
 {
@@ -25,7 +24,7 @@ Application::Application()
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = audio = new ModuleAudio();
-	modules[5] = scene_karuta = new ModuleSceneKaruta();
+	modules[5] = scene_china = new ModuleSceneChina();
 	modules[6] = scene_bar = new ModuleSceneBar();
 	modules[7] = scene_splash = new ModuleSceneSplash();
 	modules[8] = scene_end = new ModuleSceneEnd();
@@ -37,7 +36,7 @@ Application::Application()
 	modules[14] = fade = new ModuleFadeToBlack();
 	modules[15] = UI = new ModuleUI();
 	modules[16] = fonts = new ModuleFonts();
-	//modules[17] = scene_lee = new ModuleSceneLee();
+	
 
 	
 }	
@@ -57,7 +56,7 @@ bool Application::Init()
 	player2->Disable();
 	// Disable the map that you do not start with
 	scene_characterselect->Disable();
-	scene_karuta->Disable();
+	scene_china->Disable();
 	scene_bar->Disable();
 	scene_end->Disable();
 	scene_splash->Enable();

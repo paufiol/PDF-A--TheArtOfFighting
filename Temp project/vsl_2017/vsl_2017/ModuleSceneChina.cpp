@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneKaruta.h"
+#include "ModuleSceneChina.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
@@ -14,25 +14,27 @@
 #include "ModuleFonts.h"
 
 
-ModuleSceneKaruta::ModuleSceneKaruta()
+ModuleSceneChina::ModuleSceneChina()
 {
-	background = {0, 0, 538, 240};
-	/*App->scene_splash->printFont = { 0,919,421,16 };*/
+	chinatown.PushBack({0, 0, 0, 0 });
+	chinatown.PushBack({ 0, 0, 0 ,0 });
+	chinatown.speed = 0.00;
+
 	
 }
 
-ModuleSceneKaruta::~ModuleSceneKaruta()
+ModuleSceneChina::~ModuleSceneChina()
 {}
 
 // Load assets
-bool ModuleSceneKaruta::Start()
+bool ModuleSceneChina::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
 	App->player->p1Won = false;
 	App->player->p2Won = false;
 	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/FIGHT_SONG/Ryuhaku_Todoh.ogg", -1);
-	graphics = App->textures->Load("RESOURCES/Karuta.png");
+	graphics = App->textures->Load("RESOURCES/Chinatown.png");
 	/*App->scene_splash->printFontBM= App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz?!._", App->scene_splash->printFont, 1);*/
 
 	App->UI->Enable();
@@ -42,7 +44,7 @@ bool ModuleSceneKaruta::Start()
 }
 
 // Load assets
-bool ModuleSceneKaruta::CleanUp()
+bool ModuleSceneChina::CleanUp()
 {
 	
 	App->audio->StopMusic();
@@ -55,21 +57,21 @@ bool ModuleSceneKaruta::CleanUp()
 }
 
 // Update: draw background
-update_status ModuleSceneKaruta::Update()
+update_status ModuleSceneChina::Update()
 {
-	
-	App->render->Blit(graphics, 0, 0, &background, 0.75f);
+	SDL_Rect r = current_animation->GetCurrentFrame();
+	App->render->Blit(graphics, 0, 0, &r, 0.75f);
 	if (App->player->p1Won)
 	{
 		printWinner = { 595,420,116,40 };
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f,false,false);
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
 		}
 
 	}
@@ -79,11 +81,11 @@ update_status ModuleSceneKaruta::Update()
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_karuta, (Module*)App->scene_lee, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
 		}
 
 	}

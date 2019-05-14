@@ -33,7 +33,7 @@ bool ModuleSceneEnd::Start()
     bool ret = true;
 	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/CONTINUE_SONG/Hey_Let_s_Do_It_Again.ogg", -1);
 	UIsprite = App->textures->Load("RESOURCES/UI_AOF.png");
-	portraitRyo = App->textures->Load("RESOURCES/RyoPortrait.png");
+	portraitLee = App->textures->Load("RESOURCES/LeePortrait.png");
 	printFontBM = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 	
 	startTime = SDL_GetTicks();
@@ -48,7 +48,7 @@ bool ModuleSceneEnd::CleanUp()
 {
 	App->audio->StopMusic();
 	SDL_DestroyTexture(UIsprite);
-	SDL_DestroyTexture(portraitRyo);
+	SDL_DestroyTexture(portraitLee);
 	LOG("Unloading Splash scene");
 	
 	return true;
@@ -59,7 +59,7 @@ update_status ModuleSceneEnd::Update()
 {
 	// Draw everything --------------------------------------
 	App->render->Blit(UIsprite, 25, 170, &textR, 0.75f);
-	App->render->Blit(portraitRyo, 31, 47, &ryoR, 0.75f);
+	App->render->Blit(portraitLee, 31, 45, &ryoR, 0.75f);
 	App->fonts->BlitText(35,180, printFontBM, "anytime_anywhere_cross_my_path", printFont);
 	App->fonts->BlitText(35, 196, printFontBM, "again_and_you_are_mine!", printFont);
 	App->fonts->BlitText(190, 35, printFontBM, "waiting_for", printFont);

@@ -1,6 +1,6 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneKaruta.h"
+#include "ModuleSceneChina.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
@@ -230,14 +230,14 @@ update_status ModuleCharSelectScene::Update()
 
 	if (currenttime >= 10)
 	{
-		App->fade->FadeToBlack((Module*)App->scene_characterselect, (Module*)App->scene_karuta, 1.0f);
+		App->fade->FadeToBlack((Module*)App->scene_characterselect, (Module*)App->scene_china, 1.0f);
 	}
 
 
 	
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 	{
-		App->fade->FadeToBlack((Module*)App->scene_characterselect, (Module*)App->scene_karuta, 2.0f);
+		App->fade->FadeToBlack((Module*)App->scene_characterselect, (Module*)App->scene_china, 2.0f);
 	}
 	//--------------------------------------------------------
 	return UPDATE_CONTINUE;

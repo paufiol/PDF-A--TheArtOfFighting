@@ -21,7 +21,7 @@ public:
 public:
 
 	int printFontBM = -1;
-	SDL_Texture* UIsprite = nullptr,*portraitRyo = nullptr;
+	SDL_Texture* UIsprite = nullptr,*portraitLee = nullptr;
 	SDL_Rect textR, printFont,ryoR;
 	int currentTimerposX;
 	int startTime;

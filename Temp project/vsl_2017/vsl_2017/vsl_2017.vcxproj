@@ -155,8 +155,7 @@
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleSceneBar.h" />
     <ClInclude Include="ModuleSceneEnd.h" />
-    <ClInclude Include="ModuleSceneKaruta.h" />
-    <ClInclude Include="ModuleSceneLee.h" />
+    <ClInclude Include="ModuleSceneChina.h" />
     <ClInclude Include="ModuleSceneSplash.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
@@ -179,8 +178,7 @@
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleSceneBar.cpp" />
     <ClCompile Include="ModuleSceneEnd.cpp" />
-    <ClCompile Include="ModuleSceneKaruta.cpp" />
-    <ClCompile Include="ModuleSceneLee.cpp" />
+    <ClCompile Include="ModuleSceneChina.cpp" />
     <ClCompile Include="ModuleSceneSplash.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleUI.cpp" />

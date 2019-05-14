@@ -1,5 +1,5 @@
-#ifndef __MODULESCENEHONDA_H__
-#define __MODULESCENEHONDA_H__
+#ifndef __MODULESCENECHINA_H__
+#define __MODULESCENECHINA_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -8,11 +8,11 @@
 
 struct SDL_Texture;
 
-class ModuleSceneKaruta : public Module
+class ModuleSceneChina : public Module
 {
 public:
-	ModuleSceneKaruta();
-	~ModuleSceneKaruta();
+	ModuleSceneChina();
+	~ModuleSceneChina();
 
 	bool Start();
 	update_status Update();
@@ -21,7 +21,9 @@ public:
 public:
 
 	SDL_Texture* graphics = nullptr;
+	Animation chinatown;
+	Animation* current_animation = &chinatown;
 	SDL_Rect background,printWinner;
 };
 
-#endif // __MODULESCENEHONDA_H__
+#endif // __MODULESCENECHINA_H__
