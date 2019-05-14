@@ -67,37 +67,36 @@ bool ModuleSceneSplash::CleanUp()
 update_status ModuleSceneSplash::Update()
 {
 	// Draw everything --------------------------------------
-	//App->render->Blit(graphics, 0, 0, &background, 0.75f); 
 	constTimer++;
 	if (timer < 65) {
-		timer += 5;
+		timer += 10;
 		App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f);
 		App->render->Blit(splashTitle, 155, -50 + (int)timer, &rOf, 0.75f);
 	}
 	else if (timer < 80 && timer > 65) { 
-		timer += 3; 
+		timer += 6; 
 		App->render->Blit(splashTitle, (int)timer, 25, &rArt, 0.75f); 
 		App->render->Blit(splashTitle, 155, -50 + (int)timer, &rOf, 0.75f);
 	}
 	else if (timer < 86 && timer > 80) { 
-		timer += 2;
+		timer += 4;
 		App->render->Blit(splashTitle, 80, 25, &rArt, 0.75f); 
 		App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f); }
 	else if (timer < 100 && timer > 86) { 
-		timer += 2; 
+		timer += 4; 
 		App->render->Blit(splashTitle, 170 - (int)timer, 25, &rArt, 0.75f); 
 		App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f);}
-	else if (!art || !of) { timer++; App->render->Blit(splashTitle, 70, 25, &rArt, 0.75f);  App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f);}
-	else { timer++;}
+	else if (!art || !of) { timer+=2; App->render->Blit(splashTitle, 70, 25, &rArt, 0.75f);  App->render->Blit(splashTitle, 155, 30, &rOf, 0.75f);}
+	else { timer += 2;}
 
 	if (timer < 235 && timer > 100)
 	{
-		timer += 3;
+		timer += 6;
 		App->render->Blit(splashTitle, 50, 340 - (int)timer, &rFighting, 0.75f);
 	}
 	else if (timer < 285 && timer > 235) 
 	{ 
-		timer++;
+		timer += 2;
 		if (timer > 260) {
 			art = true; 
 			of = true;
@@ -109,7 +108,7 @@ update_status ModuleSceneSplash::Update()
 	else if (timer < 295 && timer >285) 
 	{ 
 		
-		timer++; 
+		timer += 2;
 		App->render->Blit(splashTitle, 155, -275 + (int)timer, &rOf, 0.75f);
 		App->render->Blit(splashTitle, 70, -285 + (int)timer, &rArt, 0.75f);
 		App->render->Blit(splashTitle, 50, -235 + (int)timer, &rFighting, 0.75f);

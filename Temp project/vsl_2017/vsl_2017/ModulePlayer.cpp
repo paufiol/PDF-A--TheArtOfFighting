@@ -231,185 +231,185 @@ update_status ModulePlayer::Update()
 			keyup[i] = true;
 		}
 	}
-
-	if (current_animation->Finished() || current_animation->lock == false && !p1Won && !p2Won)
-	{
-		if (current_animation->Finished()) {
-			current_animation->Reset();
-			if (melee != nullptr) melee->to_delete = true;
-
-		}
-		bool leaveif = false;
-
-		current_animation = &idle;
-
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
-			current_animation = &jump;
-			jumping = JUMP_UP;
-			speed.x = 4.5f;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
-			current_animation = &jump;
-			jumping = JUMP_UP;
-			speed.x = -4.5f;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
+	if (!p1Won && !p2Won) {
+		if (current_animation->Finished() || current_animation->lock == false)
 		{
-			current_animation = &crouchidle;
-			playerCollider->rect.h = 75;
+			if (current_animation->Finished()) {
+				current_animation->Reset();
+				if (melee != nullptr) melee->to_delete = true;
 
-			if (keyup[SDL_SCANCODE_S]) {
-				StoreInput(SDL_SCANCODE_S);
-				keyup[SDL_SCANCODE_S] = false;
 			}
-		}
+			bool leaveif = false;
 
-		if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)
-			&& keyup[SDL_SCANCODE_Q] && !leaveif)
-		{
-			current_animation = &crouchpunch;
-			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			leaveif = true;
+			current_animation = &idle;
 
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
-
-			if (keyup[SDL_SCANCODE_Q]) {
-				StoreInput(SDL_SCANCODE_Q);
-				keyup[SDL_SCANCODE_Q] = false;
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
+				current_animation = &jump;
+				jumping = JUMP_UP;
+				speed.x = 4.5f;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 			}
-		}
 
-		if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN)
-			&& keyup[SDL_SCANCODE_E] && !leaveif)
-		{
-			current_animation = &crouchkick;
-			if(!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
-			if(flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
-			leaveif = true;
-
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
-
-			if (keyup[SDL_SCANCODE_E]) {
-				StoreInput(SDL_SCANCODE_E);
-				keyup[SDL_SCANCODE_E] = false;
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
+				current_animation = &jump;
+				jumping = JUMP_UP;
+				speed.x = -4.5f;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 			}
-		}
 
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || SDL_GameControllerGetAxis(App->input->controller[0], SDL_CONTROLLER_AXIS_LEFTX) > 0)
-		{
-			if (!flip) current_animation = &forward;
-			if (flip) current_animation = &flipback;
+			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
+			{
+				current_animation = &crouchidle;
+				playerCollider->rect.h = 75;
 
-			speed.x = 2.5f;
-			playerCollider->rect.h = 108;
-			if (keyup[SDL_SCANCODE_D]) {
-				StoreInput(SDL_SCANCODE_D);
-				if (flip) { block = App->collision->AddCollider({ position.x - 20, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
-				keyup[SDL_SCANCODE_D] = false;
+				if (keyup[SDL_SCANCODE_S]) {
+					StoreInput(SDL_SCANCODE_S);
+					keyup[SDL_SCANCODE_S] = false;
+				}
 			}
-		}
-		//cambiar//
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
-		{
-			if (!flip) current_animation = &back;
-			if (flip) current_animation = &flipforward;
-			speed.x = -1.5f;
-			playerCollider->rect.h = 108;
-			if (keyup[SDL_SCANCODE_A]) {
-				StoreInput(SDL_SCANCODE_A);
-				if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-				keyup[SDL_SCANCODE_A] = false;
+
+			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)
+				&& keyup[SDL_SCANCODE_Q] && !leaveif)
+			{
+				current_animation = &crouchpunch;
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				leaveif = true;
+
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
+
+				if (keyup[SDL_SCANCODE_Q]) {
+					StoreInput(SDL_SCANCODE_Q);
+					keyup[SDL_SCANCODE_Q] = false;
+				}
 			}
-		}
 
-		/*if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
-		{
-			current_animation = &doubleback;
-			speed.x = -1.5f;
-			playerCollider->rect.h = 108;
-			if (keyup[SDL_SCANCODE_A]) {
-				StoreInput(SDL_SCANCODE_A);
-				if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-				keyup[SDL_SCANCODE_A] = false;
+			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN)
+				&& keyup[SDL_SCANCODE_E] && !leaveif)
+			{
+				current_animation = &crouchkick;
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				leaveif = true;
+
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
+
+				if (keyup[SDL_SCANCODE_E]) {
+					StoreInput(SDL_SCANCODE_E);
+					keyup[SDL_SCANCODE_E] = false;
+				}
 			}
-		}*/
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
-			current_animation = &jump;
-			jumping = JUMP_UP;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || SDL_GameControllerGetAxis(App->input->controller[0], SDL_CONTROLLER_AXIS_LEFTX) > 0)
+			{
+				if (!flip) current_animation = &forward;
+				if (flip) current_animation = &flipback;
 
-			if (keyup[SDL_SCANCODE_W]) {
-				StoreInput(SDL_SCANCODE_W);
-				keyup[SDL_SCANCODE_W] = false;
+				speed.x = 2.5f;
+				playerCollider->rect.h = 108;
+				if (keyup[SDL_SCANCODE_D]) {
+					StoreInput(SDL_SCANCODE_D);
+					if (flip) { block = App->collision->AddCollider({ position.x - 20, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
+					keyup[SDL_SCANCODE_D] = false;
+				}
 			}
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
-			current_animation = &punch;
-
-			
-
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
-
-
-			if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-			leaveif = true;
-			if (keyup[SDL_SCANCODE_Q]) {
-				StoreInput(SDL_SCANCODE_Q);
-				keyup[SDL_SCANCODE_Q] = false;
+			//cambiar//
+			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
+			{
+				if (!flip) current_animation = &back;
+				if (flip) current_animation = &flipforward;
+				speed.x = -1.5f;
+				playerCollider->rect.h = 108;
+				if (keyup[SDL_SCANCODE_A]) {
+					StoreInput(SDL_SCANCODE_A);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					keyup[SDL_SCANCODE_A] = false;
+				}
 			}
-		}
 
-		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E]) {
-			current_animation = &kick;
+			/*if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
+			{
+				current_animation = &doubleback;
+				speed.x = -1.5f;
+				playerCollider->rect.h = 108;
+				if (keyup[SDL_SCANCODE_A]) {
+					StoreInput(SDL_SCANCODE_A);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					keyup[SDL_SCANCODE_A] = false;
+				}
+			}*/
 
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
+				current_animation = &jump;
+				jumping = JUMP_UP;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 
-			if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
-			if (flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
-			if (keyup[SDL_SCANCODE_E]) {
-				StoreInput(SDL_SCANCODE_E);
-				keyup[SDL_SCANCODE_E] = false;
+				if (keyup[SDL_SCANCODE_W]) {
+					StoreInput(SDL_SCANCODE_W);
+					keyup[SDL_SCANCODE_W] = false;
+				}
 			}
+
+			if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
+				current_animation = &punch;
+
+
+
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
+
+
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				leaveif = true;
+				if (keyup[SDL_SCANCODE_Q]) {
+					StoreInput(SDL_SCANCODE_Q);
+					keyup[SDL_SCANCODE_Q] = false;
+				}
+			}
+
+			if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E]) {
+				current_animation = &kick;
+
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
+
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				if (flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				if (keyup[SDL_SCANCODE_E]) {
+					StoreInput(SDL_SCANCODE_E);
+					keyup[SDL_SCANCODE_E] = false;
+				}
+			}
+
+			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+				current_animation = &koukenR;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
+				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
+				App->audio->PlayChunk(App->audio->chunks[0]);
+				stamina -= 33;
+			}
+
+
+
+			if (hp <= 0 && App->player->p2Won != true)
+			{
+				hp = 0;
+				App->player->p2Won = true;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
+				//current_animation = &death;
+				playerCollider->to_delete = true;
+			}
+
+			if (stamina <= 0)
+			{
+				stamina = 0;
+			}
+
 		}
-
-		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
-			current_animation = &koukenR;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
-			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
-			App->audio->PlayChunk(App->audio->chunks[0]);
-			stamina -= 33;
-		}
-		
-
-
-	if (hp <= 0 && App->player->p2Won != true)
-	{
-		hp = 0;
-		App->player->p2Won = true;
-		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
-		//current_animation = &death;
-		playerCollider->to_delete = true;
 	}
-
-	if (stamina <= 0)
-	{
-		stamina = 0;
-	}
-
-	}
-
 	//Debug functionality-----------------------------------------
 
 	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2])
