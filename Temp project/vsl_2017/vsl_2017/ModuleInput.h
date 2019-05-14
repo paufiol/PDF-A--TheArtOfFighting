@@ -33,7 +33,7 @@ public:
 	
 	Uint8 *keyboard = nullptr;
 	SDL_GameController *controller[2];
-	SDL_Joystick *joystick = nullptr;
+	SDL_Joystick *joystick[2];
 	
 	//Uint8 *oldkeyboard = nullptr;
 };

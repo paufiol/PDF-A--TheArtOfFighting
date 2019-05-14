@@ -384,12 +384,12 @@ update_status ModulePlayer::Update()
 			}
 		}
 
-		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 15)) {
+		if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
 			current_animation = &koukenR;
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 			App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 			App->audio->PlayChunk(App->audio->chunks[0]);
-			stamina -= 15;
+			stamina -= 33;
 		}
 		
 
@@ -567,10 +567,13 @@ bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, S
 	for (int i = inputCount; 1; i++) {
 
 		if (i == (MAX_INPUTS)) i = 0;
+		
 		int j = i - 1; int k = i - 2; int l = i - 3;
+		
 		if (i == 2) { l = MAX_INPUTS - 1; }
 		if (i == 1) { l = MAX_INPUTS - 2; k = MAX_INPUTS - 1; }
 		if (i == 0) { l = MAX_INPUTS - 3; k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
+		
 		if (input[i] == A && input[j] == B &&
 			input[k] == C && input[l] == D) {
 
@@ -582,11 +585,13 @@ bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, S
 					input[p] = 0;
 					timeInput[p] = 0;
 				}
+				
 				inputCount = 0;
 				return true;
 
 			}
 		}
+
 		if (i == d) break;
 	}
 

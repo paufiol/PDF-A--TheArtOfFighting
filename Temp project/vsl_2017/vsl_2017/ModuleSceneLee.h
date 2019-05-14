@@ -24,4 +24,4 @@ public:
 	SDL_Rect background, printWinner;
 };
 
-//#endif // __MODULESCENEHONDA_H__
+#endif // __MODULESCENEHONDA_H__
