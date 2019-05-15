@@ -63,26 +63,30 @@ update_status ModuleSceneChina::Update()
 	App->render->Blit(graphics, 0, 0, &r, 0.75f);
 	if (App->player->p1Won)
 	{
+		App->UI->roundp1 = 1;
 		printWinner = { 595,420,116,40 };
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f,false,false);
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		if(App->UI->roundp1 == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);
 		}
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+
+		if (App->UI->roundp1 > 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+			if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+			{
+				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+			}
+
 		}
 
 	}
 	if (App->player->p2Won)
 	{
+		//App->UI->roundp2++;
+
 		printWinner = { 725,420,120,40 };
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-		{
-			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
-		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
 			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);

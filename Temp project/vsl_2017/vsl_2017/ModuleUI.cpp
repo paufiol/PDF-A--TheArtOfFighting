@@ -52,6 +52,7 @@ bool ModuleUI::Start()
 	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont2, 1);
 	lifebar1rect = { 766,1, 127,7 };
 	lifebar2rect = { 766,1, 127,7 };
+	roundp1 = 0;
 	return true;
 }
 update_status ModuleUI::Update()
@@ -151,9 +152,16 @@ update_status ModuleUI::Update()
 	App->fonts->BlitText(50, 32, font_mini, "ryo", printFont2);
 	App->fonts->BlitText(230, 32, font_mini, "ryo", printFont2);
 	//Rounds:------------------------------------------------------------------
-	//SDL_Rect r = current_animation->GetCurrentFrame();
-	//App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
-	//App->render->Blit(graphics, 64, 40, &r, 1.0f, false, false);
+	SDL_Rect r = current_animation->GetCurrentFrame();
+	if (roundp1 == 1)
+	{
+		App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
+	}
+	if (roundp1 > 1)
+	{
+		App->render->Blit(graphics, 64, 40, &r, 1.0f, false, false);
+		App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
+	}
 	//-------------------------------------------------------------------------
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
 	return UPDATE_CONTINUE;
