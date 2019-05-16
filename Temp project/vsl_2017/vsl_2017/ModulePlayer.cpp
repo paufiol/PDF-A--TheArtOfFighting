@@ -17,6 +17,15 @@ ModulePlayer::ModulePlayer()
 	position.x = 100;
 	position.y = 112;
 
+	//lee animations
+
+	//idle aniamation lee
+
+	/*idle.PushBack({0,3,70,101},0,0);
+	idle.PushBack({ 75,5,69,99 },0,2);
+	idle.PushBack({ 159,1,70,103 },0,-2);
+	
+	idle.speed = 0.15f;*/
 
 	// idle animation (arcade sprite sheet)
 	idle.PushBack({ 0, 8, 66, 108 });
@@ -24,13 +33,26 @@ ModulePlayer::ModulePlayer()
 	idle.PushBack({ 133, 8, 69, 108 });
 	if(flip) idle.speed = 0.025f;
 	if (!flip) idle.speed = 0.1f;
+	
+
+	//walk forward lee
+
+	//forward.PushBack({ 239,0,68,103 });
+	//forward.PushBack({ 322,0,58,103 });
+	//forward.PushBack({ 385,1,51,101 });
+	//forward.PushBack({ 447,1,48,102 });
+	//forward.PushBack({ 385,1,51,101 });
+	//forward.PushBack({ 322,0,58,103 });
+	//forward.speed = 0.4f;
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
+	
 	forward.PushBack({ 691, 348, 56, 109 });
 	forward.PushBack({ 749, 350, 65, 107 }, -10, 0);
 	forward.PushBack({ 818, 348, 58, 109 });
 	forward.PushBack({ 876, 350, 65, 107 }, -9, 0);
+
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
 	if (!flip) forward.speed = 0.1f;
 	if (!flip) forward.speed = 0.05f;
@@ -182,7 +204,7 @@ update_status ModulePlayer::Update()
 {
 	if (this->position.x >= App->player2->position.x) flip = true;
 	if (this->position.x <= App->player2->position.x) flip = false;
-	if (flip) flip_sign = -1;
+	if (flip) flip_sign = 1;
 	if (!flip) flip_sign = 1;
 
 	playerCollider->SetPos(position.x, position.y);
