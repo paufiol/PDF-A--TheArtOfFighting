@@ -12,13 +12,16 @@
 #include "SDL/include/SDL.h"
 #include "ModuleSceneSplash.h"
 #include "ModuleFonts.h"
+#include "ModuleSlowdown.h"
 
 
 ModuleSceneChina::ModuleSceneChina()
 {
-	chinatown.PushBack({0, 0, 0, 0 });
-	chinatown.PushBack({ 0, 0, 0 ,0 });
-	chinatown.speed = 0.00;
+	chinatown.PushBack({0, 0, 548, 224 });
+	chinatown.PushBack({ 0, 224, 548,224 });
+	chinatown.PushBack({ 0, 448, 548,224 });
+	chinatown.PushBack({ 0, 672, 548,224 });
+	chinatown.speed = 0.03;
 
 	
 }
@@ -69,6 +72,7 @@ update_status ModuleSceneChina::Update()
 		if(App->UI->roundp1 == 1)
 		{
 			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);
+			App->slow->StartSlowdown(60, 60);
 		}
 
 		if (App->UI->roundp1 > 1)
