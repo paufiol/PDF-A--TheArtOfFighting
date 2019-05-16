@@ -170,7 +170,7 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 	rect.h *= SCREEN_SIZE;
 	
 	if (flip) {
-		//rect.x -= (section->w - 57);
+		rect.x -= (section->w - 57);
 		
 		if (SDL_RenderCopyEx(renderer, texture, section, &rect, NULL, NULL, SDL_FLIP_HORIZONTAL) != 0)
 		{

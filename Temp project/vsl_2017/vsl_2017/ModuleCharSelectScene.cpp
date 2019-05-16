@@ -68,7 +68,7 @@ update_status ModuleCharSelectScene::Update()
 		}
 	}
 	//PLAYER1: ---------------------------------------
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1 || App->input->JoystickGetPos(App->input->controller[0], UP))
 	{
 		if (iy == 1)
 		{
@@ -78,7 +78,7 @@ update_status ModuleCharSelectScene::Update()
 	
 		
 	}
-	if ((App->input->keyboard[SDL_SCANCODE_A] == 1) && keyup[SDL_SCANCODE_A])
+	if ((App->input->keyboard[SDL_SCANCODE_A] == 1 || App->input->JoystickGetPos(App->input->controller[0], LEFT)) && keyup[SDL_SCANCODE_A])
 	{
 		if (ix <= 3 && keyup[SDL_SCANCODE_A])
 		{
@@ -91,7 +91,7 @@ update_status ModuleCharSelectScene::Update()
 		}
 		
 	}
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_S] == 1 || App->input->JoystickGetPos(App->input->controller[0], DOWN))
 	{
 		if (iy == 0)
 		{
@@ -99,7 +99,7 @@ update_status ModuleCharSelectScene::Update()
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
-	if ((App->input->keyboard[SDL_SCANCODE_D] == 1) && keyup[SDL_SCANCODE_D])
+	if ((App->input->keyboard[SDL_SCANCODE_D] == 1 || App->input->JoystickGetPos(App->input->controller[0], RIGHT)) && keyup[SDL_SCANCODE_D])
 	{
 		if (ix >= 0 && keyup[SDL_SCANCODE_D])
 		{
@@ -133,7 +133,7 @@ update_status ModuleCharSelectScene::Update()
 
 	//..................................................................................
 	//PLAYER2: ---------------------------------------
-	if (App->input->keyboard[SDL_SCANCODE_I] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_I] == 1 || App->input->JoystickGetPos(App->input->controller[1], UP))
 	{
 		if (jy == 1)
 		{
@@ -141,7 +141,7 @@ update_status ModuleCharSelectScene::Update()
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
-	if ((App->input->keyboard[SDL_SCANCODE_J] == 1) && keyup[SDL_SCANCODE_J])
+	if ((App->input->keyboard[SDL_SCANCODE_J] == 1 || App->input->JoystickGetPos(App->input->controller[1], LEFT)) && keyup[SDL_SCANCODE_J])
 	{
 		if (jx <= 3 && keyup[SDL_SCANCODE_J])
 		{
@@ -153,7 +153,7 @@ update_status ModuleCharSelectScene::Update()
 			keyup[SDL_SCANCODE_J] = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_K] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_K] == 1 || App->input->JoystickGetPos(App->input->controller[1], DOWN))
 	{
 		if (jy == 0)
 		{
@@ -161,7 +161,7 @@ update_status ModuleCharSelectScene::Update()
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
-	if ((App->input->keyboard[SDL_SCANCODE_L] == 1) && keyup[SDL_SCANCODE_L])
+	if ((App->input->keyboard[SDL_SCANCODE_L] == 1 || App->input->JoystickGetPos(App->input->controller[1], RIGHT)) && keyup[SDL_SCANCODE_L])
 	{
 		if (jx >= 0 && keyup[SDL_SCANCODE_L])
 		{			
@@ -235,7 +235,7 @@ update_status ModuleCharSelectScene::Update()
 
 
 	
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || SDL_GameControllerGetButton(App->input->controller[0], SDL_CONTROLLER_BUTTON_A) || SDL_GameControllerGetButton(App->input->controller[1], SDL_CONTROLLER_BUTTON_A))
 	{
 		App->fade->FadeToBlack((Module*)App->scene_characterselect, (Module*)App->scene_china, 2.0f);
 	}

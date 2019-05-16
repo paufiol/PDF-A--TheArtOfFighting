@@ -151,7 +151,7 @@ update_status ModuleSceneSplash::Update()
 
 	App->render->Blit(UI, 150, 140, &timerR, 1.0f, false, false);
 
-	if (currenttime >= 30 || App->input->keyboard[SDL_SCANCODE_SPACE] == 1 )
+	if (currenttime >= 30 || App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || SDL_GameControllerGetButton(App->input->controller[0], SDL_CONTROLLER_BUTTON_START))
 	{
 		App->fade->FadeToBlack((Module*)App->scene_splash, (Module*)App->scene_characterselect, 1.0f);
 	}

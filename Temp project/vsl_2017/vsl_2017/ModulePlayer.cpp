@@ -171,13 +171,6 @@ ModulePlayer::ModulePlayer()
 	defeat.PushBack({ 270, 53, 58, 62 });
 	defeat.lock = true;
 	defeat.speed = 0.1f;
-
-
-	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
-
-	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
-	//victory------------> 0,256,53 ,116 // 65, 266, 69, 106 
-	//defeat-------------> 0, 0, 66, 115 // 66, 0, 73, 115 // 144, 8, 64, 107 // 208, 29, 62, 86 // 270, 53, 58, 62
 }
 
 ModulePlayer::~ModulePlayer()
@@ -201,22 +194,26 @@ bool ModulePlayer::Start()
 
 // Update: draw background
 update_status ModulePlayer::Update()
-{
+{	
+	//Flip check
 	if (this->position.x >= App->player2->position.x) flip = true;
 	if (this->position.x <= App->player2->position.x) flip = false;
 	if (flip) flip_sign = 1;
-	if (!flip) flip_sign = 1;
+	if (!flip) flip_sign = -1;
 
+	//Player collision
 	playerCollider->SetPos(position.x, position.y);
 	if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
-
 	playerCollider->rect.h = 108;
+	
+	//Block collider
 	if (block != nullptr)
 	{
 		if (!flip)	block->SetPos(position.x + 55, position.y + 5);
 		if (flip)	block->SetPos(position.x - 10, position.y + 5);
 	}
 
+	//Reduce hitbox while crouching
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
 	{
 		playerCollider->SetPos(position.x, position.y + 33);
@@ -238,12 +235,12 @@ update_status ModulePlayer::Update()
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
+	if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
 		keyup[SDL_SCANCODE_Q] = false;
 		StoreInput(SDL_SCANCODE_Q);
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_E] && current_animation->lock) {
+	if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_E] && current_animation->lock) {
 		keyup[SDL_SCANCODE_E] = false;
 		StoreInput(SDL_SCANCODE_E);
 	}
@@ -253,9 +250,11 @@ update_status ModulePlayer::Update()
 			keyup[i] = true;
 		}
 	}
+
 	if (!p1Won && !p2Won) {
-		if (current_animation->Finished() || current_animation->lock == false)
+		if (current_animation->Finished() || current_animation->lock == false) //check for animation lock
 		{
+			//Reset colliders & animation
 			if (current_animation->Finished()) {
 				current_animation->Reset();
 				if (melee != nullptr) melee->to_delete = true;
@@ -279,7 +278,7 @@ update_status ModulePlayer::Update()
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN)
+			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
 			{
 				current_animation = &crouchidle;
 				playerCollider->rect.h = 75;
@@ -324,7 +323,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || SDL_GameControllerGetAxis(App->input->controller[0], SDL_CONTROLLER_AXIS_LEFTX) > 0)
+			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], RIGHT))
 			{
 				if (!flip) current_animation = &forward;
 				if (flip) current_animation = &flipback;
@@ -338,7 +337,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 			//cambiar//
-			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN)
+			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], LEFT))
 			{
 				if (!flip) current_animation = &back;
 				if (flip) current_animation = &flipforward;
@@ -363,7 +362,7 @@ update_status ModulePlayer::Update()
 				}
 			}*/
 
-			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN) {
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
@@ -374,7 +373,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_Q]) {
+			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)) && !leaveif && keyup[SDL_SCANCODE_Q]) {
 				current_animation = &punch;
 
 
@@ -392,7 +391,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && !leaveif && keyup[SDL_SCANCODE_E]) {
+			if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))&& !leaveif && keyup[SDL_SCANCODE_E]) {
 				current_animation = &kick;
 
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));

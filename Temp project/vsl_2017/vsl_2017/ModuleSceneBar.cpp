@@ -57,7 +57,7 @@ update_status ModuleSceneBar::Update()
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics, 0, 0, &background, 0.75f);
 	
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1 || SDL_GameControllerGetButton(App->input->controller[0], SDL_CONTROLLER_BUTTON_START))
 	{
 		App->fade->FadeToBlack((Module*)App->scene_bar, (Module*)App->scene_end,  2.0f);
 	}

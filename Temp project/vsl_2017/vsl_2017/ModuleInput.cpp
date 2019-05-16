@@ -23,7 +23,7 @@ bool ModuleInput::Init()
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK) < 0)
+	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK | SDL_INIT_GAMECONTROLLER) < 0)
 	{
 		LOG("SDL_EVENTS could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
@@ -40,6 +40,17 @@ bool ModuleInput::Init()
 	}*/
 	// int control = SDL_NumJoysticks();
 	
+	
+
+	return ret;
+}
+
+// Called every draw update
+update_status ModuleInput::PreUpdate()
+{
+	
+	//SDL_memcpy(oldcontroller, controller, sizeof(Uint8)*SDL_CONTROLLER_BUTTON_MAX*2);
+
 	for (int i = 0; i < SDL_NumJoysticks(); i++) {
 		if (SDL_IsGameController(i)) {
 			controller[i] = SDL_GameControllerOpen(i);
@@ -50,35 +61,11 @@ bool ModuleInput::Init()
 		}
 	}
 
-	return ret;
-}
-
-// Called every draw update
-update_status ModuleInput::PreUpdate()
-{
-	
 	SDL_PumpEvents();
 
 	keyboard = (Uint8*)SDL_GetKeyboardState(NULL);
 
-	/*for (int i = 0; i < SDL_NumJoysticks(); i++) {
-		if (SDL_IsGameController(i)) {
-			controller[i] = SDL_GameControllerOpen(i);
-			if (controller[i] == NULL) {
-				LOG("Can't open controller: %s", SDL_GetError());
-			}
-		}
-	}*/
 	
-	/*if (keyboard != nullptr && oldkeyboard != nullptr) {
-		//SDL_SCANCODE_Z; SDL_SCANCODE_A; SDL_SCANCODE_SPACE;
-		for (int i = 4; i < 69; i++) {
-			if (&keyboard[i] == &oldkeyboard[i] && keyboard[i] == KEY_DOWN)			 
-			{ keyboard[i] = KEY_REPEAT; }
-			//if (keyboard[i] != oldkeyboard[i] && keyboard[i] != SDL_KEYDOWN) { keyboard[i] = KEY_UP; }
-		}
-	}
-	oldkeyboard = keyboard;*/
 
 	if(keyboard[SDL_SCANCODE_ESCAPE])
 	return update_status::UPDATE_STOP;
@@ -92,9 +79,48 @@ update_status ModuleInput::PreUpdate()
 // Called before quitting
 bool ModuleInput::CleanUp()
 {
-	if (joystick[0] != nullptr) SDL_JoystickClose( joystick[0] );
+	//if (joystick[0] != nullptr) SDL_JoystickClose( joystick[0] );
+	if (controller[0] != nullptr) SDL_GameControllerClose(controller[0]);
+	if (controller[1] != nullptr) SDL_GameControllerClose(controller[1]);
 	
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
 	return true;
+}
+
+bool ModuleInput::JoystickGetPos(SDL_GameController * gamepad, DIRECTION direction) {
+	bool ret = false;
+	
+	int deadzone = 7849;
+	int xAxis = SDL_GameControllerGetAxis(gamepad, SDL_CONTROLLER_AXIS_LEFTX);
+	int yAxis = SDL_GameControllerGetAxis(gamepad, SDL_CONTROLLER_AXIS_LEFTY);
+
+	if (xAxis > deadzone && direction == RIGHT) ret = true;
+	if (xAxis < -deadzone && direction == LEFT) ret = true;
+
+	if (yAxis < -deadzone && direction == UP) ret = true;
+	if (yAxis > deadzone && direction == DOWN) ret = true;
+
+	if (yAxis < -deadzone && xAxis > deadzone && direction == UPRIGHT) ret = true;
+	if (yAxis > deadzone && xAxis > -deadzone && direction == DOWNLEFT) ret = true;
+	if (yAxis > deadzone && xAxis > deadzone && direction == LEFTUP) ret = true;
+	if (yAxis < -deadzone && xAxis > -deadzone && direction == RIGHTDOWN) ret = true;
+
+	return ret;
+}
+
+bool ModuleInput::ButtonTrigger(SDL_GameController * gamepad, SDL_GameControllerButton button) {
+	if (gamepad == controller[0]) {
+		if (SDL_GameControllerGetButton(controller[0], button) == true && SDL_GameControllerGetButton(oldcontroller[0], button)) {
+			return true;		
+		}
+	}
+	if (gamepad == controller[1]) {
+		if (SDL_GameControllerGetButton(controller[1], button) == true && SDL_GameControllerGetButton(oldcontroller[1], button)) {
+			return true;
+		}
+	}
+
+	return false;
 }
