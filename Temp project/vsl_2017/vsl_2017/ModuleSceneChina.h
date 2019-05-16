@@ -24,6 +24,13 @@ public:
 	Animation chinatown;
 	Animation* current_animation = &chinatown;
 	SDL_Rect background,printWinner;
+	struct rounds
+	{
+		bool first ;
+		bool second ;
+		bool third ;
+	};
+	rounds round;
 };
 
 #endif // __MODULESCENECHINA_H__
