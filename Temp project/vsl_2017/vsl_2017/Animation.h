@@ -42,7 +42,8 @@ public:
 		if (current_frame >= last_frame)
 		{
 			current_frame = (loop) ? 0.0f : last_frame - 1;
-			loops++;
+			if(loop)
+				loops++;
 			
 		}
 		return frames[(int)current_frame];

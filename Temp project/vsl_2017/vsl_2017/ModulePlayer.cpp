@@ -157,16 +157,23 @@ ModulePlayer::ModulePlayer()
 	flipkick.speed = 0.1f;
 	flipkick.lock = true;
 
-	crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
-	crouchidle.speed = 0.1f;
+	  //DONE
+	crouchidle.PushBack({ 0, 482, 58, 88}, 0 , 15);
+	crouchidle.PushBack({ 921, 382, 77, 62 }, 0, 36);
+	/*crouchidle.PushBack({ 0, 482, 58 , 88}, 0, 15);*/
+	crouchidle.speed = 0.2f;
+	crouchidle.lock = false;
+	crouchidle.loop = false;
 
-	crouchpunch.PushBack({ 414, 42, 53, 76 }, 0, 34);
+	/*crouchpunch.PushBack({ 414, 42, 53, 76 }, 0, 34);
 	crouchpunch.PushBack({ 469, 41, 106, 77 }, -15, 34);
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
-
-	crouchkick.PushBack({ 866, 169, 55, 66 }, 0, 40);
-	crouchkick.PushBack({ 0, 280, 127, 68 }, -15, 40);
+*/
+	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 37);
+	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 37);
+	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 37);
+	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 37);
 	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
@@ -295,7 +302,7 @@ update_status ModulePlayer::Update()
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
+			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN /*|| App->input->JoystickGetPos(App->input->controller[0], DOWN)*/)
 			{
 				current_animation = &crouchidle;
 				playerCollider->rect.h = 75;
