@@ -19,21 +19,21 @@ ModulePlayer2::ModulePlayer2()
 
 
 	// idle animation (arcade sprite sheet)
-	idle.PushBack({ 0, 8, 66, 108 });
+	/*idle.PushBack({ 0, 8, 66, 108 });
 	idle.PushBack({ 66, 8, 67 , 108 });
 	idle.PushBack({ 133, 8, 69, 108 });
 	if (!flip) idle.speed = 0.05f;
-	if (flip) idle.speed = 0.1f;
+	if (flip) idle.speed = 0.1f;*/
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
-	forward.PushBack({ 691, 348, 56, 109 });
-	forward.PushBack({ 749, 350, 65, 107 }, -10, 0);
-	forward.PushBack({ 818, 348, 58, 109 });
-	forward.PushBack({ 876, 350, 65, 107 }, -9, 0);
-	/*forward.PushBack({ 874, 348, 67, 108 });*/
-	if (!flip) forward.speed = 0.05f;
-	if (flip) forward.speed = 0.1f;
+	//forward.PushBack({ 691, 348, 56, 109 });
+	//forward.PushBack({ 749, 350, 65, 107 }, -10, 0);
+	//forward.PushBack({ 818, 348, 58, 109 });
+	//forward.PushBack({ 876, 350, 65, 107 }, -9, 0);
+	///*forward.PushBack({ 874, 348, 67, 108 });*/
+	//if (!flip) forward.speed = 0.05f;
+	//if (flip) forward.speed = 0.1f;
 
 	flipforward.PushBack({ 691, 348, 56, 109 }, 0, 0);
 	flipforward.PushBack({ 749, 350, 65, 107 }, 10, 0);
@@ -44,13 +44,13 @@ ModulePlayer2::ModulePlayer2()
 	if (flip) flipforward.speed = 0.1f;
 
 
-	back.PushBack({ 577, 479, 57, 109 }, -5, 0);
+	/*back.PushBack({ 577, 479, 57, 109 }, -5, 0);
 	back.PushBack({ 638, 477, 52, 111 });
 	back.PushBack({ 692, 479, 57, 109 }, -5, 0);
 	back.PushBack({ 638, 477, 52, 111 });
 	back.PushBack({ 577, 479, 57, 109 }, -5, 0);
 	if (!flip) back.speed = 0.05f;
-	if (flip) back.speed = 0.1f;
+	if (flip) back.speed = 0.1f;*/
 
 	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
 	flipback.PushBack({ 638, 477, 52, 111 });
@@ -69,7 +69,7 @@ ModulePlayer2::ModulePlayer2()
 	doubleback.lock = true;
 
 
-	jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
+	/*jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
 	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
 	jump.PushBack({ 126, 456, 62, 130 }, 0, -20);
 	jump.PushBack({ 188, 456, 57 , 130 }, 0, -20);
@@ -78,14 +78,14 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 299, 456, 56, 130 }, 0, -20);
 	if (flip) jump.speed = 0.1f;
 	if (!flip) jump.speed = 0.1f;
-	jump.lock = true;
+	jump.lock = true;*/
 
-	punch.PushBack({ 485, 348,  58, 108 });
-	punch.PushBack({ 543, 348,  89, 108 });
-	/*punch.PushBack({ 485, 348,  58, 108 });*/
-	if (flip) punch.speed = 0.2f;
-	if (!flip) punch.speed = 0.2f;
-	punch.lock = true;
+	//punch.PushBack({ 485, 348,  58, 108 });
+	//punch.PushBack({ 543, 348,  89, 108 });
+	///*punch.PushBack({ 485, 348,  58, 108 });*/
+	//if (flip) punch.speed = 0.2f;
+	//if (!flip) punch.speed = 0.2f;
+	//punch.lock = true;
 
 
 	koukenR.PushBack({ 176, 873, 66, 112 });
@@ -121,9 +121,9 @@ ModulePlayer2::ModulePlayer2()
 	if (!flip) flipkick.speed = 0.1f;
 	flipkick.lock = true;
 
-	crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
+	/*crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
 	if (flip) crouchidle.speed = 0.1f;
-	if (!flip) crouchidle.speed = 0.05f;
+	if (!flip) crouchidle.speed = 0.05f;*/
 
 	crouchpunch.PushBack({ 414, 42, 53, 76 }, 0, 34);
 	crouchpunch.PushBack({ 469, 41, 106, 77 }, -15, 34);
@@ -153,6 +153,67 @@ ModulePlayer2::ModulePlayer2()
 	defeat.speed = 0.1f;
 
 
+	//lee
+
+	idle.PushBack({ 0,3,70,101 }, 0, 0);
+	idle.PushBack({ 75,5,69,99 }, 0, 2);
+	idle.PushBack({ 159,1,70,103 }, 0, -2);
+
+	idle.speed = 0.075f;
+
+	jump.PushBack({ 697,  6, 54, 98 }, 0, -20);
+	jump.PushBack({ 759, 49, 78, 53 }, 0, -20);
+	jump.PushBack({ 837, 32, 38, 70 }, 0, -20);
+	jump.PushBack({ 885, 64, 68, 38 }, 0, -20);
+	jump.PushBack({ 958, 34, 39, 69 }, 0, -20);
+	jump.PushBack({ 0, 167, 66, 38 }, 0, -20);
+	jump.PushBack({ 837, 32, 38, 70 }, 0, -20);
+	jump.PushBack({ 885, 64, 68, 38 }, 0, -20);
+	jump.PushBack({ 958, 34, 39, 69 }, 0, -20);
+	jump.PushBack({ 0, 167, 66, 38 }, 0, -20);
+	jump.PushBack({ 837, 32, 38, 70 }, 0, -20);
+	jump.PushBack({ 885, 64, 68, 38 }, 0, -20);
+	jump.PushBack({ 958, 34, 39, 69 }, 0, -20);
+	jump.PushBack({ 0, 167, 66, 38 }, 0, -20);
+	jump.PushBack({ 837, 32, 38, 70 }, 0, -20);
+	jump.PushBack({ 329, 145, 68, 61 }, 0, -20);
+	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
+	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
+	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
+	jump.speed = 0.25f;
+
+	jump.lock = true;
+
+	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
+	crouchidle.PushBack({ 615, 40, 77, 62 }, 0, 36);
+	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
+	crouchidle.speed = 0.2f;
+	crouchidle.loop = false;
+	
+	if (flip) crouchidle.speed = 0.1f;
+	if (!flip) crouchidle.speed = 0.05f;
+	
+	punch.PushBack({ 539, 105, 70, 103 });
+	punch.PushBack({ 609, 109, 104, 99 },-15,0);
+	punch.PushBack({ 713, 111, 74, 97 },-15,0);
+	punch.PushBack({ 539, 105, 70, 103 });
+	punch.speed = 0.15f;
+	punch.lock = true;
+
+	forward.PushBack({ 239,0,68,103 });
+	forward.PushBack({ 322,0,58,103 });
+	forward.PushBack({ 385,1,51,101 });
+	forward.PushBack({ 447,1,48,102 });
+	forward.PushBack({ 385,1,51,101 });
+	forward.PushBack({ 322,0,58,103 });
+	forward.speed = 0.1f;
+
+	back.PushBack({ 322,0,58,103 });
+	back.PushBack({ 385,1,51,101 });
+	back.PushBack({ 447,1,48,102 });
+	back.PushBack({ 385,1,51,101 });
+	back.PushBack({ 322,0,58,103 });
+	back.speed = 0.1f;
 	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
 
 	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
@@ -168,7 +229,7 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("RESOURCES/ryo.png");
+	graphics = App->textures->Load("RESOURCES/lee.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
 	graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 
@@ -227,6 +288,9 @@ update_status ModulePlayer2::Update()
 		keyup[SDL_SCANCODE_O] = false;
 		StoreInput(SDL_SCANCODE_O);
 	}
+	
+	
+	
 
 	for (int i = 0; i < 69; i++) {
 		if (App->input->keyboard[i] == KEY_STATE::KEY_UP) {
@@ -248,14 +312,14 @@ update_status ModulePlayer2::Update()
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
-			speed.x = 4.5f;
+			speed.x = 2.5f;
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN) {
 			current_animation = &jump;
 			jumping = JUMP_UP;
-			speed.x = -4.5f;
+			speed.x = -2.5f;
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 		}
 
@@ -306,8 +370,8 @@ update_status ModulePlayer2::Update()
 
 		if (App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN)
 		{
-			if (!flip) current_animation = &forward;
-			if (flip) current_animation = &flipback;
+			 current_animation = &back;
+			
 
 			speed.x = 2.5f;
 			playerCollider->rect.h = 108;
@@ -320,9 +384,9 @@ update_status ModulePlayer2::Update()
 		//cambiar//
 		if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN)
 		{
-			if (!flip) current_animation = &back;
-			if (flip) current_animation = &flipforward;
-			speed.x = -1.5f;
+			current_animation = &forward;
+			
+			speed.x = -2.5f;
 			playerCollider->rect.h = 108;
 			if (keyup[SDL_SCANCODE_J]) {
 				StoreInput(SDL_SCANCODE_J);
@@ -441,7 +505,7 @@ update_status ModulePlayer2::Update()
 	//Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
 	{
-		speed.y = (-1)*(12 + -0.5 * clock_parabolla);
+		speed.y = (-1)*(8 + -0.5 * clock_parabolla);
 		clock_parabolla++;
 
 		if (jumping == JUMP_DOWN)
