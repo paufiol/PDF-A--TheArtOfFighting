@@ -159,7 +159,7 @@ ModulePlayer::ModulePlayer()
 
 	  //DONE
 	crouchidle.PushBack({ 0, 482, 58, 88}, 0 , 15);
-	crouchidle.PushBack({ 921, 382, 77, 62 }, 0, 36);
+	crouchidle.PushBack({ 921, 382, 77, 62 }, 0, 41);	
 	/*crouchidle.PushBack({ 0, 482, 58 , 88}, 0, 15);*/
 	crouchidle.speed = 0.2f;
 	crouchidle.lock = false;

@@ -185,8 +185,8 @@ ModulePlayer2::ModulePlayer2()
 	jump.lock = true;
 
 	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
-	crouchidle.PushBack({ 615, 40, 77, 62 }, 0, 36);
-	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
+	crouchidle.PushBack({ 615, 40, 77, 62 }, 0, 41);
+	/*crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);*/
 	crouchidle.speed = 0.2f;
 	crouchidle.loop = false;
 	
