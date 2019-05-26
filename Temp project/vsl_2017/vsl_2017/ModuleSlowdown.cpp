@@ -16,6 +16,7 @@ ModuleSlowdown::~ModuleSlowdown()
 // Load assets
 bool ModuleSlowdown::Start()
 {
+	finished = false;
 	return true;
 }
 
@@ -44,6 +45,7 @@ void ModuleSlowdown::UpdateSlowdown()
 	else {
 		slowing_down = false;
 		slowdown_timer = 0;
+		finished = true;
 	}
 	slowdown_timer++;
 }

@@ -13,11 +13,13 @@ public:
 	bool Start();
 	update_status PostUpdate();
 
+	bool finished = false;
 	void StartSlowdown(int duration, int magnitude);
 	void UpdateSlowdown();
 
 private:
 	bool slowing_down = false;
+
 
 	int slowdown_duration = 0;
 	int slowdown_timer = 0;

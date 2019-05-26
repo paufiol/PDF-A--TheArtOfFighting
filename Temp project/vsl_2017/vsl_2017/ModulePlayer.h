@@ -56,6 +56,7 @@ public:
 	int wFrame = 0;
 
 	bool p1Won = false, p2Won = false;
+	bool playersMove = false;
 	bool godMode;
 	Animation* current_animation = &idle;
 

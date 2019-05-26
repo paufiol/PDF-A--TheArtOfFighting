@@ -14,7 +14,7 @@
 
 ModulePlayer::ModulePlayer()
 {
-	position.x = 100;
+	position.x = 185;
 	position.y = 112;
 
 	//lee animations
@@ -275,7 +275,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	if (!p1Won && !p2Won) {
+	if (playersMove) {
 		if (current_animation->Finished() || current_animation->lock == false) //check for animation lock
 		{
 			//Reset colliders & animation
@@ -443,6 +443,7 @@ update_status ModulePlayer::Update()
 			{
 				hp = 0;
 				App->player->p2Won = true;
+				playersMove = false;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
 				//current_animation = &death;
 				playerCollider->to_delete = true;

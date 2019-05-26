@@ -20,17 +20,16 @@ public:
 
 public:
 
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics = nullptr,*UI = nullptr;
 	Animation chinatown;
 	Animation* current_animation = &chinatown;
-	SDL_Rect background,printWinner;
-	struct rounds
-	{
-		bool first ;
-		bool second ;
-		bool third ;
-	};
-	rounds round;
+	SDL_Rect background,printWinner,printRound, printFight;
+	int initialScene = 0;
+	int roundP1 = 0;
+	bool P1bool = false;
+	int roundP2 = 0;
+	bool P2bool = false;
+
 };
 
 #endif // __MODULESCENECHINA_H__

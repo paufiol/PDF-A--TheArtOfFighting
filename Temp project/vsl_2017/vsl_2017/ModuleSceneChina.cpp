@@ -23,6 +23,8 @@ ModuleSceneChina::ModuleSceneChina()
 	chinatown.PushBack({ 0, 672, 548,224 });
 	chinatown.speed = 0.03;
 
+	printRound = { 512,108,100,16 };
+	printFight = { 512,140,80,16 };
 	
 }
 
@@ -38,7 +40,13 @@ bool ModuleSceneChina::Start()
 	App->player->p2Won = false;
 	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/FIGHT_SONG/Ryuhaku_Todoh.ogg", -1);
 	graphics = App->textures->Load("RESOURCES/Chinatown.png");
+	UI = App->textures->Load("RESOURCES/UI_AOF.png");
 	/*App->scene_splash->printFontBM= App->fonts->Load("UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz?!._", App->scene_splash->printFont, 1);*/
+	
+	App->player->playersMove = false;
+	initialScene = 0;
+	if (P1bool) { roundP1++; !P1bool; }
+	if (P2bool) { roundP2++; !P2bool; }
 
 	App->UI->Enable();
 	App->player->Enable();	
@@ -64,37 +72,71 @@ update_status ModuleSceneChina::Update()
 {
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	App->render->Blit(graphics, 0, 0, &r, 0.75f);
-	if (round.first && !round.second)
+	initialScene++;
+	if (initialScene < 120)
 	{
-		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
-		App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);
+		App->render->Blit(UI, 230, 110, &printRound, 1.0f, false, true);
+
 	}
-	if (round.first && round.second )
+	if (initialScene < 180 && initialScene >121)
 	{
-		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
-		App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+		App->render->Blit(UI, 240, 110, &printFight, 1.0f, false, true);
 	}
+	if (initialScene == 181) { App->player->playersMove = true; }
+
 	if (App->player->p1Won)
 	{
+		
+		if (roundP1 == 1)
+		{
+			App->slow->StartSlowdown(60, 60);
+			if (App->slow->finished)
+			{
+				P1bool = true;
+				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+			}
+		}
+		
+		if (roundP1 == 0)
+		{	
+			App->slow->StartSlowdown(60, 60);	
+			if (App->slow->finished)
+			{
+				printRound = { 512,171,107,16 };
+				P1bool = true;
+				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);
+			} 
+		}
 		printWinner = { 595,420,116,40 };
-		App->slow->StartSlowdown(60, 60);
-		if(round.first){round.second = true;}
-		round.first = true;
-
+		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 	}
 	if (App->player->p2Won)
 	{
-		//App->UI->roundp2++;
-
-		printWinner = { 725,420,120,40 };
-		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		if (roundP2 == 1)
 		{
-			App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+			App->slow->StartSlowdown(60, 60);
+			if (App->slow->finished)
+			{
+				P2bool = true;
+				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+			}
 		}
 
-	}
+		if (roundP2 == 0)
+		{
+			App->slow->StartSlowdown(60, 60);
+			if (App->slow->finished)
+			{
+				printRound = { 512,171,107,16 };
+				P2bool = true;
+				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);
+			}
+		}
+		printWinner = { 725,420,120,40 };
+		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 
+	}
+	
 	
 
 	return UPDATE_CONTINUE;
