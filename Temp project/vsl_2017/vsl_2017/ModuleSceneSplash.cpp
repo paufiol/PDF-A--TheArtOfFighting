@@ -11,6 +11,7 @@
 #include "ModuleAudio.h"
 #include "SDL/include/SDL.h"
 #include "ModuleFonts.h"
+#include "ModuleSceneChina.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -49,6 +50,11 @@ bool ModuleSceneSplash::Start()
 	App->render->camera.x = 0;
 	if(App->player->IsEnabled() == true) App->player->Disable();
 	startTime = SDL_GetTicks();
+
+	App->scene_china->roundP1 = 0;
+	App->scene_china->roundP2 = 0;
+	!App->scene_china->P1bool;
+	!App->scene_china->P2bool;
 	return true;
 }
 

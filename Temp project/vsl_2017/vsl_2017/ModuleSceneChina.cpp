@@ -51,6 +51,10 @@ bool ModuleSceneChina::Start()
 	App->UI->Enable();
 	App->player->Enable();	
 	App->player2->Enable();
+	App->player->position.x = 185;
+	App->player->position.y = 112;
+	App->player2->position.x = 310;
+	App->player2->position.y = 112;
 	return ret;
 }
 
