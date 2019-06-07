@@ -206,7 +206,7 @@ update_status ModuleCharSelectScene::Update()
 	App->render->Blit(graphics, 126, 183, &CharactersR[5], 1.0f, false, false);
 	App->render->Blit(graphics, 154, 183, &CharactersR[6], 1.0f, false, false);
 	App->render->Blit(graphics, 182, 183, &CharactersR[7], 1.0f, false, false);
-	App->render->Blit(graphics2, 220, 8, &PortraitP2, 1.0f, true, false);
+	App->render->Blit(graphics2, 182, 8, &PortraitP2, 1.0f, true, false);
 	App->render->Blit(graphics2, 168, 137, &NameP2, 1.0f, false, false);
 	App->render->Blit(graphics2, 8, 8, &PortraitP1, 1.0f, false, false);
 	App->render->Blit(graphics2, 8, 137, &NameP1, 1.0f, false, false);

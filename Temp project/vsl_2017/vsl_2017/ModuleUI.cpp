@@ -138,7 +138,7 @@ update_status ModuleUI::Update()
 		}
 	}
 
-	App->render->Blit(graphics, 53, 24, &staminabar1rect, 1.0f, true, false);
+	App->render->Blit(graphics, 19, 24, &staminabar1rect, 1.0f, true, false);
 	App->render->Blit(graphics, 178, 24, &staminabar2rect, 1.0f, false, false);
 
 	//---------------------------------------------------------------------------
