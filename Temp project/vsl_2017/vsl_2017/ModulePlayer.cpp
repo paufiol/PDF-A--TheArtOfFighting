@@ -118,8 +118,12 @@ ModulePlayer::ModulePlayer()
 	
 	jump.lock = true;
 
-	punch.PushBack({ 485, 348,  58, 108 });
-	punch.PushBack({ 543, 348,  89, 108 });
+	punch.PushBack({ 376, 341,  69, 103 });
+	punch.PushBack({ 81, 341,  104, 103 });
+	punch.PushBack({ 185, 341,  117, 103 });
+	punch.PushBack({ 0, 341,  74, 103 });
+	punch.PushBack({ 376, 341,  69, 103 });
+
 	/*punch.PushBack({ 485, 348,  58, 108 });*/
 	if (!flip) punch.speed = 0.2f;
 	if (flip) punch.speed = 0.05f;
@@ -140,10 +144,14 @@ ModulePlayer::ModulePlayer()
 
 	//AQUI haced que de patadas
 
-	kick.PushBack({ 669, 235, 60, 109 });
-	kick.PushBack({ 729, 235, 61, 113 });
-	kick.PushBack({ 790, 235, 103, 113 });
-	kick.PushBack({ 729, 235, 61, 113 });
+	kick.PushBack({ 0, 922, 58, 102 });
+	kick.PushBack({ 58, 922, 58, 102 });
+	kick.PushBack({ 116, 922, 51, 102 });
+	kick.PushBack({ 171, 922, 112, 102 });
+	kick.PushBack({ 116, 922, 51, 102 });
+	kick.PushBack({ 58, 922, 58, 102 });
+	kick.PushBack({ 296, 922, 72, 102 });
+
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
 	if (!flip) kick.speed = 0.2f;
 	if (flip) kick.speed = 0.1f;

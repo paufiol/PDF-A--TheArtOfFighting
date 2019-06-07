@@ -26,8 +26,8 @@ ModuleUI::ModuleUI()
 	{
 		characterID[i] = i * 24;
 	}
-	avatar1rect = { 0,characterID[2],24,24 };
-	avatar2rect = { 0,characterID[2],24,24 };
+	avatar1rect = { 0,characterID[4],24,24 };
+	avatar2rect = { 0,characterID[4],24,24 };
 
 	Roundball.PushBack({ 49,0,15,15 });
 	Roundball.PushBack({ 64,0,15,15 });
@@ -75,7 +75,7 @@ update_status ModuleUI::Update()
 
 		if (currenttime == 60) //Victory in case of time up.
 		{
-			if (App->player->hp > App->player2->hp)  App->player->p1Won = true;
+			if (App->player->hp > App->player2->hp)  App->player->p1Won = true;  
 			if (App->player->hp < App->player2->hp)  App->player2->p2Won = true;
 		}
 	}
@@ -149,8 +149,8 @@ update_status ModuleUI::Update()
 	App->render->Blit(graphics, 255, 34, &avatar2rect, 1.0f, true, false);
 	App->fonts->BlitText(34, 3, font_start, "beat_by_0", printFont1);
 	App->fonts->BlitText(210, 3, font_start, "beat_by_0", printFont1);
-	App->fonts->BlitText(50, 32, font_mini, "ryo", printFont2);
-	App->fonts->BlitText(230, 32, font_mini, "ryo", printFont2);
+	App->fonts->BlitText(50, 32, font_mini, "lee", printFont2);
+	App->fonts->BlitText(230, 32, font_mini, "lee", printFont2);
 	//Rounds:------------------------------------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (roundp1 == 1)
