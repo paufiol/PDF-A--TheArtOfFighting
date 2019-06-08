@@ -8,7 +8,7 @@
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {
-	screen = {0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE};
+	screen = {0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * 2};
 }
 
 ModuleFadeToBlack::~ModuleFadeToBlack()

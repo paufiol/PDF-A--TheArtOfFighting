@@ -47,6 +47,8 @@ public:
 	
 	Uint8 *keyboard = nullptr;
 	
+	bool isNew_A[16] = { true };
+	bool isNew_B[16] = { true };
 	SDL_GameController *oldcontroller[2];
 	SDL_GameController *controller[2];
 	//SDL_Joystick *joystick[2];

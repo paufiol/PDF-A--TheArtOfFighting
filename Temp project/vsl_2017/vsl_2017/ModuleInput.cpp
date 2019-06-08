@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
+#include <stdio.h>
+#include <string.h>
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -49,18 +51,18 @@ bool ModuleInput::Init()
 update_status ModuleInput::PreUpdate()
 {
 	
-	//SDL_memcpy(oldcontroller, controller, sizeof(Uint8)*SDL_CONTROLLER_BUTTON_MAX*2);
+	
 
 	for (int i = 0; i < SDL_NumJoysticks(); i++) {
-		if (SDL_IsGameController(i)) {
-			controller[i] = SDL_GameControllerOpen(i);
-			if (controller[i] == NULL) {
-				LOG("Can't open controller %s", SDL_GetError());
+			if (SDL_IsGameController(i)) {
+				controller[i] = SDL_GameControllerOpen(i);
+				if (controller[i] == NULL) {
+					LOG("Can't open controller %s", SDL_GetError());
 
+				}
 			}
-		}
 	}
-
+		
 	SDL_PumpEvents();
 
 	keyboard = (Uint8*)SDL_GetKeyboardState(NULL);
@@ -112,14 +114,32 @@ bool ModuleInput::JoystickGetPos(SDL_GameController * gamepad, DIRECTION directi
 
 bool ModuleInput::ButtonTrigger(SDL_GameController * gamepad, SDL_GameControllerButton button) {
 	if (gamepad == controller[0]) {
-		if (SDL_GameControllerGetButton(controller[0], button) == true && SDL_GameControllerGetButton(oldcontroller[0], button)) {
-			return true;		
+		if(SDL_GameControllerGetButton(controller[0], button) == 1) {
+			if (isNew_A[button]) {
+				isNew_A[button] = false;
+				return true;
+			}
 		}
+		else if (SDL_GameControllerGetButton(controller[0], button) == 0) {
+			if (isNew_A[button] == false) {
+				isNew_A[button] = true;
+			}
+		}
+
 	}
-	if (gamepad == controller[1]) {
-		if (SDL_GameControllerGetButton(controller[1], button) == true && SDL_GameControllerGetButton(oldcontroller[1], button)) {
-			return true;
+	else if (gamepad == controller[1]) {
+		if (SDL_GameControllerGetButton(controller[1], button) == 1) {
+			if (isNew_B[button]) {
+				isNew_B[button] = false;
+				return true;
+			}
 		}
+		else if (SDL_GameControllerGetButton(controller[1], button) == 0) {
+			if (isNew_B[button] == false) {
+				isNew_B[button] = true;
+			}
+		}
+
 	}
 
 	return false;
