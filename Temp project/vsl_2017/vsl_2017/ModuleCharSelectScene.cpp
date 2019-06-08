@@ -67,6 +67,12 @@ update_status ModuleCharSelectScene::Update()
 			keyup[i] = true;
 		}
 	}
+
+	for (int i = 0; i < 8; i++) {
+		if (App->input->JoystickGetPos(App->input->controller[0], (DIRECTION)i) == false)
+			App->input->isNew_Direction[i] = true;
+	}
+
 	//PLAYER1: ---------------------------------------
 	if (App->input->keyboard[SDL_SCANCODE_W] == 1 || App->input->JoystickGetPos(App->input->controller[0], UP))
 	{
@@ -75,10 +81,10 @@ update_status ModuleCharSelectScene::Update()
 			iy = 0;
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
-	
+		
 		
 	}
-	if ((App->input->keyboard[SDL_SCANCODE_A] == 1 || App->input->JoystickGetPos(App->input->controller[0], LEFT)) && keyup[SDL_SCANCODE_A])
+	if ((App->input->keyboard[SDL_SCANCODE_A] == 1 || App->input->JoystickGetPos(App->input->controller[0], LEFT)) && App->input->isNew_Direction[LEFT] == true && keyup[SDL_SCANCODE_A])
 	{
 		if (ix <= 3 && keyup[SDL_SCANCODE_A])
 		{
@@ -88,6 +94,7 @@ update_status ModuleCharSelectScene::Update()
 			}
 			ix--;
 			keyup[SDL_SCANCODE_A] = false;
+			App->input->isNew_Direction[LEFT] = false;
 		}
 		
 	}
@@ -99,7 +106,7 @@ update_status ModuleCharSelectScene::Update()
 			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
-	if ((App->input->keyboard[SDL_SCANCODE_D] == 1 || App->input->JoystickGetPos(App->input->controller[0], RIGHT)) && keyup[SDL_SCANCODE_D])
+	if ((App->input->keyboard[SDL_SCANCODE_D] == 1 && keyup[SDL_SCANCODE_D]) || (App->input->JoystickGetPos(App->input->controller[0], RIGHT) && App->input->isNew_Direction[RIGHT] == true))
 	{
 		if (ix >= 0 && keyup[SDL_SCANCODE_D])
 		{
@@ -109,6 +116,7 @@ update_status ModuleCharSelectScene::Update()
 			}
 			ix++;
 			keyup[SDL_SCANCODE_D] = false;	
+			App->input->isNew_Direction[RIGHT] = false;
 		}
 	}
 	
