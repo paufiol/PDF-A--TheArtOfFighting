@@ -28,6 +28,7 @@ ModuleUI::ModuleUI()
 	}
 	avatar1rect = { 0,characterID[4],24,24 };
 	avatar2rect = { 0,characterID[4],24,24 };
+	whiterect = { 24,168,26,26 };
 
 	Roundball.PushBack({ 49,0,15,15 });
 	Roundball.PushBack({ 64,0,15,15 });
@@ -143,16 +144,17 @@ update_status ModuleUI::Update()
 
 	//---------------------------------------------------------------------------
 	//Pictures:
-	//App->render->DrawQuad({ 52, 66, 52, 52 }, 255, 255, 255, 255, false);
-	//App->render->DrawQuad({ 541, 66, 52, 52 }, 255, 255, 255, 255, false);
+	App->render->Blit(graphics, 26, 33, &whiterect, 1.0f, false, false);
+	App->render->Blit(graphics, 269, 33, &whiterect, 1.0f, false, false);
 	App->render->Blit(graphics, 27, 34, &avatar1rect, 1.0f, false, false);
-	App->render->Blit(graphics, 255, 34, &avatar2rect, 1.0f, true, false);
+	App->render->Blit(graphics, 270, 34, &avatar2rect, 1.0f, true, false);
 	App->fonts->BlitText(34, 3, font_start, "beat_by_0", printFont1);
 	App->fonts->BlitText(210, 3, font_start, "beat_by_0", printFont1);
 	App->fonts->BlitText(50, 32, font_mini, "lee", printFont2);
 	App->fonts->BlitText(230, 32, font_mini, "lee", printFont2);
 	//Rounds:------------------------------------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
+	current_animation = &Roundball;
 	if (roundp1 == 1)
 	{
 		App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);

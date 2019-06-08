@@ -192,10 +192,14 @@ ModulePlayer::ModulePlayer()
 	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 37);
 	crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
-
-	damaged.PushBack({ 869,751, 66 ,107 });
-	damaged.PushBack({ 935,750, 78, 138 });
-	damaged.PushBack({869, 751, 66, 107 });
+	//RYO:
+	//damaged.PushBack({ 869,751, 66 ,107 });
+	//damaged.PushBack({ 935,750, 78, 138 });
+	//damaged.PushBack({869, 751, 66, 107 });
+	//LEE:
+	damaged.PushBack({ 372,917, 63 ,107 });
+	damaged.PushBack({ 435,917, 81, 107 });
+	damaged.PushBack({514, 917, 73, 107 });
 	damaged.speed = 0.2f;
 	damaged.lock = true;
 

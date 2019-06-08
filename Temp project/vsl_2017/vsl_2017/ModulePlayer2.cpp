@@ -137,11 +137,11 @@ ModulePlayer2::ModulePlayer2()
 	if (!flip) crouchkick.speed = 0.125f;
 	crouchkick.lock = true;
 
-	damaged.PushBack({ 869,751, 66 ,107 });
-	damaged.PushBack({ 935,750, 78, 138 });
-	damaged.PushBack({ 869, 751, 66, 107 });
+	damaged.PushBack({ 372,917, 63 ,107 });
+	damaged.PushBack({ 435,917, 81, 107 });
+	damaged.PushBack({ 514, 917, 73, 107 });
 	if (flip) damaged.speed = 0.1f;
-	if (!flip) damaged.speed = 0.2f;
+	if (!flip) damaged.speed = 0.1f;
 	damaged.lock = true;
 
 	defeat.PushBack({ 0, 0, 66, 115 });

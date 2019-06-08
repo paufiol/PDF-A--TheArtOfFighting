@@ -20,7 +20,7 @@ public:
 
 public:
 	SDL_Rect lifebar1rect, lifebar2rect, emptylb, staminabar1rect, staminabar2rect;
-	SDL_Rect timerrect, avatar1rect, avatar2rect;
+	SDL_Rect timerrect, avatar1rect, avatar2rect, whiterect;
 	SDL_Rect printFont1, printFont2;
 	Animation* current_animation = &Roundball;
 	Animation Roundball;
