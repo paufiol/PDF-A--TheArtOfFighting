@@ -91,10 +91,18 @@ ModulePlayer::ModulePlayer()
 	if (flip) flipback.speed = 0.1f;
 	if (!flip) flipback.speed = 0.05f;*/
 
-	doubleback.PushBack({ 275, 595, 59, 107 });
-	doubleback.PushBack({ 334, 596, 89, 106 }, -80, -10);
-	doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
-	doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
+	//RYU:
+	//doubleback.PushBack({ 275, 595, 59, 107 });
+	//doubleback.PushBack({ 334, 596, 89, 106 }, -80, -10);
+	//doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
+	//doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
+	//-----------------------------------------------------------
+	//LEE:
+	doubleback.PushBack({ 0, 623, 58, 94 });
+	doubleback.PushBack({ 58, 623, 68, 94 });
+	doubleback.PushBack({ 126, 623, 38, 94 });
+	doubleback.PushBack({ 164, 623, 79, 94 });
+	doubleback.PushBack({ 242, 623, 56, 94 });
 	if (!flip) doubleback.speed = 0.1f;
 	if (flip) doubleback.speed = 0.05f;
 	doubleback.lock = true;
@@ -381,17 +389,17 @@ update_status ModulePlayer::Update()
 				}
 			}
 
-			/*if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
-			{
-				current_animation = &doubleback;
-				speed.x = -1.5f;
-				playerCollider->rect.h = 108;
-				if (keyup[SDL_SCANCODE_A]) {
-					StoreInput(SDL_SCANCODE_A);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					keyup[SDL_SCANCODE_A] = false;
-				}
-			}*/
+			//if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
+			//{
+			//	current_animation = &doubleback;
+			//	speed.x = -1.5f;
+			//	playerCollider->rect.h = 108;
+			//	if (keyup[SDL_SCANCODE_A]) {
+			//		StoreInput(SDL_SCANCODE_A);
+			//		if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+			//		keyup[SDL_SCANCODE_A] = false;
+			//	}
+			//}
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
