@@ -49,7 +49,8 @@ public:
 	
 	bool isNew_A[16] = { true };
 	bool isNew_B[16] = { true };
-	SDL_GameController *oldcontroller[2];
+	bool isNew_Direction[8] = { true };
+	
 	SDL_GameController *controller[2];
 	//SDL_Joystick *joystick[2];
 	

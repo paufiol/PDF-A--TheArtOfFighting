@@ -104,10 +104,13 @@ bool ModuleInput::JoystickGetPos(SDL_GameController * gamepad, DIRECTION directi
 	if (yAxis < -deadzone && direction == UP) ret = true;
 	if (yAxis > deadzone && direction == DOWN) ret = true;
 
-	if (yAxis < -deadzone && xAxis > deadzone && direction == UPRIGHT) ret = true;
-	if (yAxis > deadzone && xAxis > -deadzone && direction == DOWNLEFT) ret = true;
-	if (yAxis > deadzone && xAxis > deadzone && direction == LEFTUP) ret = true;
-	if (yAxis < -deadzone && xAxis > -deadzone && direction == RIGHTDOWN) ret = true;
+	if (yAxis < -deadzone && xAxis > deadzone && direction == UPRIGHT)		ret = true;
+	if (yAxis > deadzone && xAxis > -deadzone && direction == DOWNLEFT)		ret = true;
+	if (yAxis > deadzone && xAxis > deadzone && direction == LEFTUP)		ret = true;
+	if (yAxis < -deadzone && xAxis > -deadzone && direction == RIGHTDOWN)	ret = true;
+
+	//if (ret == false) isNew_Direction[direction] = true;
+	//else if (ret == true && isNew_Direction[direction])  isNew_Direction[direction] = false;
 
 	return ret;
 }

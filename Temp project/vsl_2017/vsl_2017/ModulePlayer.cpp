@@ -267,7 +267,7 @@ update_status ModulePlayer::Update()
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
 
-	if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)  && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
+	if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
 		keyup[SDL_SCANCODE_Q] = false;
 		StoreInput(SDL_SCANCODE_Q);
 	}
@@ -281,6 +281,11 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[i] == KEY_STATE::KEY_UP) {
 			keyup[i] = true;
 		}
+	}
+
+	for (int i = 0; i < 8; i++) {
+		if (App->input->JoystickGetPos(App->input->controller[0], (DIRECTION)i) == false)
+			App->input->isNew_Direction[i] = true;
 	}
 
 	if (playersMove) {
@@ -318,6 +323,10 @@ update_status ModulePlayer::Update()
 				if (keyup[SDL_SCANCODE_S]) {
 					StoreInput(SDL_SCANCODE_S);
 					keyup[SDL_SCANCODE_S] = false;
+				}
+				if (App->input->isNew_Direction[DOWN] == true) { // ESTO SOLO FUNCIONA PARA EL GATILLO; NO HACE FALTA PARA LOS BOTONES (CREO)
+					StoreInput(SDL_SCANCODE_S);
+					App->input->isNew_Direction[DOWN] = false;
 				}
 			}
 
@@ -617,37 +626,82 @@ bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, S
 	int interval = 500;
 	int d = inputCount - 1;
 	if (inputCount == 0) d = MAX_INPUTS - 1;
-	for (int i = inputCount; 1; i++) {
+	if (D == SDL_SCANCODE_UNKNOWN && C == SDL_SCANCODE_UNKNOWN) {
+		for (int i = inputCount; 1; i++) {
+			if (i == (MAX_INPUTS)) i = 0;
+			int j = i - 1;
+			if (i == 0) {j = MAX_INPUTS - 1; }
+			if (input[i] == A && input[j] == B) {
+				if ((timeInput[i] - timeInput[j]) < interval) {
 
-		if (i == (MAX_INPUTS)) i = 0;
-		
-		int j = i - 1; int k = i - 2; int l = i - 3;
-		
-		if (i == 2) { l = MAX_INPUTS - 1; }
-		if (i == 1) { l = MAX_INPUTS - 2; k = MAX_INPUTS - 1; }
-		if (i == 0) { l = MAX_INPUTS - 3; k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
-		
-		if (input[i] == A && input[j] == B &&
-			input[k] == C && input[l] == D) {
-
-			if ((timeInput[i] - timeInput[j]) < interval &&
-				(timeInput[j] - timeInput[k]) < interval &&
-				(timeInput[k] - timeInput[l]) < interval) {
-
-				for (int p = 0; p < MAX_INPUTS; p++) {
-					input[p] = 0;
-					timeInput[p] = 0;
+					for (int p = 0; p < MAX_INPUTS; p++) {
+						input[p] = 0;
+						timeInput[p] = 0;
+					}
+					inputCount = 0;
+					return true;
 				}
-				
-				inputCount = 0;
-				return true;
-
 			}
+			if (i == d) break;
 		}
-
-		if (i == d) break;
 	}
+	else if (D == SDL_SCANCODE_UNKNOWN) {
+		for (int i = inputCount; 1; i++) {
 
+			if (i == (MAX_INPUTS)) i = 0;
+
+			int j = i - 1; int k = i - 2;
+
+			
+			if (i == 1) { k = MAX_INPUTS - 1; }
+			if (i == 0) { k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
+
+			if (input[i] == A && input[j] == B && input[k] == C) {
+
+				if ((timeInput[i] - timeInput[j]) < interval &&
+					(timeInput[j] - timeInput[k]) < interval) {
+					for (int p = 0; p < MAX_INPUTS; p++) {
+						input[p] = 0;
+						timeInput[p] = 0;
+					}
+					inputCount = 0;
+					return true;
+				}
+			}
+			if (i == d) break;
+		}
+	}
+	else {
+		for (int i = inputCount; 1; i++) {
+
+			if (i == (MAX_INPUTS)) i = 0;
+
+			int j = i - 1; int k = i - 2; int l = i - 3;
+
+			if (i == 2) { l = MAX_INPUTS - 1; }
+			if (i == 1) { l = MAX_INPUTS - 2; k = MAX_INPUTS - 1; }
+			if (i == 0) { l = MAX_INPUTS - 3; k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
+
+			if (input[i] == A && input[j] == B &&
+				input[k] == C && input[l] == D) {
+
+				if ((timeInput[i] - timeInput[j]) < interval &&
+					(timeInput[j] - timeInput[k]) < interval &&
+					(timeInput[k] - timeInput[l]) < interval) {
+
+					for (int p = 0; p < MAX_INPUTS; p++) {
+						input[p] = 0;
+						timeInput[p] = 0;
+					}
+
+					inputCount = 0;
+					return true;
+
+				}
+			}
+			if (i == d) break;
+		}
+	}
 	return false;
 }
 
