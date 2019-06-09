@@ -394,8 +394,8 @@ update_status ModulePlayer::Update()
 				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				leaveif = true;
 
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
+				//App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 
 				if (keyup[SDL_SCANCODE_Q]) {
 					StoreInput(SDL_SCANCODE_Q);
@@ -418,8 +418,8 @@ update_status ModulePlayer::Update()
 				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 				leaveif = true;
 
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
+				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));*/
 
 				if (keyup[SDL_SCANCODE_E]) {
 					StoreInput(SDL_SCANCODE_E);
@@ -518,8 +518,8 @@ update_status ModulePlayer::Update()
 
 
 
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punch.wav"));
+				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));*/
 
 
 				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
@@ -534,8 +534,8 @@ update_status ModulePlayer::Update()
 			if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))&& !leaveif && keyup[SDL_SCANCODE_E]) {
 				current_animation = &kick;
 
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
+				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));*/
 
 				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 				if (flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
