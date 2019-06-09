@@ -304,14 +304,22 @@ update_status ModulePlayer::Update()
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
 
-	if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
-		keyup[SDL_SCANCODE_Q] = false;
-		StoreInput(SDL_SCANCODE_Q);
-	}
-
-	if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_E] && current_animation->lock) {
-		keyup[SDL_SCANCODE_E] = false;
-		StoreInput(SDL_SCANCODE_E);
+	if (current_animation->lock) {
+		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_E]) {
+			keyup[SDL_SCANCODE_E] = false;
+				StoreInput(SDL_SCANCODE_E);
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN  && keyup[SDL_SCANCODE_Q]) {
+			keyup[SDL_SCANCODE_Q] = false;
+			StoreInput(SDL_SCANCODE_Q);
+		}
+		
+		else if (App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)) {
+			StoreInput(SDL_SCANCODE_Q);
+		}
+		else if (App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)) {
+			StoreInput(SDL_SCANCODE_E);
+		}
 	}
 
 	for (int i = 0; i < 69; i++) {
@@ -483,7 +491,7 @@ update_status ModulePlayer::Update()
 				speed.x = 1.5f;
 			}
 		
-
+			
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
@@ -528,7 +536,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 
-			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+			if ((TestSpecial(SDL_SCANCODE_S, SDL_SCANCODE_S, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
