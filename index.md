@@ -1,8 +1,8 @@
-# Puño Eterno Studios
+# PUÑO ETERNO STUDIOS
 ---
 ![](Wiki_Material/Home/LOGO/ETERNALPUNCH.png)
 
-## Art of Fighting Remake
+## Introduction
 ---
 This is a project meant to create a faithful recreation of SNK's Art of Fighting (1992) with educational purposes. We do not own by any means any of the assets used, as they fall into SNK's intellectual property
 

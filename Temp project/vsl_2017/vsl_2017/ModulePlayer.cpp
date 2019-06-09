@@ -548,7 +548,7 @@ update_status ModulePlayer::Update()
 			//SPECIAL ATTACKS ----------------------------------------------------------
 
 			//Hyakuretsu Ken 
-			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
@@ -559,7 +559,20 @@ update_status ModulePlayer::Update()
 			//Hyakuretsu Kyaku
 
 
+			//Testsu no Tsume Low
+			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				current_animation = &koukenR;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
+				
+				stamina -= 20;
+			}
+			//Tetsu no Tsume High
+			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				current_animation = &koukenR;
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 
+				stamina -= 20;
+			}
 
 			if (hp <= 0 && App->player->p2Won != true)
 			{
