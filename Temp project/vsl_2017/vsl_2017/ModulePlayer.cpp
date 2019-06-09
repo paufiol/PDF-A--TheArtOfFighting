@@ -536,13 +536,19 @@ update_status ModulePlayer::Update()
 				}
 			}
 
-			if ((TestSpecial(SDL_SCANCODE_S, SDL_SCANCODE_S, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+			//SPECIAL ATTACKS ----------------------------------------------------------
+
+			//Hyakuretsu Ken 
+			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 				App->audio->PlayChunk(App->audio->chunks[0]);
-				stamina -= 33;
+				stamina -= 40;
 			}
+
+			//Hyakuretsu Kyaku
+
 
 
 
