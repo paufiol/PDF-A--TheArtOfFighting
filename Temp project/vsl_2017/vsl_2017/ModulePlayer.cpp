@@ -506,9 +506,6 @@ update_status ModulePlayer::Update()
 
 			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)) && !leaveif && keyup[SDL_SCANCODE_Q]) {
 				current_animation = &punch;
-
-
-
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Punch_Attack.wav"));
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 
@@ -536,10 +533,23 @@ update_status ModulePlayer::Update()
 				}
 			}
 
+			if ((current_animation == &jump && App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_Q])
+			{
+				current_animation = &jumppunch;
+				jumping = JUMP_PUNCH;
+			}
+
 			//SPECIAL ATTACKS ----------------------------------------------------------
 
 			//Hyakuretsu Ken 
 			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+
+
+		
+
+			
+			if ((TestSpecial(SDL_SCANCODE_S, SDL_SCANCODE_S, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
@@ -611,6 +621,7 @@ update_status ModulePlayer::Update()
 		clock_parabolla++;
 		playerCollider->SetPos(position.x, position.y - 33);
 		playerCollider->rect.h = 70;
+
 		if (jumping == JUMP_DOWN)
 		{
 			//speed.y = 3;
@@ -630,6 +641,7 @@ update_status ModulePlayer::Update()
 				jumping = JUMP_DOWN;
 			}
 		}
+		
 	}
 	if (current_animation == &doubleback)
 	{
@@ -666,6 +678,7 @@ update_status ModulePlayer::Update()
 	}
 
 	// Draw everything --------------------------------------
+	
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (!p1Won)
 	{
@@ -674,19 +687,19 @@ update_status ModulePlayer::Update()
 			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 			
 		}
-		else*/ App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+		else*/ App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip, false,true,true);
 	}
 	if (p1Won)
 	{
 		if (wFrame > 0)
 		{
 			//current_animation = &victory;
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip, false, true, true);
 		}
 		if (wFrame == 0)
 		{
 			current_animation = &victory;
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip);
+			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip, false, true, true);
 		}
 		wFrame++;
 	}
