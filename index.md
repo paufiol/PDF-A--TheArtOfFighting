@@ -1,6 +1,8 @@
 # PUÑO ETERNO STUDIOS
 ---
-![](Wiki_Material/Home/LOGO/ETERNALPUNCH.png)
+## Art of Fighting
+
+https://github.com/paufiol/PunoEterno-ArtOfFighting/blob/master/Wiki%20Material/Home/LOGO/ETERNALPUNCH.png?raw=true
 
 ## Introduction
 ---
