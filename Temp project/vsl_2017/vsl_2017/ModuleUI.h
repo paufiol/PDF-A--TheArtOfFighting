@@ -24,7 +24,7 @@ public:
 	SDL_Rect printFont1, printFont2;
 	Animation* current_animation = &Roundball;
 	Animation Roundball;
-	SDL_Rect BallRec[4];
+	SDL_Rect BallRec;
 
 	int font_start = -1;
 	int font_mini = -1;
@@ -36,9 +36,6 @@ public:
 	int currenthp1, currenthp2;
 
 	int currentsta1, currentsta2, staminatest;
-
-	int roundp1 = 0;
-	int roundp2 = 0;
 
 	int characterID[9];
 	SDL_Texture* graphics = nullptr;
