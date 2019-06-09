@@ -96,6 +96,7 @@ public:
 	Animation defeat;
 	Animation jumppunch;
 	Animation jumpkick;
+	Animation sp1;
 
 	iPoint position;
 

@@ -122,6 +122,9 @@ ModulePlayer::ModulePlayer()
 	jumppunch.speed = 0.5f;
 	jumppunch.lock = true;
 	
+	jumpkick.PushBack({ 541, 372,106, 72 }, 0, 30);
+	jumpkick.speed = 0.5f;
+	jumpkick.lock = true;
 
 	jump.PushBack({ 697,  6, 54, 98 }, 0, -20);
 	jump.PushBack({ 759, 49, 78, 53 }, 0, -20);
@@ -218,6 +221,12 @@ ModulePlayer::ModulePlayer()
 	damaged.speed = 0.25f;
 	damaged.lock = true;
 
+	//faltan volteretas
+	sp1.PushBack({ 71,466,76,105 });
+	sp1.PushBack({ 162,466, 76, 105 });
+	sp1.PushBack({ 244, 466,77, 104 });
+	sp1.PushBack({ 330,478, 76, 122 });
+	sp1.PushBack({ 244, 466,77, 104 });
 	
 
 	victory.PushBack({ 0, 256, 53, 116 });
