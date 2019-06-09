@@ -52,6 +52,7 @@ public:
 	jump jumping = JUMP_NOT;
 	bool keyup[69] = { true };//This is not a joke.
 
+
 	int font_start = -1;
 	int wFrame = 0;
 

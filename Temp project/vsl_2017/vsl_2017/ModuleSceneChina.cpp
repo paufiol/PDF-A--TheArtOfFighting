@@ -55,6 +55,8 @@ bool ModuleSceneChina::Start()
 	App->player->position.y = 112;
 	App->player2->position.x = 310;
 	App->player2->position.y = 112;
+	App->player->current_animation = &App->player->idle;
+	App->player2->current_animation = &App->player2->idle;
 	return ret;
 }
 

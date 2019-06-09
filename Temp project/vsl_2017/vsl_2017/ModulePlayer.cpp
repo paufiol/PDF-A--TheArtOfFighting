@@ -321,6 +321,7 @@ update_status ModulePlayer::Update()
 
 			current_animation = &idle;
 
+
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
@@ -444,11 +445,7 @@ update_status ModulePlayer::Update()
 					keyup[SDL_SCANCODE_A] = false;
 				}*/
 			}
-		/*	if (dashBack && dashTime < 30)
-			{
-				dashTime++;
-				speed.x = -2.5f;
-			}*/
+		
 
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
@@ -561,7 +558,8 @@ update_status ModulePlayer::Update()
 	{
 		speed.y = (-1)*(8 + -0.5 * clock_parabolla);
 		clock_parabolla++;
-
+		playerCollider->SetPos(position.x, position.y - 33);
+		playerCollider->rect.h = 70;
 		if (jumping == JUMP_DOWN)
 		{
 			//speed.y = 3;
@@ -582,7 +580,12 @@ update_status ModulePlayer::Update()
 			}
 		}
 	}
-
+	if (current_animation == &doubleback)
+	{
+		speed.x = -2.0f;
+		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->rect.h = 75;
+	}
 
 
 	//Keep character within limits-----------------------------
