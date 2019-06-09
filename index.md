@@ -1,4 +1,4 @@
-# Puño Eterno Studios
+# PUÑO ETERNO STUDIOS
 ---
 ![](Wiki_Material/Home/LOGO/ETERNALPUNCH.png)
 
