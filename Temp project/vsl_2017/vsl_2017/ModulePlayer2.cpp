@@ -144,11 +144,16 @@ ModulePlayer2::ModulePlayer2()
 	if (!flip) damaged.speed = 0.1f;
 	damaged.lock = true;
 
-	defeat.PushBack({ 0, 0, 66, 115 });
-	defeat.PushBack({ 66, 0, 73, 115 });
-	defeat.PushBack({ 144, 8, 64, 107 });
-	defeat.PushBack({ 208, 29, 62, 86 });
-	defeat.PushBack({ 270, 53, 58, 62 });
+	//defeat.PushBack({ 0, 0, 66, 115 });
+	//defeat.PushBack({ 66, 0, 73, 115 });
+	//defeat.PushBack({ 144, 8, 64, 107 });
+	//defeat.PushBack({ 208, 29, 62, 86 });
+	//defeat.PushBack({ 270, 53, 58, 62 });
+		//LEE:
+	defeat.PushBack({ 625, 922, 79, 102 });
+	defeat.PushBack({ 707, 922, 89, 102 });
+	defeat.PushBack({ 803, 922, 91, 102 });
+	defeat.PushBack({ 898, 922, 120, 102 });
 	defeat.lock = true;
 	defeat.speed = 0.1f;
 
@@ -229,7 +234,7 @@ bool ModulePlayer2::Start()
 {
 	LOG("Loading player textures");
 	bool ret = true;
-	graphics = App->textures->Load("RESOURCES/lee.png");
+	graphics = App->textures->Load("RESOURCES/lee2.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
 	graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 

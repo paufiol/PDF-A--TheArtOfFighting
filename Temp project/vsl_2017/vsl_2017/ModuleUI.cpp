@@ -74,11 +74,6 @@ update_status ModuleUI::Update()
 		timerrect = { currentTimerposX,792,32,24 };
 		App->render->Blit(graphics, 146, 8, &timerrect, 1.0f, false, false);
 
-		if (currenttime == 60) //Victory in case of time up.
-		{
-			if (App->player->hp > App->player2->hp)  App->player->p1Won = true;  
-			if (App->player->hp < App->player2->hp)  App->player2->p2Won = true;
-		}
 	}
 	if (currenttime < 30)
 	{
