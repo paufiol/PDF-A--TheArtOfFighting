@@ -2,7 +2,7 @@
 ---
 ## Art of Fighting
 
-Wiki%20Material/Home/LOGO/ETERNALPUNCH.png
+![](Wiki%20Material/Home/LOGO/ETERNALPUNCH.png)
 
 ## Introduction
 ---
