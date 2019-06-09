@@ -43,7 +43,7 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 447,1,48,102 });
 	forward.PushBack({ 385,1,51,101 });
 	forward.PushBack({ 322,0,58,103 });
-	forward.speed = 0.8f;
+	forward.speed = 0.9f;
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
@@ -98,15 +98,21 @@ ModulePlayer::ModulePlayer()
 	//doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
 	//-----------------------------------------------------------
 	//LEE:
-	doubleback.PushBack({ 0, 623, 58, 94 });
-	doubleback.PushBack({ 58, 623, 68, 94 });
-	doubleback.PushBack({ 126, 623, 38, 94 });
-	doubleback.PushBack({ 164, 623, 79, 94 });
-	doubleback.PushBack({ 242, 623, 56, 94 });
-	if (!flip) doubleback.speed = 0.1f;
-	if (flip) doubleback.speed = 0.05f;
-	doubleback.lock = true;
+	doubleback.PushBack({ 0, 623, 58, 94 },-20,0);
+	doubleback.PushBack({ 58, 623, 68, 94 },-30,0);
+	doubleback.PushBack({ 126, 623, 38, 94 },-40,0);
+	doubleback.PushBack({ 164, 623, 79, 94 },-50,0);
+	doubleback.PushBack({ 242, 623, 56, 94 },-60,0);
 
+	if (!flip) doubleback.speed = 0.2f;
+	/*if (flip) doubleback.speed = 0.05f;*/
+	doubleback.lock =true;
+
+	jumppunch.PushBack({277, 247, 75, 86});
+	jumppunch.PushBack({ 172, 245, 105, 89 });
+	jumppunch.speed = 0.5f;
+	jumppunch.lock = true;
+	
 
 	jump.PushBack({ 697,  6, 54, 98 }, 0, -20);
 	jump.PushBack({ 759, 49, 78, 53 }, 0, -20);
@@ -122,7 +128,7 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
 	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
 	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
-	jump.speed = 0.25f;
+	jump.speed = 0.3f;
 	
 	jump.lock = true;
 
@@ -186,11 +192,11 @@ ModulePlayer::ModulePlayer()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 37);
-	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 37);
-	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 37);
-	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 37);
-	crouchkick.speed = 0.125f;
+	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 30);
+	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 30);
+	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 30);
+	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 30);
+	crouchkick.speed = 0.2f;
 	crouchkick.lock = true;
 	//RYO:
 	//damaged.PushBack({ 869,751, 66 ,107 });
@@ -200,8 +206,10 @@ ModulePlayer::ModulePlayer()
 	damaged.PushBack({ 372,917, 63 ,107 });
 	damaged.PushBack({ 435,917, 81, 107 });
 	damaged.PushBack({514, 917, 73, 107 });
-	damaged.speed = 0.2f;
+	damaged.speed = 0.25f;
 	damaged.lock = true;
+
+	
 
 	victory.PushBack({ 0, 256, 53, 116 });
 	victory.PushBack({ 65, 266, 69, 106 });
@@ -344,7 +352,7 @@ update_status ModulePlayer::Update()
 
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)) && keyup[SDL_SCANCODE_Q] && !leaveif)
 			{
-				current_animation = &crouchpunch;
+				current_animation = &crouchkick;
 				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				leaveif = true;
@@ -356,6 +364,15 @@ update_status ModulePlayer::Update()
 					StoreInput(SDL_SCANCODE_Q);
 					keyup[SDL_SCANCODE_Q] = false;
 				}
+			}
+
+			//CAMBIAR EL BOTON DEL MANDO E IMPLEMENTAR BIEN
+			if (!keyup[SDL_SCANCODE_W] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
+				&& keyup[SDL_SCANCODE_Q] && !leaveif)
+			{
+				current_animation = &jumppunch;
+				
+				
 			}
 
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
@@ -380,7 +397,7 @@ update_status ModulePlayer::Update()
 				if (!flip) current_animation = &forward;
 				if (flip) current_animation = &flipback;
 
-				speed.x = 2.5f;
+				speed.x = 3.5f;
 				playerCollider->rect.h = 108;
 				if (keyup[SDL_SCANCODE_D]) {
 					StoreInput(SDL_SCANCODE_D);
@@ -420,6 +437,7 @@ update_status ModulePlayer::Update()
 				current_animation = &doubleback;
 				
 				playerCollider->rect.h = 108;
+				speed.x = -1.5f;
 				/*if (keyup[SDL_SCANCODE_A]) {
 					StoreInput(SDL_SCANCODE_A);
 					if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }

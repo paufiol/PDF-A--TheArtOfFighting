@@ -92,6 +92,8 @@ public:
 	Animation flippunch;
 	Animation victory;
 	Animation defeat;
+	Animation jumppunch;
+	Animation jumpkick;
 
 	iPoint position;
 
