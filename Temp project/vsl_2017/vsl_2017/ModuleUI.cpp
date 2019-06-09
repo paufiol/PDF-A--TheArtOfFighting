@@ -171,7 +171,7 @@ update_status ModuleUI::Update()
 	if (App->scene_china->roundP2 == 2)
 	{
 		App->render->Blit(graphics, 250, 40, &r, 1.0f, false, false);
-		App->render->Blit(graphics, 230, 40, &r, 1.0f, false, false);
+		App->render->Blit(graphics, 220, 40, &r, 1.0f, false, false);
 	}
 	//-------------------------------------------------------------------------
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
