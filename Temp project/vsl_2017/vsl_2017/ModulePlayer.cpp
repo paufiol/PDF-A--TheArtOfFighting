@@ -286,12 +286,12 @@ update_status ModulePlayer::Update()
 		speed.x = 0.0f;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_UP) {
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_UP && App->input->JoystickGetPos(App->input->controller[0], RIGHT) == false) {
 		//keyup[SDL_SCANCODE_D] = true;
 		if (block != nullptr && flip) block->to_delete = true;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_UP) {
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_UP && App->input->JoystickGetPos(App->input->controller[0], LEFT) == false) {
 		//keyup[SDL_SCANCODE_A] = true;
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
@@ -350,12 +350,14 @@ update_status ModulePlayer::Update()
 				current_animation = &crouchidle;
 				playerCollider->rect.h = 75;
 
-				if (keyup[SDL_SCANCODE_S]) {
+				if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_S])) {
 					StoreInput(SDL_SCANCODE_S);
+				
 					keyup[SDL_SCANCODE_S] = false;
 				}
-				if (App->input->isNew_Direction[DOWN] == true) { // ESTO SOLO FUNCIONA PARA EL GATILLO; NO HACE FALTA PARA LOS BOTONES (CREO)
+				if (App->input->isNew_Direction[DOWN] == true && App->input->JoystickGetPos(App->input->controller[0], DOWN)) {
 					StoreInput(SDL_SCANCODE_S);
+					
 					App->input->isNew_Direction[DOWN] = false;
 				}
 			}
@@ -377,12 +379,10 @@ update_status ModulePlayer::Update()
 			}
 
 			//CAMBIAR EL BOTON DEL MANDO E IMPLEMENTAR BIEN
-			if (!keyup[SDL_SCANCODE_W] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
+			if (!keyup[SDL_SCANCODE_W] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A))
 				&& keyup[SDL_SCANCODE_Q] && !leaveif)
 			{
-				current_animation = &jumppunch;
-				
-				
+				current_animation = &jumppunch;	
 			}
 
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
@@ -409,10 +409,15 @@ update_status ModulePlayer::Update()
 
 				speed.x = 3.5f;
 				playerCollider->rect.h = 108;
-				if (keyup[SDL_SCANCODE_D]) {
+				if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_D]) ) {
 					StoreInput(SDL_SCANCODE_D);
-					if (flip) { block = App->collision->AddCollider({ position.x - 20, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_D] = false;
+				}
+				if (App->input->isNew_Direction[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
+					StoreInput(SDL_SCANCODE_D);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					App->input->isNew_Direction[RIGHT] = false;
 				}
 			}
 			//cambiar//
@@ -422,11 +427,17 @@ update_status ModulePlayer::Update()
 				if (flip) current_animation = &flipforward;
 				speed.x = -1.5f;
 				playerCollider->rect.h = 108;
-				if (keyup[SDL_SCANCODE_A]) {
+				if ((App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_A])) {
 					StoreInput(SDL_SCANCODE_A);
 					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_A] = false;
 				}
+				if (App->input->isNew_Direction[LEFT] == true && App->input->JoystickGetPos(App->input->controller[0], LEFT)) {
+					StoreInput(SDL_SCANCODE_A);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					App->input->isNew_Direction[LEFT] = false;
+				}
+				
 			}
 
 			//if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
