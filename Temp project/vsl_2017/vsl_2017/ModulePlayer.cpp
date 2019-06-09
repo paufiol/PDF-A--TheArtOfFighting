@@ -600,13 +600,13 @@ update_status ModulePlayer::Update()
 	}
 	if (current_animation == &doubleback)
 	{
-		speed.x = -2.0f;
+		speed.x = -4.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
 	}
 	if (current_animation == &doubleforward)
 	{
-		speed.x = 2.0f;
+		speed.x = 4.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
 	}
