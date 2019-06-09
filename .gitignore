@@ -299,9 +299,3 @@ __pycache__/
 *.xsd.cs
 *.exe
 Temp project/vsl_2017/vsl_2017/Game/vsl_2017.exe
-
-_site
-.sass-cache
-Gemfile.lock
-*.gem
-
