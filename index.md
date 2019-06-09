@@ -11,6 +11,8 @@ This is a project meant to create a faithful recreation of SNK's Art of Fighting
 
 ## Team Members
 ---
+![](Temp%20project/vsl_2017/vsl_2017/Game/RESOURCES/AOF.jpg)
+
 These are all of the members involved in the project. Feel free to contact any of us.
 
 **Carlos Puig**
@@ -23,20 +25,22 @@ These are all of the members involved in the project. Feel free to contact any o
 - Github: [FranGV98](https://github.com/FranGV98)
 - Contact: franguerreroo98@gmail.com
 
-**Pau Fiol** 
-- Responsability: **Management**
-- Github: [Paufiol](https://github.com/paufiol)
-- Contact: pau.fiol.lorente@gmail.com
+**Aitor Luque**
+- Responsability: **Design**
+- Github: [Aitorlb7](https://github.com/Aitorlb7)
+- Contact: aitor97alb@gmail.com
 
 **Daniel Ruiz**
 - Responsability: **Art** 
 - Github: [xsiro](https://github.com/xsiro)
 - Contact: druiz.cubelles@gmail.com
 
-**Aitor Luque**
-- Responsability: **Design**
-- Github: [Aitorlb7](https://github.com/Aitorlb7)
-- Contact: aitor97alb@gmail.com
+**Pau Fiol** 
+- Responsability: **Management**
+- Github: [Paufiol](https://github.com/paufiol)
+- Contact: pau.fiol.lorente@gmail.com
+
+
 
 ---
 ## How to play
