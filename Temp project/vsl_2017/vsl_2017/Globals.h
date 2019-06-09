@@ -22,8 +22,7 @@ enum jump
 {
 	JUMP_DOWN = -1,
 	JUMP_NOT = 0,
-	JUMP_UP = 1,
-	JUMP_PUNCH
+	JUMP_UP = 1
 };
 // Useful typedefs ---------
 typedef unsigned int uint;
@@ -37,6 +36,5 @@ typedef unsigned int uint;
 #define WIN_BORDERLESS 0
 #define WIN_RESIZABLE 0
 #define REN_VSYNC 1
-#define PLAYER_ESCALE 0.5
 
 #endif // __GLOBALS_H__
