@@ -87,6 +87,7 @@ public:
 	Animation damaged;
 	Animation back;
 	Animation doubleback;
+	Animation doubleforward;
 	Animation flipback;
 	Animation flipforward;
 	Animation flipkick;

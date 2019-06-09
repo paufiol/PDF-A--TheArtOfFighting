@@ -98,15 +98,24 @@ ModulePlayer::ModulePlayer()
 	//doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
 	//-----------------------------------------------------------
 	//LEE:
-	doubleback.PushBack({ 0, 623, 58, 94 },-20,0);
-	doubleback.PushBack({ 58, 623, 68, 94 },-30,0);
-	doubleback.PushBack({ 126, 623, 38, 94 },-40,0);
-	doubleback.PushBack({ 164, 623, 79, 94 },-50,0);
-	doubleback.PushBack({ 242, 623, 56, 94 },-60,0);
-
+	doubleback.PushBack({ 0, 623, 58, 94 });
+	doubleback.PushBack({ 58, 623, 68, 94 });
+	doubleback.PushBack({ 126, 623, 38, 94 });
+	doubleback.PushBack({ 164, 623, 79, 94 });
+	doubleback.PushBack({ 242, 623, 56, 94 });
 	if (!flip) doubleback.speed = 0.2f;
 	/*if (flip) doubleback.speed = 0.05f;*/
 	doubleback.lock =true;
+
+	doubleforward.PushBack({ 242, 623, 56, 94 });
+	doubleforward.PushBack({ 164, 623, 79, 94 });
+	doubleforward.PushBack({ 126, 623, 38, 94 });
+	doubleforward.PushBack({ 58, 623, 68, 94 });
+	doubleforward.PushBack({ 0, 623, 58, 94 });
+	if (!flip) doubleforward.speed = 0.2f;
+	doubleforward.lock = true;
+
+
 
 	jumppunch.PushBack({277, 247, 75, 86});
 	jumppunch.PushBack({ 172, 245, 105, 89 });
@@ -445,6 +454,15 @@ update_status ModulePlayer::Update()
 					keyup[SDL_SCANCODE_A] = false;
 				}*/
 			}
+			
+			if ((TestSpecial(SDL_SCANCODE_D, SDL_SCANCODE_D)))
+			{
+				dashBack = true;
+				current_animation = &doubleforward;
+				
+				playerCollider->rect.h = 108;
+				speed.x = 1.5f;
+			}
 		
 
 
@@ -583,6 +601,12 @@ update_status ModulePlayer::Update()
 	if (current_animation == &doubleback)
 	{
 		speed.x = -2.0f;
+		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->rect.h = 75;
+	}
+	if (current_animation == &doubleforward)
+	{
+		speed.x = 2.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
 	}
