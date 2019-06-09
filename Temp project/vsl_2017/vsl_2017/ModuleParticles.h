@@ -52,6 +52,7 @@ public:
 
 	Particle kouken;
 	Particle laser;
+	Particle hit;
 	
 };
 

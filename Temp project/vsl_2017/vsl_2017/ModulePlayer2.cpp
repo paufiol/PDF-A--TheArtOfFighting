@@ -599,18 +599,15 @@ void ModulePlayer2::OnCollision(Collider* A, Collider* B) {
 	}
 	if (A->type == COLLIDER_PLAYER2 && B->type == COLLIDER_PLAYER1)
 	{
-		//App->player->speed.x = 1.0f;
-		if (jumping == JUMP_DOWN && ((position.x > App->player->position.x && flip) || (position.x < App->player->position.x && !flip))) {
-			if (flip) position.x += 5;
-			if (!flip)position.x -= 5;
+		if (B->rect.x >= playerCollider->rect.x)
+		{
+			App->player->position.x += 2;
 		}
-		else if (jumping == JUMP_UP);
-		else {
-			if (flip) App->player2->position.x = App->player->position.x + App->player->playerCollider->rect.w;
-			if (!flip)App->player2->position.x = App->player->position.x - playerCollider->rect.w;
+		//Coliding from the left
+		if (B->rect.x <= playerCollider->rect.x)
+		{
+			App->player->position.x -= 2;
 		}
-		if (!flip)App->player->position.x += 1.0f;
-		if (flip) App->player->position.x -= 1.0f;
 	}
 	if (A->type == COLLIDER_WALL && B->type == COLLIDER_PLAYER2_ATTACK)
 	{

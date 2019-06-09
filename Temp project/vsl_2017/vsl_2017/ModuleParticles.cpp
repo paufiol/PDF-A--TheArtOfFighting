@@ -46,6 +46,10 @@ bool ModuleParticles::Start()
 	kouken.anim.loop = true;
 	kouken.anim.speed = 0.1f;
 	kouken.speed.x = 5;
+
+	hit.anim.PushBack({ 916,498,29,36 });
+	hit.anim.speed = 0.5f;
+	hit.anim.loop = false;
 	
 	return true;
 }
@@ -160,6 +164,8 @@ fx(p.fx), born(p.born), life(p.life)
 
 bool Particle::Update()
 {
+	
+	//Our version---------
 	bool ret = true;
 
 	if(life > 0)
@@ -178,5 +184,43 @@ bool Particle::Update()
 	collider->rect.x = position.x;
 	collider->rect.y = position.y;
 
+	//Other version-------
+	/*bool ret = true;
+
+	if (life > 0)
+	{
+		int ticks = SDL_GetTicks();
+		int num = ticks - born;
+		if (num > life) {
+			ret = false;
+		}
+	}
+	else
+		if (anim.Finished()) {
+			ret = false;
+		}
+	if (SDL_GetTicks() >= born)
+	{
+
+		if (App->player->flip)
+		{
+			position.x += speed.x;
+			position.y += speed.y;
+		}
+		else
+		{
+			position.x -= speed.x;
+			position.y -= speed.y;
+		}
+
+		if (collider != nullptr) {
+			if (App->player->flip) {
+				collider->SetPos(position.x - collider->rect.w / 10, position.y - collider->rect.h / 2);
+			}
+			else {
+				collider->SetPos(position.x - collider->rect.w / 10 + 4, position.y - collider->rect.h / 2);
+			}
+		}
+	}*/
 	return ret;
 }

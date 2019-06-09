@@ -709,8 +709,8 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	if (A->type == COLLIDER_PLAYER1_ATTACK && B->type == COLLIDER_PLAYER2)//Player1 lands hit on Player2
 	{
+		/*App->particles->AddParticle(App->particles->hit, A->rect.x + A->rect.w, A->rect.y + A->rect.h, COLLIDER_NONE, 5.0f);*/
 		A->to_delete = true;
-
 		if (current_animation != &damaged)
 		{
 			if (!godMode) { App->player2->hp -= A->damage; }
@@ -723,17 +723,20 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
 		//App->player->speed.x = 1.0f;
-		if (jumping == JUMP_DOWN && ((position.x > App->player2->position.x && flip) || (position.x < App->player2->position.x && !flip))) {
+		/*if (jumping == JUMP_DOWN && ((position.x > App->player2->position.x && flip) || (position.x < App->player2->position.x && !flip))) {
 			if (flip) position.x += 5;
 			if (!flip)position.x -= 5;
 		}
-		else if (jumping == JUMP_UP);
-		else {
-			if (flip) App->player->position.x = App->player2->position.x + App->player2->playerCollider->rect.w;
-			if (!flip)App->player->position.x = App->player2->position.x - playerCollider->rect.w;
+		else if (jumping == JUMP_UP);*/
+		if (B->rect.x >= playerCollider->rect.x)
+		{
+			App->player2->position.x += 2;
 		}
-		if (!flip)App->player2->position.x += 1.0f;
-		if (flip) App->player2->position.x -= 1.0f;
+		//Coliding from the left
+		if (B->rect.x <= playerCollider->rect.x)
+		{
+			App->player2->position.x -= 2;
+		}
 	}
 	if (A->type == COLLIDER_WALL && B->type == COLLIDER_PLAYER2_ATTACK)
 	{
