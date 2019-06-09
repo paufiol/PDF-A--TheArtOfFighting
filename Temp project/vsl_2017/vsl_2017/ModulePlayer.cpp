@@ -414,6 +414,25 @@ update_status ModulePlayer::Update()
 			//	}
 			//}
 
+			if ((TestSpecial(SDL_SCANCODE_A, SDL_SCANCODE_A)))
+			{
+				dashBack = true;
+				current_animation = &doubleback;
+				
+				playerCollider->rect.h = 108;
+				/*if (keyup[SDL_SCANCODE_A]) {
+					StoreInput(SDL_SCANCODE_A);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					keyup[SDL_SCANCODE_A] = false;
+				}*/
+			}
+		/*	if (dashBack && dashTime < 30)
+			{
+				dashTime++;
+				speed.x = -2.5f;
+			}*/
+
+
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
