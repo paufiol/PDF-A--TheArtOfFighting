@@ -9,6 +9,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleParticles.h"
+#include "ModuleSceneChina.h"
 #include "SDL/include/SDL.h"
 
 ModuleUI::ModuleUI()
@@ -53,7 +54,6 @@ bool ModuleUI::Start()
 	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont2, 1);
 	lifebar1rect = { 766,1, 127,7 };
 	lifebar2rect = { 766,1, 127,7 };
-	roundp1 = 0;
 	return true;
 }
 update_status ModuleUI::Update()
@@ -155,14 +155,23 @@ update_status ModuleUI::Update()
 	//Rounds:------------------------------------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	current_animation = &Roundball;
-	if (roundp1 == 1)
+	if (App->scene_china->roundP1 == 1)
 	{
-		App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
+		App->render->Blit(graphics, 54, 40, &r, 1.0f, false, false);
 	}
-	if (roundp1 > 1)
+	if (App->scene_china->roundP1 == 2)
 	{
-		App->render->Blit(graphics, 64, 40, &r, 1.0f, false, false);
-		App->render->Blit(graphics, 48, 40, &r, 1.0f, false, false);
+		App->render->Blit(graphics, 70, 40, &r, 1.0f, false, false);
+		App->render->Blit(graphics, 54, 40, &r, 1.0f, false, false);
+	}
+	if (App->scene_china->roundP2 == 1)
+	{
+		App->render->Blit(graphics, 250, 40, &r, 1.0f, false, false);
+	}
+	if (App->scene_china->roundP2 == 2)
+	{
+		App->render->Blit(graphics, 250, 40, &r, 1.0f, false, false);
+		App->render->Blit(graphics, 230, 40, &r, 1.0f, false, false);
 	}
 	//-------------------------------------------------------------------------
 	//App->render->DrawQuad({ 0, 0, 10, 10 }, 255, 255, 255, 255, false);
