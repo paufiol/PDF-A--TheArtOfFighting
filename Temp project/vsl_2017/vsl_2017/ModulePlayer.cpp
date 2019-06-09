@@ -225,11 +225,19 @@ ModulePlayer::ModulePlayer()
 	victory.speed = 0.05f;
 	victory.lock = true;
 
-	defeat.PushBack({ 0, 0, 66, 115 });
+	//RYO:
+	/*defeat.PushBack({ 0, 0, 66, 115 });
 	defeat.PushBack({ 66, 0, 73, 115 });
 	defeat.PushBack({ 144, 8, 64, 107 });
 	defeat.PushBack({ 208, 29, 62, 86 });
-	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.PushBack({ 270, 53, 58, 62 });*/
+
+	//LEE:
+	defeat.PushBack({ 625, 922, 79, 102 });
+	defeat.PushBack({ 707, 922, 89, 102 });
+	defeat.PushBack({ 803, 922, 91, 102 });
+	defeat.PushBack({ 898, 922, 120, 102 });
+
 	defeat.lock = true;
 	defeat.speed = 0.1f;
 }
@@ -286,24 +294,32 @@ update_status ModulePlayer::Update()
 		speed.x = 0.0f;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_UP) {
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_UP && App->input->JoystickGetPos(App->input->controller[0], RIGHT) == false) {
 		//keyup[SDL_SCANCODE_D] = true;
 		if (block != nullptr && flip) block->to_delete = true;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_UP) {
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_UP && App->input->JoystickGetPos(App->input->controller[0], LEFT) == false) {
 		//keyup[SDL_SCANCODE_A] = true;
 		if (block != nullptr && !flip) block->to_delete = true;
 	}
 
-	if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_Q] && current_animation->lock) {
-		keyup[SDL_SCANCODE_Q] = false;
-		StoreInput(SDL_SCANCODE_Q);
-	}
-
-	if ((App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_E] && current_animation->lock) {
-		keyup[SDL_SCANCODE_E] = false;
-		StoreInput(SDL_SCANCODE_E);
+	if (current_animation->lock) {
+		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_E]) {
+			keyup[SDL_SCANCODE_E] = false;
+				StoreInput(SDL_SCANCODE_E);
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN  && keyup[SDL_SCANCODE_Q]) {
+			keyup[SDL_SCANCODE_Q] = false;
+			StoreInput(SDL_SCANCODE_Q);
+		}
+		
+		else if (App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)) {
+			StoreInput(SDL_SCANCODE_Q);
+		}
+		else if (App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)) {
+			StoreInput(SDL_SCANCODE_E);
+		}
 	}
 
 	for (int i = 0; i < 69; i++) {
@@ -350,12 +366,14 @@ update_status ModulePlayer::Update()
 				current_animation = &crouchidle;
 				playerCollider->rect.h = 75;
 
-				if (keyup[SDL_SCANCODE_S]) {
+				if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_S])) {
 					StoreInput(SDL_SCANCODE_S);
+				
 					keyup[SDL_SCANCODE_S] = false;
 				}
-				if (App->input->isNew_Direction[DOWN] == true) { // ESTO SOLO FUNCIONA PARA EL GATILLO; NO HACE FALTA PARA LOS BOTONES (CREO)
+				if (App->input->isNew_Direction[DOWN] == true && App->input->JoystickGetPos(App->input->controller[0], DOWN)) {
 					StoreInput(SDL_SCANCODE_S);
+					
 					App->input->isNew_Direction[DOWN] = false;
 				}
 			}
@@ -377,12 +395,10 @@ update_status ModulePlayer::Update()
 			}
 
 			//CAMBIAR EL BOTON DEL MANDO E IMPLEMENTAR BIEN
-			if (!keyup[SDL_SCANCODE_W] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
+			if (!keyup[SDL_SCANCODE_W] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A))
 				&& keyup[SDL_SCANCODE_Q] && !leaveif)
 			{
-				current_animation = &jumppunch;
-				
-				
+				current_animation = &jumppunch;	
 			}
 
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
@@ -409,10 +425,15 @@ update_status ModulePlayer::Update()
 
 				speed.x = 3.5f;
 				playerCollider->rect.h = 108;
-				if (keyup[SDL_SCANCODE_D]) {
+				if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_D]) ) {
 					StoreInput(SDL_SCANCODE_D);
-					if (flip) { block = App->collision->AddCollider({ position.x - 20, position.y + 5, 15, 35 }, COLLIDER_WALL, this); }
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_D] = false;
+				}
+				if (App->input->isNew_Direction[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
+					StoreInput(SDL_SCANCODE_D);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					App->input->isNew_Direction[RIGHT] = false;
 				}
 			}
 			//cambiar//
@@ -422,11 +443,17 @@ update_status ModulePlayer::Update()
 				if (flip) current_animation = &flipforward;
 				speed.x = -1.5f;
 				playerCollider->rect.h = 108;
-				if (keyup[SDL_SCANCODE_A]) {
+				if ((App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_A])) {
 					StoreInput(SDL_SCANCODE_A);
 					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_A] = false;
 				}
+				if (App->input->isNew_Direction[LEFT] == true && App->input->JoystickGetPos(App->input->controller[0], LEFT)) {
+					StoreInput(SDL_SCANCODE_A);
+					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					App->input->isNew_Direction[LEFT] = false;
+				}
+				
 			}
 
 			//if (App->input->keyboard[SDL_SCANCODE_A] && App->input->keyboard[SDL_SCANCODE_A])
@@ -464,7 +491,7 @@ update_status ModulePlayer::Update()
 				speed.x = 1.5f;
 			}
 		
-
+			
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
@@ -506,13 +533,15 @@ update_status ModulePlayer::Update()
 				}
 			}
 
+
 			if ((current_animation == &jump && App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN) && keyup[SDL_SCANCODE_Q])
 			{
 				current_animation = &jumppunch;
 				jumping = JUMP_PUNCH;
 			}
 
-			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
+			
+			if ((TestSpecial(SDL_SCANCODE_S, SDL_SCANCODE_S, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 33)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
