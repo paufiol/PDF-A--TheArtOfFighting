@@ -225,11 +225,19 @@ ModulePlayer::ModulePlayer()
 	victory.speed = 0.05f;
 	victory.lock = true;
 
-	defeat.PushBack({ 0, 0, 66, 115 });
+	//RYO:
+	/*defeat.PushBack({ 0, 0, 66, 115 });
 	defeat.PushBack({ 66, 0, 73, 115 });
 	defeat.PushBack({ 144, 8, 64, 107 });
 	defeat.PushBack({ 208, 29, 62, 86 });
-	defeat.PushBack({ 270, 53, 58, 62 });
+	defeat.PushBack({ 270, 53, 58, 62 });*/
+
+	//LEE:
+	defeat.PushBack({ 625, 922, 79, 102 });
+	defeat.PushBack({ 707, 922, 89, 102 });
+	defeat.PushBack({ 803, 922, 91, 102 });
+	defeat.PushBack({ 898, 922, 120, 102 });
+
 	defeat.lock = true;
 	defeat.speed = 0.1f;
 }
