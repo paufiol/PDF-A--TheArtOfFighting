@@ -2,7 +2,7 @@
 ---
 ## Art of Fighting
 
-https://github.com/paufiol/PunoEterno-ArtOfFighting/blob/master/Wiki%20Material/Home/LOGO/ETERNALPUNCH.png?raw=true
+Wiki%20Material/Home/LOGO/ETERNALPUNCH.png
 
 ## Introduction
 ---
