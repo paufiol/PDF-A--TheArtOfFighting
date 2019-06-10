@@ -41,6 +41,7 @@ public:
 	int hp = 100;
 	int stamina = 100;
 	int plusta;
+	int chargecount;
 	fPoint speed;
 	
 	int input[MAX_INPUTS];
@@ -65,6 +66,7 @@ public:
 	bool godMode;
 	Animation* current_animation = &idle;
 
+	int spintime;
 
 	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;
@@ -103,6 +105,7 @@ public:
 	Animation provocar;
 	Animation firekick;
 	Animation multipunch;
+	Animation charge;
 
 	iPoint position;
 
