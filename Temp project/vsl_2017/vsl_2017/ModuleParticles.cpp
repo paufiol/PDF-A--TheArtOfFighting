@@ -24,7 +24,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("RESOURCES/ryo.png");
+	graphics = App->textures->Load("RESOURCES/Lee.png");
 //<<<<<<< HEAD
 	//App->audio->koukenFx = App->audio->LoadChunk("kouken.ogg"); ->DONE
 //=======
@@ -47,8 +47,10 @@ bool ModuleParticles::Start()
 	kouken.anim.speed = 0.1f;
 	kouken.speed.x = 5;
 
+
+	hit.anim.PushBack({ 977,513,14,17 },2,2);
 	hit.anim.PushBack({ 916,498,29,36 });
-	hit.anim.speed = 0.5f;
+	hit.anim.speed = 0.3f;
 	hit.anim.loop = false;
 	
 	return true;
@@ -91,9 +93,11 @@ update_status ModuleParticles::Update()
 		}
 		else if(SDL_GetTicks() >= p->born)
 		{
-		
-			if (active[i]->collider->type == COLLIDER_PLAYER1_ATTACK) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player->flip);
-			if (active[i]->collider->type == COLLIDER_PLAYER2_ATTACK) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player2->flip);
+			if (p->collider != nullptr) {
+				if (active[i]->collider->type == COLLIDER_PLAYER1_ATTACK) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player->flip);
+				if (active[i]->collider->type == COLLIDER_PLAYER2_ATTACK) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player2->flip);
+			}
+			if (p->collider == nullptr) App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()), 1.0F, App->player->flip);
 
 		/*	SDL_Rect prueba = {App->player->position.x,App->player->position.y,300,50 };
 			SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 0, 0);
@@ -112,7 +116,7 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-Collider * ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
+Particle * ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -122,10 +126,11 @@ Collider * ModuleParticles::AddParticle(const Particle& particle, int x, int y, 
 			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
+
 			if (collider_type != COLLIDER_NONE)
 				p->collider = App->collision->AddCollider({x, y, p->anim.GetCurrentFrame().w, p->anim.GetCurrentFrame().h }, collider_type, this, 35);
 			active[i] = p;
-			return p->collider;
+			return active[i];
 		}
 	}
 }
@@ -172,17 +177,31 @@ bool Particle::Update()
 	{
 		if((SDL_GetTicks() - born) > life)
 			ret = false;
+
 	}
 	else
 		if(anim.Finished() && anim.loop == false)
 			ret = false;
 
-	if((collider->type == COLLIDER_PLAYER1_ATTACK && App->player->flip) || (collider->type == COLLIDER_PLAYER2_ATTACK && App->player2->flip)) position.x -= speed.x;
-	else position.x += speed.x;
-	position.y += speed.y;
+	if (collider != nullptr) {
+		if (App->player->flip) {
+			collider->SetPos(position.x - collider->rect.w / 10, position.y - collider->rect.h / 2);
+		}
+		else {
+			collider->SetPos(position.x - collider->rect.w / 10 + 4, position.y - collider->rect.h / 2);
+		}
+	}
 
-	collider->rect.x = position.x;
-	collider->rect.y = position.y;
+	if (collider != nullptr) {
+		if ((collider->type == COLLIDER_PLAYER1_ATTACK && App->player->flip) || (collider->type == COLLIDER_PLAYER2_ATTACK && App->player2->flip)) position.x -= speed.x;
+		else position.x += speed.x;
+		position.y += speed.y;
+
+
+		/*collider->rect.x = position.x;
+		collider->rect.y = position.y;*/
+	}
+	
 
 	//Other version-------
 	/*bool ret = true;
