@@ -63,6 +63,8 @@ public:
 	bool dashBack= false;
 	int dashTime = 0;
 
+	int MaxSpinDamage = 0;
+
 	bool p1Won = false, p2Won = false;
 	bool playersMove = false;
 	bool godMode;

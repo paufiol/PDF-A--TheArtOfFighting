@@ -651,12 +651,20 @@ void ModulePlayer2::OnCollision(Collider* A, Collider* B) {
 	{
 		if (B->rect.x >= playerCollider->rect.x)
 		{
-			App->player->position.x += 2;
+			if (current_animation == &sp1 || current_animation == &sp2 || 
+				App->player->current_animation == &sp1 || App->player->current_animation == &sp2) {
+				
+				App->player->position.x += 4;
+			}
+			else App->player->position.x += 2;
 		}
 		//Coliding from the left
 		if (B->rect.x <= playerCollider->rect.x)
 		{
-			App->player->position.x -= 2;
+			if (current_animation == &sp1 || current_animation == &sp2 || App->player->current_animation == &sp1 || App->player->current_animation == &sp2) {
+				App->player->position.x -= 4;
+			}
+			else App->player->position.x -= 2;
 		}
 	}
 	if (A->type == COLLIDER_WALL && B->type == COLLIDER_PLAYER2_ATTACK)
