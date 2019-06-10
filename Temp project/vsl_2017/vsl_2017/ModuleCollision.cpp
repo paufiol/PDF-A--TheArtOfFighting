@@ -135,6 +135,8 @@ void ModuleCollision::DebugDraw()
 			case COLLIDER_NONE: // white
 			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
 			break;
+			case COLLIDER_WALL: // blue
+			App->render->DrawQuad(colliders[i]->rect, 128, 0, 128, alpha);
 			case COLLIDER_SPECIAL_ATTACK1: // blue
 			App->render->DrawQuad(colliders[i]->rect, 0, 0, 255, alpha);
 			break;

@@ -442,7 +442,7 @@ update_status ModulePlayer::Update()
 	//Reduce hitbox while crouching
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
 	{
-		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->SetPos(position.x, position.y + 40);
 		playerCollider->rect.h = 75;
 	}
 
@@ -531,8 +531,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
 			{
 				current_animation = &crouchidle;
-				playerCollider->rect.h = 75;
-
+				playerCollider->rect.h = 65;
 				if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_S])) {
 					StoreInput(SDL_SCANCODE_S);
 				
@@ -737,8 +736,8 @@ update_status ModulePlayer::Update()
 				current_animation = &victory;
 
 				current_animation = &sp1;
-				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
-				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
+				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
+				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				stamina -= 20;
 			}
