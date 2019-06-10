@@ -449,6 +449,8 @@ update_status ModulePlayer::Update()
 			if (current_animation->Finished()) {
 				current_animation->Reset();
 				if (melee != nullptr) melee->to_delete = true;
+				if (spinCollider != nullptr)
+				{ spinCollider->to_delete = true; }
 
 			}
 			bool leaveif = false;
@@ -681,9 +683,11 @@ update_status ModulePlayer::Update()
 			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 
 		
-				current_animation = &sacargarras;
+				current_animation = &victory;
 
 				current_animation = &sp1;
+				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
+				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				stamina -= 20;
 			}
@@ -747,7 +751,7 @@ update_status ModulePlayer::Update()
 	}
 
 
-	//Jumping movement--------------------------------------------
+	//Jumping movement/ Other movement and attacks--------------------------------------------
 	if (jumping != JUMP_NOT)
 	{
 		speed.y = (-1)*(8 + -0.5 * clock_parabolla);
@@ -800,7 +804,8 @@ update_status ModulePlayer::Update()
 		{
 			speed.x = 6.0f;
 			playerCollider->SetPos(position.x, position.y + 33);
-			playerCollider->rect.h = 75;	
+			playerCollider->rect.h = 75;
+			if (!flip) { spinCollider->SetPos(position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2); }
 			if (spintime > 50 && position.y >= 80 && spintime < 60)
 			{
 				speed.y = -4.0f;
@@ -866,6 +871,19 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 		}
 		App->particles->AddParticle(App->particles->hit, App->player2->position.x+12, A->rect.y- A->rect.h/2, COLLIDER_NONE, 0);
 		A->to_delete = true;
+	}
+	if (A->type == COLLIDER_SPECIAL_ATTACK1 && B->type == COLLIDER_PLAYER2)
+	{
+		
+		if (current_animation == &sp1)
+		{
+			if (!godMode) { App->player2->hp -= A->damage; }
+			/*if (!flip) App->player2->position.x += 15;
+			if (flip) App->player2->position.x -= 15;*/
+
+			App->player2->current_animation = &damaged;
+		}
+		App->particles->AddParticle(App->particles->hit, App->player2->position.x + 12, A->rect.y - A->rect.h / 2, COLLIDER_NONE, 0);
 	}
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
