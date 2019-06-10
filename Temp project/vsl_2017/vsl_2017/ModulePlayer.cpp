@@ -774,8 +774,7 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	if (A->type == COLLIDER_PLAYER1_ATTACK && B->type == COLLIDER_PLAYER2)//Player1 lands hit on Player2
 	{
-		/*App->particles->AddParticle(App->particles->hit, A->rect.x + A->rect.w, A->rect.y + A->rect.h, COLLIDER_NONE, 5.0f);*/
-		A->to_delete = true;
+		
 		if (current_animation != &damaged)
 		{
 			if (!godMode) { App->player2->hp -= A->damage; }
@@ -783,7 +782,8 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 			if (flip) App->player2->position.x -= 15;
 			App->player2->current_animation = &damaged;
 		}
-
+		App->particles->AddParticle(App->particles->hit, A->rect.x + A->rect.w, A->rect.y, COLLIDER_NONE, 0);
+		A->to_delete = true;
 	}
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
