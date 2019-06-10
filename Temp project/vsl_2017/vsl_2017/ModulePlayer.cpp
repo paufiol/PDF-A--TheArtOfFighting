@@ -217,15 +217,17 @@ ModulePlayer::ModulePlayer()
 	damaged.lock = true;
 
 	//faltan volteretas
-	sacargarras.PushBack({ 71,466,76,105 });
-	sacargarras.PushBack({ 162,466, 76, 105 });
-	sacargarras.PushBack({ 244, 466,77, 104 });
-	sacargarras.PushBack({ 330,478, 76, 122 });
-	sacargarras.PushBack({ 244, 466,77, 104 });
-	sacargarras.speed = 0.2f;
-	sacargarras.lock = true;
+
+	//sacargarras.speed = 0.2f;
+	//sacargarras.lock = true;
 	
 	//Spin Lee:
+	sp1.PushBack({ 71,466,76,105 });
+	sp1.PushBack({ 162,466, 76, 105 });
+	sp1.PushBack({ 244, 466,77, 104 });
+	sp1.PushBack({ 330,478, 76, 122 });
+	sp1.PushBack({ 244, 466,77, 104 });
+
 	sp1.PushBack({ 420,505,35,69 },0,30);
 	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
 	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
@@ -652,6 +654,7 @@ update_status ModulePlayer::Update()
 
 			//Testsu no Tsume Low
 			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				current_animation = &sacargarras;
 				current_animation = &sp1;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				stamina -= 20;
@@ -757,9 +760,31 @@ update_status ModulePlayer::Update()
 	}
 	if (current_animation == &sp1)
 	{
-		speed.x = 6.0f;
-		playerCollider->SetPos(position.x, position.y + 33);
-		playerCollider->rect.h = 75;
+		spintime++;
+ 		if (spintime > 20)
+		{
+			speed.x = 6.0f;
+			playerCollider->SetPos(position.x, position.y + 33);
+			playerCollider->rect.h = 75;	
+			if (spintime > 50 && position.y >= 80 && spintime < 60)
+			{
+				speed.y = -4.0f;
+			}
+			else
+			{
+				speed.y = 4.0f;
+
+				if (position.y >= 112)
+				{
+					position.y = 112;
+					speed.y = 0;
+				}
+			}
+		}
+	}
+	else
+	{
+		spintime = 0;
 	}
 
 
