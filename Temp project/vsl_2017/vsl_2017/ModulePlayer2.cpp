@@ -222,6 +222,7 @@ ModulePlayer2::ModulePlayer2()
 	sacargarras.PushBack({ 244, 466,77, 104 });
 	sacargarras.speed = 0.2f;
 	sacargarras.lock = true;
+	sacargarras.loop = false;
 
 	//Spin Lee:
 	sp1.PushBack({ 420,505,35,69 }, 0, 30);
@@ -239,10 +240,7 @@ ModulePlayer2::ModulePlayer2()
 	sp1.speed = 0.2f;
 	sp1.lock = true;
 
-	victory.PushBack({ 0, 256, 53, 116 });
-	victory.PushBack({ 65, 266, 69, 106 });
-	victory.speed = 0.05f;
-	victory.lock = true;
+
 
 	//RYO:
 	/*defeat.PushBack({ 0, 0, 66, 115 });
@@ -258,6 +256,7 @@ ModulePlayer2::ModulePlayer2()
 	defeat.PushBack({ 898, 922, 120, 102 });
 
 	defeat.lock = true;
+	defeat.loop = false;
 	defeat.speed = 0.1f;
 
 	//LEE:
@@ -286,7 +285,7 @@ bool ModulePlayer2::Start()
 	bool ret = true;
 	graphics = App->textures->Load("RESOURCES/lee2.png");
 	/*graphs = App->textures->Load("ryo2.png");*/
-	graphics2 = App->textures->Load("RESOURCES/ryo2.png");
+	
 
 	hp = 100;
 	stamina = 100;
@@ -478,6 +477,16 @@ update_status ModulePlayer2::Update()
 				}
 			}*/
 
+			if ((TestSpecial(SDL_SCANCODE_L, SDL_SCANCODE_L)))
+			{
+				current_animation = &doubleback;
+			}
+
+			if ((TestSpecial(SDL_SCANCODE_J, SDL_SCANCODE_J)))
+			{
+				current_animation = &doubleforward;
+			}
+
 			if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
@@ -535,13 +544,11 @@ update_status ModulePlayer2::Update()
 	if (hp <= 0 && App->player->p1Won != true)
 	{
 		hp = 0;
-		/*current_animation = &defeat;*/
+		current_animation = &defeat;
 
 		App->player->p1Won = true;
 		App->player->playersMove = false;
 		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
-
-		//current_animation = &death;
 		playerCollider->to_delete = true;
 	}
 
@@ -551,35 +558,13 @@ update_status ModulePlayer2::Update()
 	}
 
 
-	//Debug functionality-----------------------------------------
-
-	/*if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F2] || App->UI->currenthp2 <= 0)
-	{
-		p1Won = true;
-		App->player2->hp = 0;
-		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
-		if (keyup[SDL_SCANCODE_F2])
-		{
-			keyup[SDL_SCANCODE_F2] = false;
-		}
-	}
-	if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_F3] || App->UI->currenthp1 <= 0)
-	{
-		p2Won = true;
-		App->player->hp = 0;
-		App->audio->PlayChunk(App->audio->LoadChunk("MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
-		if (keyup[SDL_SCANCODE_F3])
-		{
-			keyup[SDL_SCANCODE_F3] = false;
-		}
-	}*/
-
 	//Jumping movement--------------------------------------------
 	if (jumping != JUMP_NOT)
 	{
 		speed.y = (-1)*(8 + -0.5 * clock_parabolla);
 		clock_parabolla++;
-
+		playerCollider->SetPos(position.x, position.y - 33);
+		playerCollider->rect.h = 70;
 		if (jumping == JUMP_DOWN)
 		{
 			//speed.y = 3;
@@ -600,7 +585,18 @@ update_status ModulePlayer2::Update()
 			}
 		}
 	}
-
+	if (current_animation == &doubleback)
+	{
+		speed.x = 6.0f;
+		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->rect.h = 75;
+	}
+	if (current_animation == &doubleforward)
+	{
+		speed.x = -6.0f;
+		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->rect.h = 75;
+	}
 
 
 	//Keep character within limits-----------------------------
@@ -621,30 +617,11 @@ update_status ModulePlayer2::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	if (!p2Won)
+	if (App->player->p2Won == true)
 	{
-		if ( current_animation == &victory || current_animation == &defeat) {
-
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-
-		}
-		else App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+		current_animation = &sacargarras;
 	}
-
-	if (p2Won)
-	{
-		if (wFrame > 0)
-		{
-			//current_animation = &victory;
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
-		}
-		if (wFrame == 0)
-		{
-			current_animation = &victory;
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip);
-		}
-		wFrame++;
-	}
+	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
 
@@ -686,34 +663,85 @@ bool ModulePlayer2::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, 
 	int interval = 500;
 	int d = inputCount - 1;
 	if (inputCount == 0) d = MAX_INPUTS - 1;
-	for (int i = inputCount; 1; i++) {
+	if (D == SDL_SCANCODE_UNKNOWN && C == SDL_SCANCODE_UNKNOWN) {
+		for (int i = inputCount; 1; i++) {
+			if (i == (MAX_INPUTS)) i = 0;
+			int j = i - 1;
+			if (i == 0) { j = MAX_INPUTS - 1; }
+			if (input[i] == A && input[j] == B) {
+				if ((timeInput[i] - timeInput[j]) < interval) {
 
-		if (i == (MAX_INPUTS)) i = 0;
-		int j = i - 1; int k = i - 2; int l = i - 3;
-		if (i == 2) { l = MAX_INPUTS - 1; }
-		if (i == 1) { l = MAX_INPUTS - 2; k = MAX_INPUTS - 1; }
-		if (i == 0) { l = MAX_INPUTS - 3; k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
-		if (input[i] == A && input[j] == B &&
-			input[k] == C && input[l] == D) {
-
-			if ((timeInput[i] - timeInput[j]) < interval &&
-				(timeInput[j] - timeInput[k]) < interval &&
-				(timeInput[k] - timeInput[l]) < interval) {
-
-				for (int p = 0; p < MAX_INPUTS; p++) {
-					input[p] = 0;
-					timeInput[p] = 0;
+					for (int p = 0; p < MAX_INPUTS; p++) {
+						input[p] = 0;
+						timeInput[p] = 0;
+					}
+					inputCount = 0;
+					return true;
 				}
-				inputCount = 0;
-				return true;
-
 			}
+			if (i == d) break;
 		}
-		if (i == d) break;
 	}
+	else if (D == SDL_SCANCODE_UNKNOWN) {
+		for (int i = inputCount; 1; i++) {
 
+			if (i == (MAX_INPUTS)) i = 0;
+
+			int j = i - 1; int k = i - 2;
+
+
+			if (i == 1) { k = MAX_INPUTS - 1; }
+			if (i == 0) { k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
+
+			if (input[i] == A && input[j] == B && input[k] == C) {
+
+				if ((timeInput[i] - timeInput[j]) < interval &&
+					(timeInput[j] - timeInput[k]) < interval) {
+					for (int p = 0; p < MAX_INPUTS; p++) {
+						input[p] = 0;
+						timeInput[p] = 0;
+					}
+					inputCount = 0;
+					return true;
+				}
+			}
+			if (i == d) break;
+		}
+	}
+	else {
+		for (int i = inputCount; 1; i++) {
+
+			if (i == (MAX_INPUTS)) i = 0;
+
+			int j = i - 1; int k = i - 2; int l = i - 3;
+
+			if (i == 2) { l = MAX_INPUTS - 1; }
+			if (i == 1) { l = MAX_INPUTS - 2; k = MAX_INPUTS - 1; }
+			if (i == 0) { l = MAX_INPUTS - 3; k = MAX_INPUTS - 2; j = MAX_INPUTS - 1; }
+
+			if (input[i] == A && input[j] == B &&
+				input[k] == C && input[l] == D) {
+
+				if ((timeInput[i] - timeInput[j]) < interval &&
+					(timeInput[j] - timeInput[k]) < interval &&
+					(timeInput[k] - timeInput[l]) < interval) {
+
+					for (int p = 0; p < MAX_INPUTS; p++) {
+						input[p] = 0;
+						timeInput[p] = 0;
+					}
+
+					inputCount = 0;
+					return true;
+
+				}
+			}
+			if (i == d) break;
+		}
+	}
 	return false;
 }
+
 
 
 bool ModulePlayer2::CleanUp() {

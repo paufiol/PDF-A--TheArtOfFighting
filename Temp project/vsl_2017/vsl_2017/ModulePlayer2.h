@@ -26,7 +26,7 @@ public:
 
 	void OnCollision(Collider* A, Collider* B);
 	
-	bool TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, SDL_Scancode D);
+	bool TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C = SDL_SCANCODE_UNKNOWN, SDL_Scancode D = SDL_SCANCODE_UNKNOWN);
 	void StoreInput(SDL_Scancode Scancode) {
 		input[inputCount] = Scancode;
 		timeInput[inputCount] = SDL_GetTicks();
@@ -56,7 +56,6 @@ public:
 	int font_start = -1;
 	int wFrame = 0;
 
-	bool p1Won = false, p2Won = false;
 
 	Animation* current_animation = &idle;
 

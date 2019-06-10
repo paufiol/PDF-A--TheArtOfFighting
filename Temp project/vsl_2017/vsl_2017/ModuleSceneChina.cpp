@@ -65,7 +65,7 @@ bool ModuleSceneChina::CleanUp()
 {
 	
 	App->audio->StopMusic();
-	SDL_DestroyTexture(graphics);
+	if (graphics != nullptr) { SDL_DestroyTexture(graphics); }
 	LOG("Unloading Karuta stage");
 	App->player->Disable();
 	App->player2->Disable();
@@ -147,7 +147,7 @@ update_status ModuleSceneChina::Update()
 	{
 	
 		if (App->player->hp > App->player2->hp)  App->player->p1Won = true;
-		if (App->player->hp < App->player2->hp)  App->player2->p2Won = true;
+		if (App->player->hp < App->player2->hp)  App->player->p2Won = true;
 		if (App->player->hp == App->player2->hp)
 		{
 			if (roundP2 == 0 || roundP1 == 0)

@@ -563,23 +563,14 @@ update_status ModulePlayer::Update()
 
 			if ((TestSpecial(SDL_SCANCODE_A, SDL_SCANCODE_A)))
 			{
-				dashBack = true;
 				current_animation = &doubleback;
-				
 				playerCollider->rect.h = 108;
 				speed.x = -1.5f;
-				/*if (keyup[SDL_SCANCODE_A]) {
-					StoreInput(SDL_SCANCODE_A);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					keyup[SDL_SCANCODE_A] = false;
-				}*/
 			}
 			
 			if ((TestSpecial(SDL_SCANCODE_D, SDL_SCANCODE_D)))
 			{
-				dashBack = true;
 				current_animation = &doubleforward;
-				
 				playerCollider->rect.h = 108;
 				speed.x = 1.5f;
 			}
