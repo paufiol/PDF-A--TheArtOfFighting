@@ -70,3 +70,6 @@ SPACE as enter Key (To enter game, select character etc.)
 - F3: Instant win P2
 - F4: God Mode
 - F6: Automatic Kouken
+
+**RELEASE LINK:**
+
