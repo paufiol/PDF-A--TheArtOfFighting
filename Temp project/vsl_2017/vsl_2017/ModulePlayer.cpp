@@ -243,6 +243,14 @@ ModulePlayer::ModulePlayer()
 	sp1.speed = 0.2f;
 	sp1.lock = true;
 
+	charge.PushBack({ 412, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 488, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 564, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 640, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 716, 758,76, 145 }, -10, -40);
+	charge.speed = 0.2f;
+	charge.lock = true;
+
 	victory.PushBack({ 0, 256, 53, 116 });
 	victory.PushBack({ 65, 266, 69, 106 });
 	victory.speed = 0.05f;
@@ -336,6 +344,7 @@ bool ModulePlayer::Start()
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 	winFrame2 = { 65, 266, 69, 106 };
+	chargecount = 0;
 
 	return ret;
 }
@@ -630,6 +639,18 @@ update_status ModulePlayer::Update()
 					keyup[SDL_SCANCODE_E] = false;
 				}
 			}
+			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A))) 
+			{
+				chargecount++;
+				if (chargecount > 5)
+				{
+					current_animation = &charge;
+				}
+			}
+			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_UP || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)))
+			{
+				chargecount = 0;
+			}
 
 			if ((App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN/* || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)*/) && !leaveif && keyup[SDL_SCANCODE_C])
 			{
@@ -757,6 +778,10 @@ update_status ModulePlayer::Update()
 		speed.x = 4.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
+	}
+	if (current_animation == &charge)
+	{
+		stamina++;
 	}
 	if (current_animation == &sp1)
 	{
