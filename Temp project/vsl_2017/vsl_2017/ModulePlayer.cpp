@@ -360,7 +360,7 @@ update_status ModulePlayer::Update()
 
 	//Player collision
 	playerCollider->SetPos(position.x, position.y);
-	if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
+	//if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
 	playerCollider->rect.h = 108;
 	
 	//Block collider
@@ -456,6 +456,10 @@ update_status ModulePlayer::Update()
 				jumping = JUMP_UP;
 				speed.x = 4.5f;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+				if (keyup[SDL_SCANCODE_W]) {
+					StoreInput(SDL_SCANCODE_W);
+					keyup[SDL_SCANCODE_W] = false;
+				}
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
@@ -490,7 +494,6 @@ update_status ModulePlayer::Update()
 				leaveif = true;
 
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
-				//App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 
 				if (keyup[SDL_SCANCODE_Q]) {
 					StoreInput(SDL_SCANCODE_Q);
@@ -525,18 +528,18 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], RIGHT))
 			{
 				if (!flip) current_animation = &forward;
-				if (flip) current_animation = &flipback;
+				if (flip) current_animation = &back;
 
 				speed.x = 3.5f;
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_D]) ) {
 					StoreInput(SDL_SCANCODE_D);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_D] = false;
 				}
 				if (App->input->isNew_Direction[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
 					StoreInput(SDL_SCANCODE_D);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					App->input->isNew_Direction[RIGHT] = false;
 				}
 			}
@@ -544,7 +547,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], LEFT))
 			{
 				if (!flip) current_animation = &back;
-				if (flip) current_animation = &flipforward;
+				if (flip) current_animation = &forward;
 				speed.x = -1.5f;
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_A])) {
@@ -574,23 +577,14 @@ update_status ModulePlayer::Update()
 
 			if ((TestSpecial(SDL_SCANCODE_A, SDL_SCANCODE_A)))
 			{
-				dashBack = true;
 				current_animation = &doubleback;
-				
 				playerCollider->rect.h = 108;
 				speed.x = -1.5f;
-				/*if (keyup[SDL_SCANCODE_A]) {
-					StoreInput(SDL_SCANCODE_A);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 50, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					keyup[SDL_SCANCODE_A] = false;
-				}*/
 			}
 			
 			if ((TestSpecial(SDL_SCANCODE_D, SDL_SCANCODE_D)))
 			{
-				dashBack = true;
 				current_animation = &doubleforward;
-				
 				playerCollider->rect.h = 108;
 				speed.x = 1.5f;
 			}
@@ -652,17 +646,21 @@ update_status ModulePlayer::Update()
 				chargecount = 0;
 			}
 
-			if ((App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN/* || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)*/) && !leaveif && keyup[SDL_SCANCODE_C])
+			if ((App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_X)) && !leaveif && keyup[SDL_SCANCODE_C])
 			{
 				current_animation = &provocar;
 				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));*/
+				App->player2->stamina -= 15;
 
-				App->player2->stamina -= 10;
+				if (keyup[SDL_SCANCODE_C]) {
+					StoreInput(SDL_SCANCODE_C);
+					keyup[SDL_SCANCODE_C] = false;
+				}
 			}
+			
 			//SPECIAL ATTACKS ----------------------------------------------------------
-
 			//Hyakuretsu Ken 
-			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
+			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_A, SDL_SCANCODE_D) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
@@ -674,14 +672,18 @@ update_status ModulePlayer::Update()
 
 
 			//Testsu no Tsume Low
-			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+
+			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+
+		
 				current_animation = &sacargarras;
+
 				current_animation = &sp1;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				stamina -= 20;
 			}
 			//Tetsu no Tsume High
-			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 
