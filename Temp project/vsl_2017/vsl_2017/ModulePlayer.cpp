@@ -360,8 +360,14 @@ update_status ModulePlayer::Update()
 	//Flip check
 	if (this->position.x >= App->player2->position.x) flip = true;
 	if (this->position.x <= App->player2->position.x) flip = false;
-	if (flip) flip_sign = 1;
-	if (!flip) flip_sign = -1;
+	if (flip) { 
+		flip_sign = 1;
+	
+	}
+	if (!flip) {
+		flip_sign = -1;
+	
+	}
 
 	//Player collision
 	playerCollider->SetPos(position.x, position.y);

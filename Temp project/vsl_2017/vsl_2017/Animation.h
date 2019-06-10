@@ -36,6 +36,18 @@ public:
 		last_frame++; 
  	}
 
+	//NEW-------------------------------------
+	void SetOffset(int frame, int offset_x = 0, int offset_y = 0) {
+		offset[frame].x = offset_x;
+		offset[frame].y = offset_y;
+	}
+
+	void SetSpeed(float new_speed) {
+		speed = new_speed;
+	}
+	//---------------------------
+
+
 	SDL_Rect& GetCurrentFrame()
 	{
 		current_frame += speed;
