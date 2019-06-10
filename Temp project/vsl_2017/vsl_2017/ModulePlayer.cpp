@@ -427,7 +427,7 @@ update_status ModulePlayer::Update()
 	//Reduce hitbox while crouching
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
 	{
-		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->SetPos(position.x, position.y + 40);
 		playerCollider->rect.h = 75;
 	}
 
@@ -512,8 +512,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
 			{
 				current_animation = &crouchidle;
-				playerCollider->rect.h = 75;
-
+				playerCollider->rect.h = 65;
 				if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_S])) {
 					StoreInput(SDL_SCANCODE_S);
 				
