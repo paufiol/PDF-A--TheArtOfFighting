@@ -251,11 +251,12 @@ ModulePlayer::ModulePlayer()
 	charge.speed = 0.2f;
 	charge.lock = true;
 
+	victory.PushBack({ 0,729,76,116 });
 	victory.PushBack({ 330, 478, 76, 122 },0,-17);
 	victory.PushBack({ 244, 466,76,105 });
 	victory.PushBack({ 162,466,76,105 });
 	victory.PushBack({ 71,466,76,105 });
-	victory.speed = 0.1;
+	victory.speed = 0.15;
 	victory.lock = true;
 	victory.loop = false;
 
