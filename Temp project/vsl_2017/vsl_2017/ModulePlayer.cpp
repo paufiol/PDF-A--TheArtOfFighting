@@ -782,7 +782,7 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 			if (flip) App->player2->position.x -= 15;
 			App->player2->current_animation = &damaged;
 		}
-		App->particles->AddParticle(App->particles->hit, A->rect.x + A->rect.w, A->rect.y, COLLIDER_NONE, 0);
+		App->particles->AddParticle(App->particles->hit, App->player2->position.x+12, A->rect.y- A->rect.h/2, COLLIDER_NONE, 0);
 		A->to_delete = true;
 	}
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)

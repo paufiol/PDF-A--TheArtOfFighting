@@ -50,6 +50,7 @@ bool ModuleParticles::Start()
 
 	hit.anim.PushBack({ 977,513,14,17 },2,2);
 	hit.anim.PushBack({ 916,498,29,36 });
+	hit.life = 100;
 	hit.anim.speed = 0.3f;
 	hit.anim.loop = false;
 	
@@ -85,11 +86,13 @@ update_status ModuleParticles::Update()
 		if(p == nullptr)
 			continue;
 
-		if(p->Update() == false)
+		if (p->Update() == false)
 		{
+			if (p->collider != nullptr) {
 			p->collider->to_delete = true;
 			delete p;
 			active[i] = nullptr;
+		}
 		}
 		else if(SDL_GetTicks() >= p->born)
 		{
