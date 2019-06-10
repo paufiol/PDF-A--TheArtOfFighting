@@ -69,7 +69,7 @@ update_status ModuleInput::PreUpdate()
 
 	
 
-	if(keyboard[SDL_SCANCODE_ESCAPE])
+	if(keyboard[SDL_SCANCODE_ESCAPE] == KEY_DOWN)
 	return update_status::UPDATE_STOP;
 
 	if (SDL_GameControllerGetButton(controller[0], SDL_CONTROLLER_BUTTON_BACK))
