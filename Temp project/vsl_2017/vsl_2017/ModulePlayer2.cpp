@@ -257,7 +257,15 @@ ModulePlayer2::ModulePlayer2()
 
 	defeat.lock = true;
 	defeat.loop = false;
-	defeat.speed = 0.1f;
+	defeat.speed = 0.3f;
+
+	victory.PushBack({ 330, 478, 76, 122 }, 0, -17);
+	victory.PushBack({ 244, 466,76,105 });
+	victory.PushBack({ 162,466,76,105 });
+	victory.PushBack({ 71,466,76,105 });
+	victory.speed = 0.3;
+	victory.lock = true;
+	victory.loop = false;
 
 	//LEE:
 	provocar.PushBack({ 578, 232, 72, 102 });
@@ -619,7 +627,7 @@ update_status ModulePlayer2::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (App->player->p2Won == true)
 	{
-		current_animation = &sacargarras;
+		current_animation = &victory;
 	}
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;

@@ -251,10 +251,13 @@ ModulePlayer::ModulePlayer()
 	charge.speed = 0.2f;
 	charge.lock = true;
 
-	victory.PushBack({ 0, 256, 53, 116 });
-	victory.PushBack({ 65, 266, 69, 106 });
-	victory.speed = 0.05f;
+	victory.PushBack({ 330, 478, 76, 122 },0,-17);
+	victory.PushBack({ 244, 466,76,105 });
+	victory.PushBack({ 162,466,76,105 });
+	victory.PushBack({ 71,466,76,105 });
+	victory.speed = 0.3;
 	victory.lock = true;
+	victory.loop = false;
 
 	//RYO:
 	/*defeat.PushBack({ 0, 0, 66, 115 });
@@ -270,7 +273,8 @@ ModulePlayer::ModulePlayer()
 	defeat.PushBack({ 898, 922, 120, 102 });
 
 	defeat.lock = true;
-	defeat.speed = 0.1f;
+	defeat.loop = false;
+	defeat.speed = 0.3f;
 
 	//LEE:
 	provocar.PushBack({ 578, 232, 72, 102 });
@@ -696,7 +700,7 @@ update_status ModulePlayer::Update()
 				App->player->p2Won = true;
 				playersMove = false;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
-				//current_animation = &death;
+				current_animation = &defeat;
 				playerCollider->to_delete = true;
 			}
 
@@ -840,29 +844,11 @@ update_status ModulePlayer::Update()
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	if (!p1Won)
-	{
-		/*if ( current_animation == &victory || current_animation == &defeat) {
-			
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-			
-		}
-		else*/ App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
-	}
 	if (p1Won)
 	{
-		if (wFrame > 0)
-		{
-			//current_animation = &victory;
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &winFrame2, 1.0f, flip);
-		}
-		if (wFrame == 0)
-		{
-			current_animation = &victory;
-			App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &current_animation->GetCurrentFrame(), 1.0f, flip);
-		}
-		wFrame++;
+		current_animation = &victory;
 	}
+	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
 
@@ -993,9 +979,9 @@ bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, S
 
 bool ModulePlayer::CleanUp() {
 
-	SDL_DestroyTexture(graphics);
+	if (graphics != nullptr) { SDL_DestroyTexture(graphics); }
 
-	if (playerCollider != nullptr) playerCollider->to_delete = true;
+	if (playerCollider != nullptr) { playerCollider->to_delete = true; }
 
 	return true;
 
