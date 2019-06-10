@@ -165,23 +165,23 @@ ModulePlayer::ModulePlayer()
 
 	//AQUI haced que de patadas
 
-	kick.PushBack({ 787,114,71,89 });
-	kick.PushBack({ 858, 109,73,99 });
-	kick.PushBack({ 0,227, 89, 103 });
-	kick.PushBack({ 89, 222, 83,110 });
-	kick.PushBack({ 172, 245, 105, 89 });
-	kick.PushBack({277, 247, 75, 86 });
-	kick.speed = 0.1f;
-	kick.lock = true;
+	//kick.PushBack({ 787,114,71,89 });
+	//kick.PushBack({ 858, 109,73,99 });
+	//kick.PushBack({ 0,227, 89, 103 });
+	//kick.PushBack({ 89, 222, 83,110 });
+	//kick.PushBack({ 172, 245, 105, 89 });
+	//kick.PushBack({277, 247, 75, 86 });
+	//kick.speed = 0.1f;
+	//kick.lock = true;
 
 
-	/*kick.PushBack({ 0, 922, 58, 102 });
+	kick.PushBack({ 0, 922, 58, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });*/
+	kick.PushBack({ 296, 922, 72, 102 });
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
 	kick.speed = 0.2f;
@@ -285,7 +285,7 @@ ModulePlayer::ModulePlayer()
 
 	defeat.lock = true;
 	defeat.loop = false;
-	defeat.speed = 0.3f;
+	defeat.speed = 0.1f;
 
 	//LEE:
 	provocar.PushBack({ 578, 232, 72, 102 });
@@ -659,7 +659,7 @@ update_status ModulePlayer::Update()
 			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A))) 
 			{
 				chargecount++;
-				if (chargecount > 5)
+				if (chargecount > 12)
 				{
 					current_animation = &charge;
 				}
