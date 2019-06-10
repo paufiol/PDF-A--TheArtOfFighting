@@ -259,11 +259,12 @@ ModulePlayer2::ModulePlayer2()
 	defeat.loop = false;
 	defeat.speed = 0.3f;
 
+	victory.PushBack({ 0,729,76,121 }, 0, -16);
 	victory.PushBack({ 330, 478, 76, 122 }, 0, -17);
 	victory.PushBack({ 244, 466,76,105 });
 	victory.PushBack({ 162,466,76,105 });
 	victory.PushBack({ 71,466,76,105 });
-	victory.speed = 0.3;
+	victory.speed = 0.15;
 	victory.lock = true;
 	victory.loop = false;
 
