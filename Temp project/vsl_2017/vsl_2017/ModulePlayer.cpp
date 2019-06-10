@@ -781,7 +781,10 @@ update_status ModulePlayer::Update()
 	}
 	if (current_animation == &charge)
 	{
-		stamina++;
+		if (stamina < 100)
+		{
+			stamina++;
+		}
 	}
 	if (current_animation == &sp1)
 	{
