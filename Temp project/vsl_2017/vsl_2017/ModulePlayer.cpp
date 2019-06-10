@@ -482,7 +482,7 @@ update_status ModulePlayer::Update()
 			if (current_animation->Finished()) {
 				current_animation->Reset();
 				if (melee != nullptr) melee->to_delete = true;
-				if (spinCollider != nullptr)
+				if (spinCollider != nullptr) 
 				{ spinCollider->to_delete = true; }
 
 			}
@@ -715,7 +715,7 @@ update_status ModulePlayer::Update()
 
 			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 		
-				current_animation = &victory;
+				//current_animation = &victory;
 
 				current_animation = &sp1;
 				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
@@ -743,7 +743,7 @@ update_status ModulePlayer::Update()
 				playerCollider->to_delete = true;
 			}
 
-			if (stamina <= 0)
+			if (stamina < 0)
 			{
 				stamina = 0;
 			}
@@ -908,13 +908,18 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	}
 	if (A->type == COLLIDER_SPECIAL_ATTACK1 && B->type == COLLIDER_PLAYER2)
 	{
-		
+		if (current_animation != &sp1) {
+			MaxSpinDamage = 0;
+		}
 		if (current_animation == &sp1)
 		{
-			if (!godMode) { App->player2->hp -= A->damage; }
+			if (!godMode || MaxSpinDamage < 30) {
+				MaxSpinDamage++;
+				
+				App->player2->hp -= A->damage; }
 			/*if (!flip) App->player2->position.x += 15;
 			if (flip) App->player2->position.x -= 15;*/
-
+			
 			App->player2->current_animation = &damaged;
 		}
 		App->particles->AddParticle(App->particles->hit, App->player2->position.x + 12, A->rect.y - A->rect.h / 2, COLLIDER_NONE, 0);
@@ -929,12 +934,19 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 		else if (jumping == JUMP_UP);*/
 		if (B->rect.x >= playerCollider->rect.x)
 		{
-			App->player2->position.x += 2;
+			
+			if (current_animation == &sp1 || current_animation == &sp2 || App->player2->current_animation == &sp1 || App->player2->current_animation == &sp2) {
+				App->player2->position.x += 4;
+			}
+			else App->player2->position.x += 2;
 		}
 		//Coliding from the left
 		if (B->rect.x <= playerCollider->rect.x)
 		{
-			App->player2->position.x -= 2;
+			if (current_animation == &sp1 || current_animation == &sp2 || App->player2->current_animation == &sp1 || App->player2->current_animation == &sp2) {
+				App->player2->position.x -= 4;
+			}
+			else App->player2->position.x -= 2;
 		}
 	}
 	if (A->type == COLLIDER_WALL && B->type == COLLIDER_PLAYER2_ATTACK)
