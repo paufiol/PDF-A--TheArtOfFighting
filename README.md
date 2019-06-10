@@ -78,11 +78,19 @@ when the round time is up.
 SPACE as enter Key (To enter game, select character etc.)
 
 **PLAYER 1:**
+  **Keyboard:**
 - A/D: Forward/Backward
 - W: Jump
 - S: Crouch
 - Q: Punch
 - E: Kick
+- S, D, Q, E: Kouken
+**Controller:**
+- RIGHT/LEFT (Joystick): Forward/Backward
+- UP(Joystick): Jump
+- DOWN(Joystick): Crouch
+- A Button: Punch
+- B Button: Kick
 - S, D, Q, E: Kouken
 
 **PLAYER 2:**
