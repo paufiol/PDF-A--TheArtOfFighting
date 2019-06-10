@@ -47,7 +47,7 @@ bool ModuleUI::Start()
 	startTime = SDL_GetTicks();
 	currentsta1 = 0;
 	currentsta2 = 0;
-
+	plusta = 0;
 	currenthp1 = 127;
 	currenthp2 = 127;
 	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont1, 1);
@@ -85,7 +85,7 @@ update_status ModuleUI::Update()
 
 
 	//--------------------------------------------------------------------
-		//Lifebars:
+	//Lifebars:
 
 	App->render->Blit(graphics, 18, 16, &emptylb, 1.0f, false, false);
 	App->render->Blit(graphics, 178, 16, &emptylb, 1.0f, false, false);
@@ -133,6 +133,7 @@ update_status ModuleUI::Update()
 			staminabar2rect = { 0,ColorSelector(currentsta2), currentsta2,8 };
 		}
 	}
+
 
 	App->render->Blit(graphics, 19, 24, &staminabar1rect, 1.0f, true, false);
 	App->render->Blit(graphics, 178, 24, &staminabar2rect, 1.0f, false, false);

@@ -291,6 +291,22 @@ update_status ModulePlayer::Update()
 		if (flip)	block->SetPos(position.x - 10, position.y + 5);
 	}
 
+	//Regeneration stamina:
+
+	if (stamina == 100)
+	{
+		plusta = 0;
+	}
+	else
+	{
+		plusta++;
+		if (plusta > 60)
+		{
+			stamina++;
+			plusta = 0;
+		}
+	}
+
 	//Reduce hitbox while crouching
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
 	{

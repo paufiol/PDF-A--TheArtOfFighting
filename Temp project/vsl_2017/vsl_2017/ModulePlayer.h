@@ -64,6 +64,8 @@ public:
 	bool godMode;
 	Animation* current_animation = &idle;
 
+	int plusta;
+
 	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;
 	Collider * block = nullptr;

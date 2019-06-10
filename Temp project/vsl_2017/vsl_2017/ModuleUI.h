@@ -38,6 +38,7 @@ public:
 	int currentsta1, currentsta2, staminatest;
 
 	int characterID[9];
+
 	SDL_Texture* graphics = nullptr;
 
 };
