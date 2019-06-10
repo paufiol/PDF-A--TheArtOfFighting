@@ -164,10 +164,6 @@ ModulePlayer::ModulePlayer()
 	koukenR.speed = 0.2f;
 	koukenR.lock = true;
 
-
-
-
-
 	//AQUI haced que de patadas
 
 	kick.PushBack({ 0, 922, 58, 102 });
@@ -222,14 +218,29 @@ ModulePlayer::ModulePlayer()
 	damaged.lock = true;
 
 	//faltan volteretas
-	sp1.PushBack({ 71,466,76,105 });
-	sp1.PushBack({ 162,466, 76, 105 });
-	sp1.PushBack({ 244, 466,77, 104 });
-	sp1.PushBack({ 330,478, 76, 122 });
-	sp1.PushBack({ 244, 466,77, 104 });
+	sacargarras.PushBack({ 71,466,76,105 });
+	sacargarras.PushBack({ 162,466, 76, 105 });
+	sacargarras.PushBack({ 244, 466,77, 104 });
+	sacargarras.PushBack({ 330,478, 76, 122 });
+	sacargarras.PushBack({ 244, 466,77, 104 });
+	sacargarras.speed = 0.2f;
+	sacargarras.lock = true;
+	
+	//Spin Lee:
+	sp1.PushBack({ 420,505,35,69 },0,30);
+	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp1.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp1.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp1.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp1.PushBack({ 420,505,35,69 }, 0, 30);
+	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp1.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp1.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp1.PushBack({ 760, 505,107, 69 }, 0, 30);
 	sp1.speed = 0.2f;
 	sp1.lock = true;
-	
 
 	victory.PushBack({ 0, 256, 53, 116 });
 	victory.PushBack({ 65, 266, 69, 106 });

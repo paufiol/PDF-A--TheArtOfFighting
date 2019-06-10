@@ -99,6 +99,7 @@ public:
 	Animation jumppunch;
 	Animation jumpkick;
 	Animation sp1;
+	Animation sacargarras;
 	Animation provocar;
 
 	iPoint position;
