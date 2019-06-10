@@ -1032,6 +1032,7 @@ bool ModulePlayer::CleanUp() {
 	/*if (graphics != nullptr) { SDL_DestroyTexture(graphics); }*/
 
 	if (playerCollider != nullptr) { playerCollider->to_delete = true; }
+	if (spinCollider != nullptr) { spinCollider->to_delete = true; }
 
 	return true;
 
