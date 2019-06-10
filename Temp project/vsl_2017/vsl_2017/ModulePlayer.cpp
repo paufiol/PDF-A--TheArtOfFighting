@@ -146,13 +146,12 @@ ModulePlayer::ModulePlayer()
 
 	punch.PushBack({ 376, 341,  69, 103 });
 	punch.PushBack({ 81, 341,  104, 103 });
-	punch.PushBack({ 185, 341,  117, 103 });
 	punch.PushBack({ 0, 341,  74, 103 });
 	punch.PushBack({ 376, 341,  69, 103 });
 
 	/*punch.PushBack({ 485, 348,  58, 108 });*/
-	if (!flip) punch.speed = 0.2f;
-	if (flip) punch.speed = 0.05f;
+	if (!flip) punch.speed = 0.3f;
+	
 	punch.lock = true;
 
 
@@ -277,7 +276,48 @@ ModulePlayer::ModulePlayer()
 
 	provocar.lock = true;
 	provocar.speed = 0.2f;
+
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({89,224, 84, 110 });
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 89,224, 84, 110 });
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 89,224, 84, 110 });
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 921, 382, 77, 62 }, 0, 41);
+
+	firekick.speed = 0.02f;
+
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+
+	multipunch.speed = 0.4f;
+	multipunch.lock = true;
 }
+
 
 ModulePlayer::~ModulePlayer()
 {}
