@@ -165,26 +165,36 @@ ModulePlayer::ModulePlayer()
 
 	//AQUI haced que de patadas
 
-	kick.PushBack({ 0, 922, 58, 102 });
+	kick.PushBack({ 787,114,71,89 });
+	kick.PushBack({ 858, 109,73,99 });
+	kick.PushBack({ 0,227, 89, 103 });
+	kick.PushBack({ 89, 222, 83,110 });
+	kick.PushBack({ 172, 245, 105, 89 });
+	kick.PushBack({277, 247, 75, 86 });
+	kick.speed = 0.1f;
+	kick.lock = true;
+
+
+	/*kick.PushBack({ 0, 922, 58, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });
+	kick.PushBack({ 296, 922, 72, 102 });*/
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
-	if (!flip) kick.speed = 0.2f;
-	if (flip) kick.speed = 0.1f;
+	kick.speed = 0.2f;
+	
 	kick.lock = true;
 
-	flipkick.PushBack({ 669, 235, 60, 109 });
-	flipkick.PushBack({ 729, 235, 61, 113 });
-	flipkick.PushBack({ 790, 235, 103, 113 });
-	flipkick.PushBack({ 729, 235, 61, 113 });
-	/*flipkick.PushBack({ 669, 235, 60, 109 });*/
-	flipkick.speed = 0.1f;
-	flipkick.lock = true;
+	//flipkick.PushBack({ 669, 235, 60, 109 });
+	//flipkick.PushBack({ 729, 235, 61, 113 });
+	//flipkick.PushBack({ 790, 235, 103, 113 });
+	//flipkick.PushBack({ 729, 235, 61, 113 });
+	///*flipkick.PushBack({ 669, 235, 60, 109 });*/
+	//flipkick.speed = 0.1f;
+	//flipkick.lock = true;
 
 	  //DONE
 	crouchidle.PushBack({ 0, 482, 58, 88}, 0 , 15);
