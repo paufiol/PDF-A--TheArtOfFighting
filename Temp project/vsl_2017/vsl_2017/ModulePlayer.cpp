@@ -227,6 +227,8 @@ ModulePlayer::ModulePlayer()
 	sp1.PushBack({ 244, 466,77, 104 });
 	sp1.PushBack({ 330,478, 76, 122 });
 	sp1.PushBack({ 244, 466,77, 104 });
+	sp1.speed = 0.2f;
+	sp1.lock = true;
 	
 
 	victory.PushBack({ 0, 256, 53, 116 });
@@ -249,6 +251,21 @@ ModulePlayer::ModulePlayer()
 
 	defeat.lock = true;
 	defeat.speed = 0.1f;
+
+	//LEE:
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+
+	provocar.lock = true;
+	provocar.speed = 0.2f;
 }
 
 ModulePlayer::~ModulePlayer()
@@ -538,8 +555,8 @@ update_status ModulePlayer::Update()
 				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));*/
 
 
-				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-				if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 40, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				leaveif = true;
 				if (keyup[SDL_SCANCODE_Q]) {
 					StoreInput(SDL_SCANCODE_Q);
@@ -553,14 +570,21 @@ update_status ModulePlayer::Update()
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));*/
 
-				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
-				if (flip) melee = App->collision->AddCollider({ position.x + -50, position.y, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 20, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				if (flip) melee = App->collision->AddCollider({ position.x + -50, position.y + 20, 60, 40 }, COLLIDER_PLAYER1_ATTACK, this, 20);
 				if (keyup[SDL_SCANCODE_E]) {
 					StoreInput(SDL_SCANCODE_E);
 					keyup[SDL_SCANCODE_E] = false;
 				}
 			}
 
+			if ((App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN/* || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)*/) && !leaveif && keyup[SDL_SCANCODE_C])
+			{
+				current_animation = &provocar;
+				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));*/
+
+				App->player2->stamina -= 10;
+			}
 			//SPECIAL ATTACKS ----------------------------------------------------------
 
 			//Hyakuretsu Ken 
@@ -577,9 +601,8 @@ update_status ModulePlayer::Update()
 
 			//Testsu no Tsume Low
 			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
-				current_animation = &koukenR;
+				current_animation = &sp1;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
-				
 				stamina -= 20;
 			}
 			//Tetsu no Tsume High
@@ -678,6 +701,12 @@ update_status ModulePlayer::Update()
 	if (current_animation == &doubleforward)
 	{
 		speed.x = 4.0f;
+		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->rect.h = 75;
+	}
+	if (current_animation == &sp1)
+	{
+		speed.x = 6.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
 	}
