@@ -129,7 +129,7 @@ bool ModuleRender::CleanUp()
 	LOG("Destroying renderer");
 
 	//Destroy window
-	if(renderer != NULL)
+	if(renderer != nullptr)
 	{
 		SDL_DestroyRenderer(renderer);
 	}
