@@ -70,6 +70,7 @@ public:
 
 	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;
+	Collider * spinCollider = nullptr;
 	Collider * block = nullptr;
 	Collider * koukenCollider = nullptr;
 	SDL_Texture* graphics = nullptr;
