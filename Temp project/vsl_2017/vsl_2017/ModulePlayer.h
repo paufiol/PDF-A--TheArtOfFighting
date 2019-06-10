@@ -59,6 +59,7 @@ public:
 	int font_start = -1;
 	int wFrame = 0;
 
+	bool spinHit;
 	bool dashBack= false;
 	int dashTime = 0;
 
@@ -103,6 +104,7 @@ public:
 	Animation jumppunch;
 	Animation jumpkick;
 	Animation sp1;
+	Animation sp2;
 	Animation sacargarras;
 	Animation provocar;
 	Animation firekick;

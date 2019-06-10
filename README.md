@@ -85,7 +85,7 @@ when the round time is up.
 SPACE as enter Key (To enter game, select character etc.)
 
 
-	**Controller:**
+	
 - RIGHT/LEFT 	(Joystick): Forward/Backward
 - UP		(Joystick): Jump
 - DOWN		(Joystick): Crouch
@@ -93,9 +93,9 @@ SPACE as enter Key (To enter game, select character etc.)
 - B Button: 		 Kick
 - X Button:		 Taunt (Stamina drain)
 - Specials:
-	-Hyakuretsu Ken: 	Right, Left, Right, C
-	-Tetsu no Tsume Low:  	Right, Down, B
-	-Tetsu no Tsume High: 	Right, Down, A
+	Hyakuretsu Ken: 	Right, Left, Right, C
+	Tetsu no Tsume Low:  	Right, Down, B
+	Tetsu no Tsume High: 	Right, Down, A
 
 	**Keyboard:**
 **PLAYER 1:**	
@@ -106,9 +106,9 @@ SPACE as enter Key (To enter game, select character etc.)
 - E: Kick
 - C: Taunt
 - Specials:
-	-Hyakuretsu Ken: 	D, A, D, C
-	-Tetsu no Tsume Low:  	D, S, E
-	-Tetsu no Tsume High: 	D, S, Q
+	Hyakuretsu Ken: 	D, A, D, C
+	Tetsu no Tsume Low:  	D, S, E
+	Tetsu no Tsume High: 	D, S, Q
 
 
 **PLAYER 2:**
@@ -131,5 +131,5 @@ SPACE as enter Key (To enter game, select character etc.)
 **WEB SITE:**
 https://paufiol.github.io/PunoEterno-ArtOfFighting/
 
-**REPOSITORY**
+**REPOSITORY:**
 https://github.com/paufiol/PunoEterno-ArtOfFighting

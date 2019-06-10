@@ -338,7 +338,7 @@ update_status ModulePlayer2::Update()
 
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
 	{
-		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->SetPos(position.x, position.y + 40);
 		playerCollider->rect.h = 75;
 	}
 
