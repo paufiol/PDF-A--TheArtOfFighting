@@ -1,4 +1,4 @@
-# Puño Eterno Studios
+﻿# Puño Eterno Studios
 ---
 
 ## Art of Fighting Remake
@@ -11,7 +11,7 @@ This is a project meant to create a faithful recreation of SNK's Art of Fighting
 These are all of the members involved in the project. Feel free to contact any of us.
 
 **Carlos Puig**
-- Responsability: **QA**
+- Responsability: **Audio**
 - Github: [minipuig666](https://github.com/minipuig666)
 - Contact: carlos.puigmateos@gmail.com
 
@@ -67,7 +67,14 @@ These are all of the members involved in the project. Feel free to contact any o
 - Camera movement now mimics the original behaviour
 - Music and FX have been fully implemented.
                 
-
+**1.0 Alpha**
+- Lee vs Lee fight.
+- Added Fullscreen support.
+- Added Support for 2 gamepads.
+- Added more special attacks, dashes, taunts, and stamina regeneration.
+- Improved UI.
+- Added slowmotion effects (on victory).
+- Implemented Best of three round system.
 
 ---
 ## How to play
@@ -77,21 +84,32 @@ when the round time is up.
 ### Controls
 SPACE as enter Key (To enter game, select character etc.)
 
-**PLAYER 1:**
-  **Keyboard:**
+
+	**Controller:**
+- RIGHT/LEFT 	(Joystick): Forward/Backward
+- UP		(Joystick): Jump
+- DOWN		(Joystick): Crouch
+- A Button: 		 Punch
+- B Button: 		 Kick
+- X Button:		 Taunt (Stamina drain)
+- Specials:
+	-Hyakuretsu Ken: 	Right, Left, Right, C
+	-Tetsu no Tsume Low:  	Right, Down, B
+	-Tetsu no Tsume High: 	Right, Down, A
+
+	**Keyboard:**
+**PLAYER 1:**	
 - A/D: Forward/Backward
 - W: Jump
 - S: Crouch
 - Q: Punch
 - E: Kick
-- S, D, Q, E: Kouken
-**Controller:**
-- RIGHT/LEFT (Joystick): Forward/Backward
-- UP(Joystick): Jump
-- DOWN(Joystick): Crouch
-- A Button: Punch
-- B Button: Kick
-- S, D, Q, E: Kouken
+- C: Taunt
+- Specials:
+	-Hyakuretsu Ken: 	D, A, D, C
+	-Tetsu no Tsume Low:  	D, S, E
+	-Tetsu no Tsume High: 	D, S, Q
+
 
 **PLAYER 2:**
 - J/L: Forward/Backward
@@ -106,7 +124,9 @@ SPACE as enter Key (To enter game, select character etc.)
 - F2: Instant win P1
 - F3: Instant win P2
 - F4: God Mode
-- F6: Automatic Kouken
+- F6: Auto Hyakuretsu Ken (P1)
+- F8: Auto Tetsu no Tsume Low (P1)
+- F9: Auto Tetsu no Tsume High (P1)
 
 **WEB SITE:**
 https://paufiol.github.io/PunoEterno-ArtOfFighting/

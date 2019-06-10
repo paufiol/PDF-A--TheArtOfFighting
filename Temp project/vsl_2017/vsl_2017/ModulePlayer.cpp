@@ -290,7 +290,7 @@ ModulePlayer::ModulePlayer()
 
 	defeat.lock = true;
 	defeat.loop = false;
-	defeat.speed = 0.3f;
+	defeat.speed = 0.1f;
 
 	//LEE:
 	provocar.PushBack({ 578, 232, 72, 102 });
@@ -377,7 +377,10 @@ update_status ModulePlayer::Update()
 	if (this->position.x <= App->player2->position.x) flip = false;
 	if (flip) { 
 		flip_sign = 1;
-		
+		/*if (newFlip = true) {
+			current_animation->SetSpeed(current_animation->speed/2);
+			newFlip = false;
+		}*/
 		punch.SetOffset(1, -30, 0);
 		punch.SetOffset(2, -20, 0);
 
@@ -385,7 +388,10 @@ update_status ModulePlayer::Update()
 	}
 	if (!flip) {
 		flip_sign = -1;
-		
+		/*if (newFlip = true) {
+			current_animation->SetSpeed(current_animation->speed * 2);
+			newFlip = false;
+		}*/
 		punch.SetOffset(1, 0, 0);
 		punch.SetOffset(2, 0, 0);
 	}
@@ -707,8 +713,7 @@ update_status ModulePlayer::Update()
 
 			//Testsu no Tsume Low
 
-			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
-
+			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 		
 				current_animation = &victory;
 
@@ -719,7 +724,7 @@ update_status ModulePlayer::Update()
 				stamina -= 20;
 			}
 			//Tetsu no Tsume High
-			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 
