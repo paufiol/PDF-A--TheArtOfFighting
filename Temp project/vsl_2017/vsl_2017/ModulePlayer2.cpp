@@ -252,7 +252,22 @@ update_status ModulePlayer2::Update()
 	if (this->position.x <= App->player->position.x) flip = false;
 	if (flip) flip_sign = -1;
 	if (!flip) flip_sign = 1;
+	//Regeneration stamina:
 
+	if (stamina == 100)
+	{
+		plusta = 0;
+	}
+	else
+	{
+		plusta++;
+		if (plusta > 60)
+		{
+			stamina++;
+			plusta = 0;
+		}
+	}
+	//----------------------------------
 	playerCollider->SetPos(position.x, position.y);
 	if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
 

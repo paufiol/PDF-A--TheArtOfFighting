@@ -40,6 +40,7 @@ public:
 
 	int hp = 100;
 	int stamina = 100;
+	int plusta;
 	fPoint speed;
 	
 	int input[MAX_INPUTS];
@@ -64,7 +65,6 @@ public:
 	bool godMode;
 	Animation* current_animation = &idle;
 
-	int plusta;
 
 	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;

@@ -40,6 +40,7 @@ public:
 
 	int hp = 100;
 	int stamina = 100;
+	int plusta;
 	fPoint speed;
 	
 	int input[MAX_INPUTS];

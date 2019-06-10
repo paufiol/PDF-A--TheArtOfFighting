@@ -47,7 +47,6 @@ bool ModuleUI::Start()
 	startTime = SDL_GetTicks();
 	currentsta1 = 0;
 	currentsta2 = 0;
-	plusta = 0;
 	currenthp1 = 127;
 	currenthp2 = 127;
 	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont1, 1);
