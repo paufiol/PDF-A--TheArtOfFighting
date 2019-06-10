@@ -49,6 +49,7 @@ public:
 
 	int clock_parabolla = 0;
 	bool flip = false;
+	bool newFlip = true;
 	int flip_sign;
 
 	jump jumping = JUMP_NOT;

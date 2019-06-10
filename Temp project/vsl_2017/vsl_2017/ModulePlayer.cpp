@@ -209,11 +209,16 @@ ModulePlayer::ModulePlayer()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 30);
-	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 30);
-	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 30);
-	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 30);
-	crouchkick.speed = 0.2f;
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);
+	crouchkick.PushBack({ 541, 372,106, 72 },0,30);
+	crouchkick.PushBack({ 650,382, 93, 78 },0,30);
+	crouchkick.PushBack({ 449, 383, 92, 61 },0,30);
+	crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
+	crouchkick.PushBack({ 921,382,80,62},0,30);
+	crouchkick.PushBack({0,482,58,88 },0,30);
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);
+
+	crouchkick.speed = 0.15f;
 	crouchkick.lock = true;
 	//RYO:
 	//damaged.PushBack({ 869,751, 66 ,107 });
@@ -261,7 +266,7 @@ ModulePlayer::ModulePlayer()
 	charge.speed = 0.2f;
 	charge.lock = true;
 
-	victory.PushBack({ 0,729,76,116 });
+	victory.PushBack({ 0,729,76,121 }, 0, -16);
 	victory.PushBack({ 330, 478, 76, 122 },0,-17);
 	victory.PushBack({ 244, 466,76,105 });
 	victory.PushBack({ 162,466,76,105 });
@@ -372,11 +377,23 @@ update_status ModulePlayer::Update()
 	if (this->position.x <= App->player2->position.x) flip = false;
 	if (flip) { 
 		flip_sign = 1;
-	
+		/*if (newFlip = true) {
+			current_animation->SetSpeed(current_animation->speed/2);
+			newFlip = false;
+		}*/
+		punch.SetOffset(1, -30, 0);
+		punch.SetOffset(2, -20, 0);
+
+		
 	}
 	if (!flip) {
 		flip_sign = -1;
-	
+		/*if (newFlip = true) {
+			current_animation->SetSpeed(current_animation->speed * 2);
+			newFlip = false;
+		}*/
+		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(2, 0, 0);
 	}
 
 	//Player collision
@@ -696,8 +713,7 @@ update_status ModulePlayer::Update()
 
 			//Testsu no Tsume Low
 
-			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
-
+			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 		
 				current_animation = &victory;
 
@@ -708,7 +724,7 @@ update_status ModulePlayer::Update()
 				stamina -= 20;
 			}
 			//Tetsu no Tsume High
-			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 
