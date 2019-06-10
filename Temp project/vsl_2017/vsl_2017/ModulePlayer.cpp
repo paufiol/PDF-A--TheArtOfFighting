@@ -217,15 +217,17 @@ ModulePlayer::ModulePlayer()
 	damaged.lock = true;
 
 	//faltan volteretas
-	sacargarras.PushBack({ 71,466,76,105 });
-	sacargarras.PushBack({ 162,466, 76, 105 });
-	sacargarras.PushBack({ 244, 466,77, 104 });
-	sacargarras.PushBack({ 330,478, 76, 122 });
-	sacargarras.PushBack({ 244, 466,77, 104 });
-	sacargarras.speed = 0.2f;
-	sacargarras.lock = true;
+
+	//sacargarras.speed = 0.2f;
+	//sacargarras.lock = true;
 	
 	//Spin Lee:
+	sp1.PushBack({ 71,466,76,105 });
+	sp1.PushBack({ 162,466, 76, 105 });
+	sp1.PushBack({ 244, 466,77, 104 });
+	sp1.PushBack({ 330,478, 76, 122 });
+	sp1.PushBack({ 244, 466,77, 104 });
+
 	sp1.PushBack({ 420,505,35,69 },0,30);
 	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
 	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
@@ -240,6 +242,14 @@ ModulePlayer::ModulePlayer()
 	sp1.PushBack({ 760, 505,107, 69 }, 0, 30);
 	sp1.speed = 0.2f;
 	sp1.lock = true;
+
+	charge.PushBack({ 412, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 488, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 564, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 640, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 716, 758,76, 145 }, -10, -40);
+	charge.speed = 0.2f;
+	charge.lock = true;
 
 	victory.PushBack({ 0, 256, 53, 116 });
 	victory.PushBack({ 65, 266, 69, 106 });
@@ -334,6 +344,7 @@ bool ModulePlayer::Start()
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 	winFrame2 = { 65, 266, 69, 106 };
+	chargecount = 0;
 
 	return ret;
 }
@@ -349,7 +360,7 @@ update_status ModulePlayer::Update()
 
 	//Player collision
 	playerCollider->SetPos(position.x, position.y);
-	if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
+	//if (flip) playerCollider->SetPos(position.x + (current_animation->GetCurrentFrame().w) - playerCollider->rect.w, position.y);
 	playerCollider->rect.h = 108;
 	
 	//Block collider
@@ -445,6 +456,10 @@ update_status ModulePlayer::Update()
 				jumping = JUMP_UP;
 				speed.x = 4.5f;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+				if (keyup[SDL_SCANCODE_W]) {
+					StoreInput(SDL_SCANCODE_W);
+					keyup[SDL_SCANCODE_W] = false;
+				}
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
@@ -479,7 +494,6 @@ update_status ModulePlayer::Update()
 				leaveif = true;
 
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
-				//App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Punch.wav"));
 
 				if (keyup[SDL_SCANCODE_Q]) {
 					StoreInput(SDL_SCANCODE_Q);
@@ -514,18 +528,18 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], RIGHT))
 			{
 				if (!flip) current_animation = &forward;
-				if (flip) current_animation = &flipback;
+				if (flip) current_animation = &back;
 
 				speed.x = 3.5f;
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_D]) ) {
 					StoreInput(SDL_SCANCODE_D);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_D] = false;
 				}
 				if (App->input->isNew_Direction[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
 					StoreInput(SDL_SCANCODE_D);
-					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
+					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					App->input->isNew_Direction[RIGHT] = false;
 				}
 			}
@@ -533,7 +547,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], LEFT))
 			{
 				if (!flip) current_animation = &back;
-				if (flip) current_animation = &flipforward;
+				if (flip) current_animation = &forward;
 				speed.x = -1.5f;
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_A])) {
@@ -619,18 +633,34 @@ update_status ModulePlayer::Update()
 					keyup[SDL_SCANCODE_E] = false;
 				}
 			}
+			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A))) 
+			{
+				chargecount++;
+				if (chargecount > 5)
+				{
+					current_animation = &charge;
+				}
+			}
+			if ((App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_UP || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)))
+			{
+				chargecount = 0;
+			}
 
-			if ((App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN/* || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)*/) && !leaveif && keyup[SDL_SCANCODE_C])
+			if ((App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_X)) && !leaveif && keyup[SDL_SCANCODE_C])
 			{
 				current_animation = &provocar;
 				/*App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kick_Groan.wav"));*/
+				App->player2->stamina -= 15;
 
-				App->player2->stamina -= 10;
+				if (keyup[SDL_SCANCODE_C]) {
+					StoreInput(SDL_SCANCODE_C);
+					keyup[SDL_SCANCODE_C] = false;
+				}
 			}
+			
 			//SPECIAL ATTACKS ----------------------------------------------------------
-
 			//Hyakuretsu Ken 
-			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_RIGHT, SDL_SCANCODE_LEFT, SDL_SCANCODE_RIGHT) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
+			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_A, SDL_SCANCODE_D) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
@@ -642,13 +672,18 @@ update_status ModulePlayer::Update()
 
 
 			//Testsu no Tsume Low
-			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+
+			if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+
+		
+				current_animation = &sacargarras;
+
 				current_animation = &sp1;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				stamina -= 20;
 			}
 			//Tetsu no Tsume High
-			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_DOWN, SDL_SCANCODE_LEFT, SDL_SCANCODE_UP) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A, SDL_SCANCODE_W) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 				current_animation = &koukenR;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 
@@ -746,11 +781,37 @@ update_status ModulePlayer::Update()
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
 	}
+	if (current_animation == &charge)
+	{
+		stamina++;
+	}
 	if (current_animation == &sp1)
 	{
-		speed.x = 6.0f;
-		playerCollider->SetPos(position.x, position.y + 33);
-		playerCollider->rect.h = 75;
+		spintime++;
+ 		if (spintime > 20)
+		{
+			speed.x = 6.0f;
+			playerCollider->SetPos(position.x, position.y + 33);
+			playerCollider->rect.h = 75;	
+			if (spintime > 50 && position.y >= 80 && spintime < 60)
+			{
+				speed.y = -4.0f;
+			}
+			else
+			{
+				speed.y = 4.0f;
+
+				if (position.y >= 112)
+				{
+					position.y = 112;
+					speed.y = 0;
+				}
+			}
+		}
+	}
+	else
+	{
+		spintime = 0;
 	}
 
 
