@@ -718,8 +718,8 @@ update_status ModulePlayer::Update()
 				current_animation = &victory;
 
 				current_animation = &sp1;
-				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
-				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
+				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
+				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
 				stamina -= 20;
 			}
