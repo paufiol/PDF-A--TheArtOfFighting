@@ -199,7 +199,7 @@ int ModuleUI::ColorSelector(int currentstamina)
 
 bool ModuleUI::CleanUp()
 {
-	if (graphics != nullptr) { SDL_DestroyTexture(graphics); }
+	/*if (graphics != nullptr) { SDL_DestroyTexture(graphics); }*/
 
 
 	return true;

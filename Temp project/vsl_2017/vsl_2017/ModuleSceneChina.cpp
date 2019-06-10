@@ -45,8 +45,8 @@ bool ModuleSceneChina::Start()
 	
 	App->player->playersMove = false;
 	initialScene = 0;
-	if (P1bool) { roundP1++; !P1bool; }
-	if (P2bool) { roundP2++; !P2bool; }
+	if (P1bool) { roundP1++; P1bool = !P1bool; }
+	if (P2bool) { roundP2++; P2bool = !P2bool; }
 
 	App->UI->Enable();
 	App->player->Enable();	
@@ -98,7 +98,7 @@ update_status ModuleSceneChina::Update()
 			App->slow->StartSlowdown(60, 60);
 			if (App->slow->finished)
 			{
-				P1bool = true;
+				roundP1++;
 				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
 			}
 		}
@@ -116,14 +116,14 @@ update_status ModuleSceneChina::Update()
 		printWinner = { 595,420,116,40 };
 		App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
 	}
-	if (App->player->p2Won)
+	else if (App->player->p2Won)
 	{
 		if (roundP2 == 1)
 		{
 			App->slow->StartSlowdown(60, 60);
 			if (App->slow->finished)
 			{
-				P2bool = true;
+				roundP2++;
 				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
 			}
 		}
@@ -146,8 +146,8 @@ update_status ModuleSceneChina::Update()
 	if (App->UI->currenttime == 60) //Victory in case of time up.
 	{
 	
-		if (App->player->hp > App->player2->hp)  App->player->p1Won = true;
-		if (App->player->hp < App->player2->hp)  App->player->p2Won = true;
+		if (App->player->hp > App->player2->hp) { App->player->p1Won = true; }
+		if (App->player->hp < App->player2->hp) { App->player->p2Won = true; }
 		if (App->player->hp == App->player2->hp)
 		{
 			if (roundP2 == 0 || roundP1 == 0)
