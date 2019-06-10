@@ -103,6 +103,7 @@ public:
 	Animation jumppunch;
 	Animation jumpkick;
 	Animation sp1;
+	Animation sp2;
 	Animation sacargarras;
 	Animation provocar;
 	Animation firekick;

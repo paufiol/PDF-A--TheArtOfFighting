@@ -258,6 +258,21 @@ ModulePlayer::ModulePlayer()
 	sp1.speed = 0.2f;
 	sp1.lock = true;
 
+	sp2.PushBack({ 420,505,35,69 },0,30);
+	sp2.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp2.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp2.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp2.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp2.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp2.PushBack({ 420,505,35,69 }, 0, 30);
+	sp2.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp2.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp2.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp2.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp2.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp2.speed = 0.2f;
+	sp2.lock = true;
+
 	charge.PushBack({ 412, 758,76, 145 }, -10, -40);
 	charge.PushBack({ 488, 758,76, 145 }, -10, -40);
 	charge.PushBack({ 564, 758,76, 145 }, -10, -40);
@@ -481,6 +496,10 @@ update_status ModulePlayer::Update()
 			//Reset colliders & animation
 			if (current_animation->Finished()) {
 				current_animation->Reset();
+				if (current_animation == &sp2)
+				{
+					position.y = 112;
+				}
 				if (melee != nullptr) melee->to_delete = true;
 				if (spinCollider != nullptr)
 				{ spinCollider->to_delete = true; }
@@ -725,9 +744,8 @@ update_status ModulePlayer::Update()
 			}
 			//Tetsu no Tsume High
 			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
-				current_animation = &koukenR;
+				current_animation = &sp2;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
-
 				stamina -= 20;
 			}
 
@@ -857,6 +875,13 @@ update_status ModulePlayer::Update()
 	else
 	{
 		spintime = 0;
+	}
+
+	if (current_animation == &sp2)
+	{
+		speed.x = 4.0f;
+		position.y = 90;
+		playerCollider->SetPos(position.x, position.y);
 	}
 
 

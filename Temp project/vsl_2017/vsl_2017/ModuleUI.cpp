@@ -15,12 +15,6 @@
 ModuleUI::ModuleUI()
 {
 
-	emptylb = { 765,9, 128,9 };
-
-	staminabar1rect = { 0,233, 128,8 };
-	staminabar2rect = { 0,233, 128,8 };
-	printFont1 = { 0,844, 360 ,12 };
-	printFont2 = { 0,861, 360 ,8 };
 	//staminatest = 100;
 
 	for (int i = 0; i < 9; i++)
@@ -31,10 +25,14 @@ ModuleUI::ModuleUI()
 	avatar2rect = { 0,characterID[4],24,24 };
 	whiterect = { 24,168,26,26 };
 
+	printFont1 = { 0,844, 360 ,12 };
+	printFont2 = { 0,861, 360 ,8 };
+
 	Roundball.PushBack({ 49,0,15,15 });
 	Roundball.PushBack({ 64,0,15,15 });
 	Roundball.PushBack({ 79,0,15,15 });
 	Roundball.speed = 0.1f;
+
 }
 ModuleUI::~ModuleUI()
 {
@@ -53,6 +51,16 @@ bool ModuleUI::Start()
 	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont2, 1);
 	lifebar1rect = { 766,1, 127,7 };
 	lifebar2rect = { 766,1, 127,7 };
+
+	emptylb = { 765,9, 128,9 };
+
+	printFont1 = { 0,844, 360 ,12 };
+	printFont2 = { 0,861, 360 ,8 };
+
+	staminabar1rect = { 0,233, 128,8 };
+	staminabar2rect = { 0,233, 128,8 };
+
+
 	return true;
 }
 update_status ModuleUI::Update()
@@ -199,7 +207,7 @@ int ModuleUI::ColorSelector(int currentstamina)
 
 bool ModuleUI::CleanUp()
 {
-	/*if (graphics != nullptr) { SDL_DestroyTexture(graphics); }*/
+	if (graphics != nullptr) { SDL_DestroyTexture(graphics); }
 
 
 	return true;
