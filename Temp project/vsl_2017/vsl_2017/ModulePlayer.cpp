@@ -165,23 +165,23 @@ ModulePlayer::ModulePlayer()
 
 	//AQUI haced que de patadas
 
-	kick.PushBack({ 787,114,71,89 });
-	kick.PushBack({ 858, 109,73,99 });
-	kick.PushBack({ 0,227, 89, 103 });
-	kick.PushBack({ 89, 222, 83,110 });
-	kick.PushBack({ 172, 245, 105, 89 });
-	kick.PushBack({277, 247, 75, 86 });
-	kick.speed = 0.1f;
-	kick.lock = true;
+	//kick.PushBack({ 787,114,71,89 });
+	//kick.PushBack({ 858, 109,73,99 });
+	//kick.PushBack({ 0,227, 89, 103 });
+	//kick.PushBack({ 89, 222, 83,110 });
+	//kick.PushBack({ 172, 245, 105, 89 });
+	//kick.PushBack({277, 247, 75, 86 });
+	//kick.speed = 0.1f;
+	//kick.lock = true;
 
 
-	/*kick.PushBack({ 0, 922, 58, 102 });
+	kick.PushBack({ 0, 922, 58, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });*/
+	kick.PushBack({ 296, 922, 72, 102 });
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
 	kick.speed = 0.2f;
@@ -209,11 +209,16 @@ ModulePlayer::ModulePlayer()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 30);
-	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 30);
-	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 30);
-	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 30);
-	crouchkick.speed = 0.2f;
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);
+	crouchkick.PushBack({ 541, 372,106, 72 },0,30);
+	crouchkick.PushBack({ 650,382, 93, 78 },0,30);
+	crouchkick.PushBack({ 449, 383, 92, 61 },0,30);
+	crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
+	crouchkick.PushBack({ 921,382,80,62},0,30);
+	crouchkick.PushBack({0,482,58,88 },0,30);
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);
+
+	crouchkick.speed = 0.15f;
 	crouchkick.lock = true;
 	//RYO:
 	//damaged.PushBack({ 869,751, 66 ,107 });
@@ -372,11 +377,17 @@ update_status ModulePlayer::Update()
 	if (this->position.x <= App->player2->position.x) flip = false;
 	if (flip) { 
 		flip_sign = 1;
-	
+		
+		punch.SetOffset(1, -30, 0);
+		punch.SetOffset(2, -20, 0);
+
+		
 	}
 	if (!flip) {
 		flip_sign = -1;
-	
+		
+		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(2, 0, 0);
 	}
 
 	//Player collision
