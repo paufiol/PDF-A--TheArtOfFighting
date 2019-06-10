@@ -83,12 +83,18 @@ public:
 	Animation damaged;
 	Animation back;
 	Animation doubleback;
+	Animation doubleforward;
 	Animation flipback;
 	Animation flipforward;
 	Animation flipkick;
 	Animation flippunch;
 	Animation victory;
 	Animation defeat;
+	Animation jumppunch;
+	Animation jumpkick;
+	Animation sp1;
+	Animation sacargarras;
+	Animation provocar;
 
 	iPoint position;
 

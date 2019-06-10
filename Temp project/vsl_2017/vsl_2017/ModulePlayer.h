@@ -101,6 +101,8 @@ public:
 	Animation sp1;
 	Animation sacargarras;
 	Animation provocar;
+	Animation firekick;
+	Animation multipunch;
 
 	iPoint position;
 

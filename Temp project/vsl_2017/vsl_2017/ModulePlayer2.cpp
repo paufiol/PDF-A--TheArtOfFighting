@@ -18,153 +18,110 @@ ModulePlayer2::ModulePlayer2()
 	position.y = 112;
 
 
+	idle.PushBack({ 0,3,70,101 }, 0, 0);
+	idle.PushBack({ 75,5,69,99 }, 0, 2);
+	idle.PushBack({ 159,1,70,103 }, 0, -2);
+
+	idle.speed = 0.15f;
+
 	// idle animation (arcade sprite sheet)
 	/*idle.PushBack({ 0, 8, 66, 108 });
 	idle.PushBack({ 66, 8, 67 , 108 });
 	idle.PushBack({ 133, 8, 69, 108 });
-	if (!flip) idle.speed = 0.05f;
-	if (flip) idle.speed = 0.1f;*/
+	if(flip) idle.speed = 0.025f;
+	if (!flip) idle.speed = 0.1f;
+	*/
+
+	//walk forward lee
+
+	forward.PushBack({ 239,0,68,103 });
+	forward.PushBack({ 322,0,58,103 });
+	forward.PushBack({ 385,1,51,101 });
+	forward.PushBack({ 447,1,48,102 });
+	forward.PushBack({ 385,1,51,101 });
+	forward.PushBack({ 322,0,58,103 });
+	forward.speed = 0.9f;
 
 	// walk forward animation (arcade sprite sheet)
 	//forward.frames.PushBack({9, 136, 53, 83});
-	//forward.PushBack({ 691, 348, 56, 109 });
-	//forward.PushBack({ 749, 350, 65, 107 }, -10, 0);
-	//forward.PushBack({ 818, 348, 58, 109 });
-	//forward.PushBack({ 876, 350, 65, 107 }, -9, 0);
-	///*forward.PushBack({ 874, 348, 67, 108 });*/
-	//if (!flip) forward.speed = 0.05f;
-	//if (flip) forward.speed = 0.1f;
 
-	flipforward.PushBack({ 691, 348, 56, 109 }, 0, 0);
-	flipforward.PushBack({ 749, 350, 65, 107 }, 10, 0);
-	flipforward.PushBack({ 818, 348, 58, 109 }, 0, 0);
-	flipforward.PushBack({ 876, 350, 65, 107 }, 9, 0);
+	/*forward.PushBack({ 691, 348, 56, 109 });
+	forward.PushBack({ 749, 350, 65, 107 }, -10, 0);
+	forward.PushBack({ 818, 348, 58, 109 });
+	forward.PushBack({ 876, 350, 65, 107 }, -9, 0);*/
+
+
+
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
-	if (!flip) flipforward.speed = 0.05f;
-	if (flip) flipforward.speed = 0.1f;
+	if (!flip) forward.speed = 0.1f;
+	if (!flip) forward.speed = 0.05f;
 
+	//flipforward.PushBack({ 691, 348, 56, 109 }, 0, 0);
+	//flipforward.PushBack({ 749, 350, 65, 107 }, 10, 0);
+	//flipforward.PushBack({ 818, 348, 58, 109 }, 0, 0);
+	//flipforward.PushBack({ 876, 350, 65, 107 }, 9, 0);
+	///*forward.PushBack({ 874, 348, 67, 108 });*/
+	//if (flip) flipforward.speed = 0.1f;
+	//if (!flip) flipforward.speed = 0.05f;
 
 	/*back.PushBack({ 577, 479, 57, 109 }, -5, 0);
 	back.PushBack({ 638, 477, 52, 111 });
 	back.PushBack({ 692, 479, 57, 109 }, -5, 0);
 	back.PushBack({ 638, 477, 52, 111 });
 	back.PushBack({ 577, 479, 57, 109 }, -5, 0);
-	if (!flip) back.speed = 0.05f;
-	if (flip) back.speed = 0.1f;*/
+	if (!flip) back.speed = 0.1f;
+	if (flip) back.speed = 0.05f;*/
 
-	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
+	/*back.PushBack({ 239,0,68,103 });*/
+	back.PushBack({ 322,0,58,103 });
+	back.PushBack({ 385,1,51,101 });
+	back.PushBack({ 447,1,48,102 });
+	back.PushBack({ 385,1,51,101 });
+	back.PushBack({ 322,0,58,103 });
+	back.speed = 0.1f;
+
+	/*flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
 	flipback.PushBack({ 638, 477, 52, 111 });
 	flipback.PushBack({ 692, 479, 57, 109 }, 5, 0);
 	flipback.PushBack({ 638, 477, 52, 111 });
 	flipback.PushBack({ 577, 479, 57, 109 }, 5, 0);
-	if (!flip) flipback.speed = 0.05f;
-	if (flip) back.speed = 0.1f;
+	if (flip) flipback.speed = 0.1f;
+	if (!flip) flipback.speed = 0.05f;*/
 
-	doubleback.PushBack({ 275, 595, 59, 107 });
-	doubleback.PushBack({ 334, 596, 89, 106 }, -80, -10);
-	doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
-	doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
-	if (flip) doubleback.speed = 0.1f;
-	if (!flip) doubleback.speed = 0.1f;
+	//RYU:
+	//doubleback.PushBack({ 275, 595, 59, 107 });
+	//doubleback.PushBack({ 334, 596, 89, 106 }, -80, -10);
+	//doubleback.PushBack({ 334, 596, 89, 106 }, 0, 0);
+	//doubleback.PushBack({ 423, 596, 73, 106 }, -80, 10);
+	//-----------------------------------------------------------
+	//LEE:
+	doubleback.PushBack({ 0, 623, 58, 94 });
+	doubleback.PushBack({ 58, 623, 68, 94 });
+	doubleback.PushBack({ 126, 623, 38, 94 });
+	doubleback.PushBack({ 164, 623, 79, 94 });
+	doubleback.PushBack({ 242, 623, 56, 94 });
+	if (!flip) doubleback.speed = 0.2f;
+	/*if (flip) doubleback.speed = 0.05f;*/
 	doubleback.lock = true;
 
-
-	/*jump.PushBack({ 0,  456, 60, 130 }, 0, -20);
-	jump.PushBack({ 60, 456, 66, 130 }, 0, -20);
-	jump.PushBack({ 126, 456, 62, 130 }, 0, -20);
-	jump.PushBack({ 188, 456, 57 , 130 }, 0, -20);
-	jump.PushBack({ 245, 495, 54, 91 }, 0, -20);
-	jump.PushBack({ 0, 456, 56, 130 }, 0, -20);
-	jump.PushBack({ 299, 456, 56, 130 }, 0, -20);
-	if (flip) jump.speed = 0.1f;
-	if (!flip) jump.speed = 0.1f;
-	jump.lock = true;*/
-
-	//punch.PushBack({ 485, 348,  58, 108 });
-	//punch.PushBack({ 543, 348,  89, 108 });
-	///*punch.PushBack({ 485, 348,  58, 108 });*/
-	//if (flip) punch.speed = 0.2f;
-	//if (!flip) punch.speed = 0.2f;
-	//punch.lock = true;
-
-
-	koukenR.PushBack({ 176, 873, 66, 112 });
-	koukenR.PushBack({ 242, 873, 88, 112 });
-	koukenR.PushBack({ 330, 884, 85, 96 });
-	koukenR.PushBack({ 415, 888, 81, 97 });
-	koukenR.PushBack({ 496, 877, 102, 108 });
-	if (flip) koukenR.speed = 0.2f;
-	if (!flip) koukenR.speed = 0.1f;
-	koukenR.lock = true;
+	doubleforward.PushBack({ 242, 623, 56, 94 });
+	doubleforward.PushBack({ 164, 623, 79, 94 });
+	doubleforward.PushBack({ 126, 623, 38, 94 });
+	doubleforward.PushBack({ 58, 623, 68, 94 });
+	doubleforward.PushBack({ 0, 623, 58, 94 });
+	if (!flip) doubleforward.speed = 0.2f;
+	doubleforward.lock = true;
 
 
 
+	jumppunch.PushBack({ 277, 247, 75, 86 });
+	jumppunch.PushBack({ 172, 245, 105, 89 });
+	jumppunch.speed = 0.5f;
+	jumppunch.lock = true;
 
-
-	//AQUI haced que de patadas
-
-	kick.PushBack({ 669, 235, 60, 109 });
-	kick.PushBack({ 729, 235, 61, 113 });
-	kick.PushBack({ 790, 235, 103, 113 });
-	kick.PushBack({ 729, 235, 61, 113 });
-	/*kick.PushBack({ 669, 235, 60, 109 });*/
-	if (flip) kick.speed = 0.2f;
-	if (!flip) kick.speed = 0.2f;
-	kick.lock = true;
-
-	flipkick.PushBack({ 669, 235, 60, 109 });
-	flipkick.PushBack({ 729, 235, 61, 113 });
-	flipkick.PushBack({ 790, 235, 103, 113 });
-	flipkick.PushBack({ 729, 235, 61, 113 });
-	flipkick.PushBack({ 669, 235, 60, 109 });
-	if (flip) flipkick.speed = 0.2f;
-	if (!flip) flipkick.speed = 0.1f;
-	flipkick.lock = true;
-
-	/*crouchidle.PushBack({ 576, 42, 67, 75 }, 0, 34);
-	if (flip) crouchidle.speed = 0.1f;
-	if (!flip) crouchidle.speed = 0.05f;*/
-
-	crouchpunch.PushBack({ 414, 42, 53, 76 }, 0, 34);
-	crouchpunch.PushBack({ 469, 41, 106, 77 }, -15, 34);
-	if (flip) crouchpunch.speed = 0.15f;
-	if (!flip) crouchpunch.speed = 0.15f;
-	crouchpunch.lock = true;
-
-	crouchkick.PushBack({ 866, 169, 55, 66 }, 0, 40);
-	crouchkick.PushBack({ 0, 280, 127, 68 }, -15, 40);
-	if (flip) crouchkick.speed = 0.125f;
-	if (!flip) crouchkick.speed = 0.125f;
-	crouchkick.lock = true;
-
-	damaged.PushBack({ 372,917, 63 ,107 });
-	damaged.PushBack({ 435,917, 81, 107 });
-	damaged.PushBack({ 514, 917, 73, 107 });
-	if (flip) damaged.speed = 0.1f;
-	if (!flip) damaged.speed = 0.1f;
-	damaged.lock = true;
-
-	//defeat.PushBack({ 0, 0, 66, 115 });
-	//defeat.PushBack({ 66, 0, 73, 115 });
-	//defeat.PushBack({ 144, 8, 64, 107 });
-	//defeat.PushBack({ 208, 29, 62, 86 });
-	//defeat.PushBack({ 270, 53, 58, 62 });
-		//LEE:
-	defeat.PushBack({ 625, 922, 79, 102 });
-	defeat.PushBack({ 707, 922, 89, 102 });
-	defeat.PushBack({ 803, 922, 91, 102 });
-	defeat.PushBack({ 898, 922, 120, 102 });
-	defeat.lock = true;
-	defeat.speed = 0.1f;
-
-
-	//lee
-
-	idle.PushBack({ 0,3,70,101 }, 0, 0);
-	idle.PushBack({ 75,5,69,99 }, 0, 2);
-	idle.PushBack({ 159,1,70,103 }, 0, -2);
-
-	idle.speed = 0.075f;
+	jumpkick.PushBack({ 541, 372,106, 72 }, 0, 30);
+	jumpkick.speed = 0.5f;
+	jumpkick.lock = true;
 
 	jump.PushBack({ 697,  6, 54, 98 }, 0, -20);
 	jump.PushBack({ 759, 49, 78, 53 }, 0, -20);
@@ -176,54 +133,147 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 885, 64, 68, 38 }, 0, -20);
 	jump.PushBack({ 958, 34, 39, 69 }, 0, -20);
 	jump.PushBack({ 0, 167, 66, 38 }, 0, -20);
-	jump.PushBack({ 837, 32, 38, 70 }, 0, -20);
-	jump.PushBack({ 885, 64, 68, 38 }, 0, -20);
-	jump.PushBack({ 958, 34, 39, 69 }, 0, -20);
-	jump.PushBack({ 0, 167, 66, 38 }, 0, -20);
-	jump.PushBack({ 837, 32, 38, 70 }, 0, -20);
 	jump.PushBack({ 329, 145, 68, 61 }, 0, -20);
 	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
 	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
 	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
-	jump.speed = 0.25f;
+	jump.speed = 0.3f;
 
 	jump.lock = true;
 
-	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
-	crouchidle.PushBack({ 615, 40, 77, 62 }, 0, 41);
-	/*crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);*/
-	crouchidle.speed = 0.2f;
-	crouchidle.loop = false;
-	
-	if (flip) crouchidle.speed = 0.1f;
-	if (!flip) crouchidle.speed = 0.05f;
-	
-	punch.PushBack({ 539, 105, 70, 103 });
-	punch.PushBack({ 609, 109, 104, 99 },-15,0);
-	punch.PushBack({ 713, 111, 74, 97 },-15,0);
-	punch.PushBack({ 539, 105, 70, 103 });
-	punch.speed = 0.15f;
+	punch.PushBack({ 376, 341,  69, 103 });
+	punch.PushBack({ 81, 341,  104, 103 });
+	punch.PushBack({ 185, 341,  117, 103 });
+	punch.PushBack({ 0, 341,  74, 103 });
+	punch.PushBack({ 376, 341,  69, 103 });
+
+	/*punch.PushBack({ 485, 348,  58, 108 });*/
+	if (!flip) punch.speed = 0.2f;
+	if (flip) punch.speed = 0.05f;
 	punch.lock = true;
 
-	forward.PushBack({ 239,0,68,103 });
-	forward.PushBack({ 322,0,58,103 });
-	forward.PushBack({ 385,1,51,101 });
-	forward.PushBack({ 447,1,48,102 });
-	forward.PushBack({ 385,1,51,101 });
-	forward.PushBack({ 322,0,58,103 });
-	forward.speed = 0.1f;
 
-	back.PushBack({ 322,0,58,103 });
-	back.PushBack({ 385,1,51,101 });
-	back.PushBack({ 447,1,48,102 });
-	back.PushBack({ 385,1,51,101 });
-	back.PushBack({ 322,0,58,103 });
-	back.speed = 0.1f;
-	//aquí van las cordenadas de las animaciones de la otra spritesheet, añadir tipo de animación cuando se solucione como añadir la otra spritesheet//
+	koukenR.PushBack({ 176, 873, 66, 112 });
+	koukenR.PushBack({ 242, 873, 88, 112 });
+	koukenR.PushBack({ 330, 884, 85, 96 });
+	koukenR.PushBack({ 415, 888, 81, 97 });
+	koukenR.PushBack({ 496, 877, 102, 108 });
+	koukenR.speed = 0.2f;
+	koukenR.lock = true;
 
-	//damaged------------> 0,135,66 ,107 // 66,134, 78, 108 // 144, 135, 66, 107
-	//victory------------> 0,256,53 ,116 // 65, 266, 69, 106 
-	//defeat-------------> 0, 0, 66, 115 // 66, 0, 73, 115 // 144, 8, 64, 107 // 208, 29, 62, 86 // 270, 53, 58, 62
+	//AQUI haced que de patadas
+
+	kick.PushBack({ 0, 922, 58, 102 });
+	kick.PushBack({ 58, 922, 58, 102 });
+	kick.PushBack({ 116, 922, 51, 102 });
+	kick.PushBack({ 171, 922, 112, 102 });
+	kick.PushBack({ 116, 922, 51, 102 });
+	kick.PushBack({ 58, 922, 58, 102 });
+	kick.PushBack({ 296, 922, 72, 102 });
+
+	/*kick.PushBack({ 669, 235, 60, 109 });*/
+	if (!flip) kick.speed = 0.2f;
+	if (flip) kick.speed = 0.1f;
+	kick.lock = true;
+
+	flipkick.PushBack({ 669, 235, 60, 109 });
+	flipkick.PushBack({ 729, 235, 61, 113 });
+	flipkick.PushBack({ 790, 235, 103, 113 });
+	flipkick.PushBack({ 729, 235, 61, 113 });
+	/*flipkick.PushBack({ 669, 235, 60, 109 });*/
+	flipkick.speed = 0.1f;
+	flipkick.lock = true;
+
+	//DONE
+	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
+	crouchidle.PushBack({ 921, 382, 77, 62 }, 0, 41);
+	/*crouchidle.PushBack({ 0, 482, 58 , 88}, 0, 15);*/
+	crouchidle.speed = 0.2f;
+	crouchidle.lock = false;
+	crouchidle.loop = false;
+
+	/*crouchpunch.PushBack({ 414, 42, 53, 76 }, 0, 34);
+	crouchpunch.PushBack({ 469, 41, 106, 77 }, -15, 34);
+	crouchpunch.speed = 0.15f;
+	crouchpunch.lock = true;
+*/
+	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 30);
+	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 30);
+	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 30);
+	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 30);
+	crouchkick.speed = 0.2f;
+	crouchkick.lock = true;
+	//RYO:
+	//damaged.PushBack({ 869,751, 66 ,107 });
+	//damaged.PushBack({ 935,750, 78, 138 });
+	//damaged.PushBack({869, 751, 66, 107 });
+	//LEE:
+	damaged.PushBack({ 372,917, 63 ,107 });
+	damaged.PushBack({ 435,917, 81, 107 });
+	damaged.PushBack({ 514, 917, 73, 107 });
+	damaged.speed = 0.25f;
+	damaged.lock = true;
+
+	//faltan volteretas
+	sacargarras.PushBack({ 71,466,76,105 });
+	sacargarras.PushBack({ 162,466, 76, 105 });
+	sacargarras.PushBack({ 244, 466,77, 104 });
+	sacargarras.PushBack({ 330,478, 76, 122 });
+	sacargarras.PushBack({ 244, 466,77, 104 });
+	sacargarras.speed = 0.2f;
+	sacargarras.lock = true;
+
+	//Spin Lee:
+	sp1.PushBack({ 420,505,35,69 }, 0, 30);
+	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp1.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp1.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp1.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp1.PushBack({ 420,505,35,69 }, 0, 30);
+	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp1.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp1.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp1.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp1.speed = 0.2f;
+	sp1.lock = true;
+
+	victory.PushBack({ 0, 256, 53, 116 });
+	victory.PushBack({ 65, 266, 69, 106 });
+	victory.speed = 0.05f;
+	victory.lock = true;
+
+	//RYO:
+	/*defeat.PushBack({ 0, 0, 66, 115 });
+	defeat.PushBack({ 66, 0, 73, 115 });
+	defeat.PushBack({ 144, 8, 64, 107 });
+	defeat.PushBack({ 208, 29, 62, 86 });
+	defeat.PushBack({ 270, 53, 58, 62 });*/
+
+	//LEE:
+	defeat.PushBack({ 625, 922, 79, 102 });
+	defeat.PushBack({ 707, 922, 89, 102 });
+	defeat.PushBack({ 803, 922, 91, 102 });
+	defeat.PushBack({ 898, 922, 120, 102 });
+
+	defeat.lock = true;
+	defeat.speed = 0.1f;
+
+	//LEE:
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+	provocar.PushBack({ 578, 232, 72, 102 });
+	provocar.PushBack({ 651, 232, 58, 102 });
+
+	provocar.lock = true;
+	provocar.speed = 0.2f;
 }
 
 ModulePlayer2::~ModulePlayer2()
