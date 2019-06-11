@@ -84,6 +84,7 @@ when the round time is up. You reach this using the personalited skills of each 
 
 ### Controls
 SPACE as enter Key (To enter game, select character etc.)
+On the special keys, we have specified the right key depending on the orientation of the character.
 
 
 	
@@ -108,8 +109,8 @@ SPACE as enter Key (To enter game, select character etc.)
 - C: Taunt
 
  	**Specials:**
- - Tetsu no Tsume Low:  	D, S, E
- - Tetsu no Tsume High: 	D, S, Q 
+ - Tetsu no Tsume Low:  	S, (A/D), E
+ - Tetsu no Tsume High: 	S, (A/D), C
 	
 	**Keyboard:**
 **PLAYER 2:**
@@ -118,12 +119,11 @@ SPACE as enter Key (To enter game, select character etc.)
 - K: Crouch
 - U: Punch
 - O: Kick
-- x : Taunt
+- M : Taunt
 
 	**Specials:**
- - Hyakuretsu Ken: 		x, x, x, x
- - Tetsu no Tsume Low:  	x, x, x
- - Tetsu no Tsume High: 	x, x, x 
+ - Tetsu no Tsume Low:  	K, (J/L), O
+ - Tetsu no Tsume High: 	K, (J/L), M 
 
 **DEBUG:**
 - F1: Show/hide hitboxes
