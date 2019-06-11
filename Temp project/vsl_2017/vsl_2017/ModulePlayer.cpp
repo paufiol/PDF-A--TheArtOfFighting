@@ -768,7 +768,7 @@ update_status ModulePlayer::Update()
 			//Tetsu no Tsume High
 			if (!flip)
 			{
-				if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 					current_animation = &sp2;
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
@@ -777,7 +777,7 @@ update_status ModulePlayer::Update()
 			}
 			if (flip)
 			{
-				if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 					current_animation = &sp2;
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
