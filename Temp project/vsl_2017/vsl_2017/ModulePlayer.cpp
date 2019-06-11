@@ -1016,6 +1016,15 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 			if (!godMode) { App->player2->hp -= A->damage; }
 			if (!flip) App->player2->position.x += 15;
 			if (flip) App->player2->position.x -= 15;
+			if(current_animation ==  &kick || current_animation == &crouchkick)
+			{ App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Patada.wav")); 
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punched_v2.wav"));
+			}
+			if (current_animation == &punch || current_animation == &jumppunch)
+			{
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Punch.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punched_v1.wav"));
+			}
 			App->player2->current_animation = &damaged;
 		}
 		App->particles->AddParticle(App->particles->hit, App->player2->position.x+12, A->rect.y- A->rect.h/2, COLLIDER_NONE, 0);
