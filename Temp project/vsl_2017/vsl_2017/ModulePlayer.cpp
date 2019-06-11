@@ -286,7 +286,7 @@ ModulePlayer::ModulePlayer()
 	victory.PushBack({ 244, 466,76,105 });
 	victory.PushBack({ 162,466,76,105 });
 	victory.PushBack({ 71,466,76,105 });
-	victory.speed = 0.15;
+	victory.speed = 0.1;
 	victory.lock = true;
 	victory.loop = false;
 
