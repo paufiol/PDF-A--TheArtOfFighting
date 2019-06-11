@@ -208,10 +208,10 @@ ModulePlayer::ModulePlayer()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 382, 92, 62 },0,40);
-	crouchkick.PushBack({ 541, 372,106, 72 },0,30);
-	crouchkick.PushBack({ 650,382, 88, 78 },0,40);
-	crouchkick.PushBack({ 449, 383, 92, 61 },0,40);
+	crouchkick.PushBack({ 449, 382, 92, 62 });
+	crouchkick.PushBack({ 541, 372,106, 72 });
+	crouchkick.PushBack({ 650,382, 88, 78 });
+	crouchkick.PushBack({ 449, 383, 92, 61 });
 	/*crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
 	crouchkick.PushBack({ 921,382,80,62},0,30);
 	crouchkick.PushBack({0,482,58,88 },0,30);
@@ -402,7 +402,10 @@ update_status ModulePlayer::Update()
 		punch.SetOffset(1, -30, 0);
 		punch.SetOffset(2, 0, 0);
 		kick.SetOffset(3, -50, 0);
-
+		crouchkick.SetOffset(0, 0, 40);
+		crouchkick.SetOffset(1, -50, 30);
+		crouchkick.SetOffset(2, -30, 40);
+		crouchkick.SetOffset(3, 0, 40);
 		
 	}
 	if (!flip) {
@@ -414,6 +417,10 @@ update_status ModulePlayer::Update()
 		punch.SetOffset(1, 0, 0);
 		punch.SetOffset(2, 0, 0);
 		kick.SetOffset(3, 0, 0);
+		crouchkick.SetOffset(0, 0, 40);
+		crouchkick.SetOffset(1, 35, 30);
+		crouchkick.SetOffset(2, 30, 40);
+		crouchkick.SetOffset(3, 0, 40);
 	}
 
 	//Player collision
@@ -768,7 +775,7 @@ update_status ModulePlayer::Update()
 			//Tetsu no Tsume High
 			if (!flip)
 			{
-				if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 					current_animation = &sp2;
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
@@ -777,7 +784,7 @@ update_status ModulePlayer::Update()
 			}
 			if (flip)
 			{
-				if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
+				if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 					current_animation = &sp2;
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
