@@ -180,7 +180,7 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });
+	/*kick.PushBack({ 296, 922, 72, 102 });*/
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
 	kick.speed = 0.2f;
@@ -400,7 +400,8 @@ update_status ModulePlayer::Update()
 			newFlip = false;
 		}*/
 		punch.SetOffset(1, -30, 0);
-		punch.SetOffset(2, -20, 0);
+		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, -50, 0);
 
 		
 	}
@@ -412,6 +413,7 @@ update_status ModulePlayer::Update()
 		}*/
 		punch.SetOffset(1, 0, 0);
 		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, 0, 0);
 	}
 
 	//Player collision
@@ -740,7 +742,8 @@ update_status ModulePlayer::Update()
 				//current_animation = &victory;
 
 				current_animation = &sp1;
-				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
+				if (!flip)
+				{ spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
 				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
@@ -939,8 +942,6 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	}
 	if (A->type == COLLIDER_SPECIAL_ATTACK1 && B->type == COLLIDER_PLAYER2)
 	{
-
-		
 		if (current_animation == &sp1)
 		{
 			if (!godMode && MaxSpinDamage < 30) {
@@ -951,8 +952,13 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 			if (flip) App->player2->position.x -= 15;*/
 			
 			App->player2->current_animation = &damaged;
+
 		}
 		App->particles->AddParticle(App->particles->hit, App->player2->position.x + 12, A->rect.y - A->rect.h / 2, COLLIDER_NONE, 0);
+		if (current_animation->Finished())
+		{
+			A->to_delete = true;
+		}
 	}
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{
