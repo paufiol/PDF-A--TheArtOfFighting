@@ -47,7 +47,7 @@ bool ModuleSceneChina::Start()
 	initialScene = 0;
 	if (P1bool) { roundP1++; P1bool = !P1bool; }
 	if (P2bool) { roundP2++; P2bool = !P2bool; }
-
+	if(roundP1 == 0 && roundP2 == 0) { printRound = { 512,108,100,16 }; }
 	App->UI->Enable();
 	App->player->Enable();	
 	App->player2->Enable();
