@@ -736,7 +736,7 @@ update_status ModulePlayer::Update()
 			//Hyakuretsu Ken 
 			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_A, SDL_SCANCODE_D) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
 				current_animation = &koukenR;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
+				
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 				App->audio->PlayChunk(App->audio->chunks[0]);
 				stamina -= 40;
@@ -1001,6 +1001,7 @@ update_status ModulePlayer::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (p1Won)
 	{
+		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_wining_round.wav"));
 		current_animation = &victory;
 	}
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
