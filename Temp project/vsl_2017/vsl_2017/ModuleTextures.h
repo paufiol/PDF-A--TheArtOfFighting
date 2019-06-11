@@ -14,6 +14,7 @@ public:
 	ModuleTextures();
 	~ModuleTextures();
 
+	bool Start();
 	bool Init();
 	bool CleanUp();
 

@@ -7,7 +7,7 @@
 
 ModuleCollision::ModuleCollision()
 {
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
@@ -50,7 +50,28 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER2_ATTACK][COLLIDER_SPECIAL_ATTACK1] = false;
 	matrix[COLLIDER_PLAYER2_ATTACK][COLLIDER_SPECIAL_ATTACK2] = false;
 
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_WALL] = true;
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_PLAYER1] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_PLAYER2] = true;
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_PLAYER1_ATTACK] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_PLAYER2_ATTACK] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_SPECIAL_ATTACK1] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK1][COLLIDER_SPECIAL_ATTACK2] = false;
 
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_WALL] = true;
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_PLAYER1] = true;
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_PLAYER2] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_PLAYER1_ATTACK] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_PLAYER2_ATTACK] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_SPECIAL_ATTACK1] = false;
+	matrix[COLLIDER_SPECIAL_ATTACK2][COLLIDER_SPECIAL_ATTACK2] = false;
+
+}
+
+bool ModuleCollision::Start() {
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+		colliders[i] = nullptr;
+	return true;
 }
 
 // Destructor

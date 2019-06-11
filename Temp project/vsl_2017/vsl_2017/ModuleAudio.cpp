@@ -8,18 +8,6 @@
 
 ModuleAudio::ModuleAudio() : Module()
 {
-	for (int i = 0; i < MAX_CHUNKS; i++) {
-		chunks[i] = nullptr;
-	}
-}
-
-// Destructor
-ModuleAudio::~ModuleAudio()
-{}
-
-// Called before audio is available
-bool ModuleAudio::Init()
-{
 	LOG("Init SDL Audio event system");
 	bool ret = true;
 	SDL_Init(0);
@@ -36,7 +24,21 @@ bool ModuleAudio::Init()
 	}
 
 	Mix_VolumeMusic(DEFAULT_VOLUME);
+}
 
+// Destructor
+ModuleAudio::~ModuleAudio()
+{}
+
+// Called before audio is available
+bool ModuleAudio::Init()
+{
+	bool ret = true;
+
+
+	for (int i = 0; i < MAX_CHUNKS; i++) {
+		chunks[i] = nullptr;
+	}
 
 	//chunks[0] = LoadChunk("kouken.ogg"); ->DONE //AQUI
 
