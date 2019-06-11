@@ -71,5 +71,10 @@ SPACE as enter Key (To enter game, select character etc.)
 - F4: God Mode
 - F6: Automatic Kouken
 
+
+**GAMEPLAY VIDEO:**
+
+![](Wiki%20Material/Audio/videoprueba.MP4)
+
 **RELEASE LINK:**
 [Release 1.3](https://github.com/paufiol/PunoEterno-ArtOfFighting/releases/tag/1.3)
