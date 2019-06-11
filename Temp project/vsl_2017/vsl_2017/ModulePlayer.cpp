@@ -995,6 +995,7 @@ update_status ModulePlayer::Update()
 
 	if (current_animation != &sp1 && current_animation != &sp2) {
 		MaxSpinDamage = 0;
+
 	}
 
 	// Draw everything --------------------------------------
