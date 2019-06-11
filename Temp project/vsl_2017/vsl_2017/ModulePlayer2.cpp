@@ -496,10 +496,16 @@ update_status ModulePlayer2::Update()
 
 			if ((App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[1], RIGHT)))
 			{
-				if (!flip) current_animation = &forward;
-				if (flip) current_animation = &back;
+				if (!flip) {
+					current_animation = &forward;
+					speed.x = 3.0f;
+				}
+				if (flip) {
+					current_animation = &back;
+					speed.x = 2.0f;
+				}
 
-				speed.x = 3.5f;
+				
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_L])) {
 					StoreInput(SDL_SCANCODE_L);
@@ -515,9 +521,14 @@ update_status ModulePlayer2::Update()
 			//cambiar//
 			if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[1], LEFT))
 			{
-				if (!flip) current_animation = &back;
-				if (flip) current_animation = &forward;
-				speed.x = -1.5f;
+				if (!flip) {
+					current_animation = &back;
+					speed.x = -1.5f;
+				}
+				if (flip) {
+					current_animation = &forward;
+					speed.x = -3.0f;
+				}
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_J])) {
 					StoreInput(SDL_SCANCODE_J);
