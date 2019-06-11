@@ -14,8 +14,7 @@
 
 ModulePlayer::ModulePlayer()
 {
-	position.x = 185;
-	position.y = 112;
+
 
 	//lee animations
 
@@ -181,7 +180,7 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });
+	/*kick.PushBack({ 296, 922, 72, 102 });*/
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
 	kick.speed = 0.2f;
@@ -286,7 +285,7 @@ ModulePlayer::ModulePlayer()
 	victory.PushBack({ 244, 466,76,105 });
 	victory.PushBack({ 162,466,76,105 });
 	victory.PushBack({ 71,466,76,105 });
-	victory.speed = 0.15;
+	victory.speed = 0.1;
 	victory.lock = true;
 	victory.loop = false;
 
@@ -375,11 +374,15 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("RESOURCES/lee.png");
 	//graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 
+	position.x = 185;
+	position.y = 112;
+
 	hp = 100;
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 	winFrame2 = { 65, 266, 69, 106 };
 	chargecount = 0;
+	flip = false;
 
 	return ret;
 }
@@ -397,7 +400,8 @@ update_status ModulePlayer::Update()
 			newFlip = false;
 		}*/
 		punch.SetOffset(1, -30, 0);
-		punch.SetOffset(2, -20, 0);
+		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, -50, 0);
 
 		
 	}
@@ -409,6 +413,7 @@ update_status ModulePlayer::Update()
 		}*/
 		punch.SetOffset(1, 0, 0);
 		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, 0, 0);
 	}
 
 	//Player collision
@@ -758,6 +763,7 @@ update_status ModulePlayer::Update()
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 					stamina -= 20;
 				}
+
 			}
 			//Tetsu no Tsume High
 			if (!flip)
@@ -1009,8 +1015,6 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	}
 	if (A->type == COLLIDER_SPECIAL_ATTACK1 && B->type == COLLIDER_PLAYER2)
 	{
-
-		
 		if (current_animation == &sp1)
 		{
 			if (!godMode && MaxSpinDamage < 30) {
@@ -1021,8 +1025,13 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 			if (flip) App->player2->position.x -= 15;*/
 			
 			App->player2->current_animation = &damaged;
+
 		}
 		App->particles->AddParticle(App->particles->hit, App->player2->position.x + 12, A->rect.y - A->rect.h / 2, COLLIDER_NONE, 0);
+		if (current_animation->Finished())
+		{
+			A->to_delete = true;
+		}
 	}
 	if (A->type == COLLIDER_PLAYER1 && B->type == COLLIDER_PLAYER2)
 	{

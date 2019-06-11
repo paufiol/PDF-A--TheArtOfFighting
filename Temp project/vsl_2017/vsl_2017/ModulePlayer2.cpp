@@ -22,7 +22,7 @@ ModulePlayer2::ModulePlayer2()
 	idle.PushBack({ 75,5,69,99 }, 0, 2);
 	idle.PushBack({ 159,1,70,103 }, 0, -2);
 
-	idle.speed = 0.15f;
+	idle.speed = 0.075f;
 
 	// idle animation (arcade sprite sheet)
 	/*idle.PushBack({ 0, 8, 66, 108 });
@@ -137,7 +137,7 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
 	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
 	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
-	jump.speed = 0.4f;
+	jump.speed = 0.2f;
 
 	jump.lock = true;
 
@@ -147,7 +147,7 @@ ModulePlayer2::ModulePlayer2()
 	punch.PushBack({ 376, 341,  69, 103 });
 
 	/*punch.PushBack({ 485, 348,  58, 108 });*/
-	if (!flip) punch.speed = 0.3f;
+	if (!flip) punch.speed = 0.15f;
 
 	punch.lock = true;
 
@@ -178,10 +178,10 @@ ModulePlayer2::ModulePlayer2()
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });
+	/*kick.PushBack({ 296, 922, 72, 102 });*/
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
-	kick.speed = 0.2f;
+	kick.speed = 0.1f;
 
 	kick.lock = true;
 
@@ -206,10 +206,10 @@ ModulePlayer2::ModulePlayer2()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 40);
-	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 30);
-	crouchkick.PushBack({ 650,382, 88, 78 }, 0, 40);
-	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 40);
+	crouchkick.PushBack({ 449, 382, 92, 62 });
+	crouchkick.PushBack({ 541, 372,106, 72 });
+	crouchkick.PushBack({ 650,382, 88, 78 });
+	crouchkick.PushBack({ 449, 383, 92, 61 });
 	/*crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
 	crouchkick.PushBack({ 921,382,80,62},0,30);
 	crouchkick.PushBack({0,482,58,88 },0,30);
@@ -225,7 +225,7 @@ ModulePlayer2::ModulePlayer2()
 	damaged.PushBack({ 372,917, 63 ,107 });
 	damaged.PushBack({ 435,917, 81, 107 });
 	damaged.PushBack({ 514, 917, 73, 107 });
-	damaged.speed = 0.25f;
+	damaged.speed = 0.1f;
 	damaged.lock = true;
 
 	//faltan volteretas
@@ -268,7 +268,7 @@ ModulePlayer2::ModulePlayer2()
 	victory.PushBack({ 244, 466,76,105 });
 	victory.PushBack({ 162,466,76,105 });
 	victory.PushBack({ 71,466,76,105 });
-	victory.speed = 0.15;
+	victory.speed = 0.05;
 	victory.lock = true;
 	victory.loop = false;
 
@@ -375,10 +375,21 @@ update_status ModulePlayer2::Update()
 			current_animation->SetSpeed(current_animation->speed/2);
 			newFlip = false;
 		}*/
-		
-		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(1, -30, 0);
 		punch.SetOffset(2, 0, 0);
-
+		kick.SetOffset(3, -50, 0);
+		crouchkick.SetOffset(0, 0, 40);
+		crouchkick.SetOffset(1, -50,30);
+		crouchkick.SetOffset(2, -30,40);
+		crouchkick.SetOffset(3, 0,40);
+		
+		//speeds
+		idle.speed = 0.075f;
+		jump.speed = 0.2f;
+		punch.speed = 0.15f;
+		kick.speed = 0.1f;
+		damaged.speed = 0.1f;
+		crouchkick.speed = 0.1f;
 	}
 	if (!flip) {
 		flip_sign = 1;
@@ -386,9 +397,20 @@ update_status ModulePlayer2::Update()
 			current_animation->SetSpeed(current_animation->speed * 2);
 			newFlip = false;
 		}*/
-		punch.SetOffset(1, -30, 0);
-		punch.SetOffset(2, -20, 0);
-		
+		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, 0, 0);
+		crouchkick.SetOffset(0, 0, 40);
+		crouchkick.SetOffset(1, 35, 30);
+		crouchkick.SetOffset(2, 30, 40);
+		crouchkick.SetOffset(3, 0, 40);
+		//speeds
+		idle.speed = 0.15f;
+		jump.speed = 0.4f;
+		punch.speed = 0.3f;
+		kick.speed = 0.2f;
+		damaged.speed = 0.25f;
+		crouchkick.speed = 0.2f;
 	}
 	
 
