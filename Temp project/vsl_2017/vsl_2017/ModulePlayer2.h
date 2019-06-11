@@ -63,7 +63,6 @@ public:
 	Collider * melee = nullptr;
 	Collider * block = nullptr;
 	Collider * koukenCollider = nullptr;
-	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics2 = nullptr;
 	
 	SDL_Rect winFrame2;

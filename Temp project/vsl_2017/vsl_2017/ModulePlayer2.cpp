@@ -351,11 +351,9 @@ ModulePlayer2::~ModulePlayer2()
 // Load assets
 bool ModulePlayer2::Start()
 {
-	LOG("Loading player textures");
+	/*LOG("Loading player textures");*/
 	bool ret = true;
-	graphics = App->textures->Load("RESOURCES/lee2.png");
-	/*graphs = App->textures->Load("ryo2.png");*/
-	
+	graphics2 = App->textures->Load("RESOURCES/lee2.png");
 
 	hp = 100;
 	stamina = 100;
@@ -738,7 +736,7 @@ update_status ModulePlayer2::Update()
 	{
 		current_animation = &victory;
 	}
-	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
+	App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
 }
 
@@ -871,7 +869,7 @@ bool ModulePlayer2::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, 
 
 bool ModulePlayer2::CleanUp() {
 
-	SDL_DestroyTexture(graphics);
+	SDL_DestroyTexture(graphics2);
 
 	if (playerCollider != nullptr) playerCollider->to_delete = true;
 

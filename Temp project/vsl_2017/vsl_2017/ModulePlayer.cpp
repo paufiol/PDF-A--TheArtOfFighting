@@ -761,11 +761,8 @@ update_status ModulePlayer::Update()
 			{
 				if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 
-					//current_animation = &victory;
-
 					current_animation = &sp1;
-					
-					spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
+					spinCollider = App->collision->AddCollider({ position.x - spinCollider->rect.w, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 					stamina -= 20;
@@ -777,6 +774,7 @@ update_status ModulePlayer::Update()
 			{
 				if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 					current_animation = &sp2;
+					spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 					stamina -= 20;
@@ -786,6 +784,7 @@ update_status ModulePlayer::Update()
 			{
 				if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 					current_animation = &sp2;
+					spinCollider = App->collision->AddCollider({ position.x - spinCollider->rect.w, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 					stamina -= 20;
@@ -918,10 +917,7 @@ update_status ModulePlayer::Update()
 				}
 			}
 		}
-		else
-		{
-			spintime = 0;
-		}
+	
 		if (flip)
 		{
 			spintime++;
@@ -930,7 +926,7 @@ update_status ModulePlayer::Update()
 				speed.x = -4.0f;
 				playerCollider->SetPos(position.x, position.y + 33);
 				playerCollider->rect.h = 75;
-				if (!flip) { spinCollider->SetPos(position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2); }
+				spinCollider->SetPos(position.x - spinCollider->rect.w, position.y + 15);
 				if (spintime > 50 && position.y >= 80 && spintime < 60)
 				{
 					speed.y = -4.0f;
@@ -961,12 +957,14 @@ update_status ModulePlayer::Update()
 			speed.x = 4.0f;
 			position.y = 90;
 			playerCollider->SetPos(position.x, position.y);
+			spinCollider->SetPos(position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2);
 		}
 		if (flip)
 		{
 			speed.x = -4.0f;
 			position.y = 90;
 			playerCollider->SetPos(position.x, position.y);
+			spinCollider->SetPos(position.x - spinCollider->rect.w, position.y + 15);
 		}
 		
 	}
