@@ -65,6 +65,8 @@ public:
 
 	int MaxSpinDamage = 0;
 
+	bool PlayedWon = true;
+
 	bool p1Won = false, p2Won = false;
 	bool playersMove = false;
 	bool godMode;

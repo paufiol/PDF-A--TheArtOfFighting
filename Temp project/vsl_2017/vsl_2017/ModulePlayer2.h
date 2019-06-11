@@ -59,6 +59,8 @@ public:
 	int wFrame = 0;
 
 
+	bool PlayedWon = true;
+
 	Animation* current_animation = &idle;
 
 	int spintime;

@@ -47,8 +47,14 @@ bool ModuleSceneEnd::Start()
 bool ModuleSceneEnd::CleanUp()
 {
 	App->audio->StopMusic();
-	SDL_DestroyTexture(UIsprite);
-	SDL_DestroyTexture(portraitLee);
+	if (UIsprite != nullptr) {
+		SDL_DestroyTexture(UIsprite);
+		UIsprite = nullptr;
+	}
+	if (portraitLee != nullptr) {
+		SDL_DestroyTexture(portraitLee);
+		portraitLee = nullptr;
+	}
 	LOG("Unloading Splash scene");
 	
 	return true;

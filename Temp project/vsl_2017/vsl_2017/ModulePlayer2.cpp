@@ -258,6 +258,8 @@ bool ModulePlayer2::Start()
 	position.x = 310;
 	position.y = 112;
 
+	PlayedWon = true;
+
 	hp = 100;
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER2, this);
@@ -854,7 +856,11 @@ update_status ModulePlayer2::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (App->player->p2Won == true)
 	{
-		current_animation = &victory;
+		if (PlayedWon) {
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_wining_round.wav"));
+			current_animation = &victory;
+			PlayedWon = false;
+		}
 	}
 	App->render->Blit(graphics2, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;

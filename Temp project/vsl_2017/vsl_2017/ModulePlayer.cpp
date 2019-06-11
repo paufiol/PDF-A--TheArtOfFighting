@@ -378,6 +378,8 @@ bool ModulePlayer::Start()
 	hp = 100;
 	stamina = 100;
 
+	PlayedWon = true;
+
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 		
 	
@@ -1028,8 +1030,11 @@ update_status ModulePlayer::Update()
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (p1Won)
 	{
-		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_wining_round.wav"));
-		current_animation = &victory;
+		if(PlayedWon){
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_wining_round.wav"));
+			current_animation = &victory;
+			PlayedWon = false;
+			 }
 	}
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
 	return UPDATE_CONTINUE;
@@ -1088,7 +1093,6 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 		else if (jumping == JUMP_UP);*/
 		if (B->rect.x >= playerCollider->rect.x)
 		{
-			
 			if (current_animation == &sp1 || current_animation == &sp2 || App->player2->current_animation == &sp1 || App->player2->current_animation == &sp2) {
 				App->player2->position.x += 4;
 			}
@@ -1202,7 +1206,6 @@ bool ModulePlayer::CleanUp() {
 		SDL_DestroyTexture(graphics);
 		graphics = nullptr;
 	}
-
 	if (playerCollider != nullptr) { 
 		playerCollider->to_delete = true; 
 		playerCollider = nullptr;
