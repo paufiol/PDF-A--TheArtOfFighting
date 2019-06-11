@@ -406,7 +406,11 @@ update_status ModulePlayer::Update()
 		crouchkick.SetOffset(1, -50, 30);
 		crouchkick.SetOffset(2, -30, 40);
 		crouchkick.SetOffset(3, 0, 40);
-		
+		provocar.SetOffset(1, 15, 1);
+		provocar.SetOffset(3, 15, 1);
+		provocar.SetOffset(5, 15, 1);
+		provocar.SetOffset(7, 15, 1);
+		provocar.SetOffset(9, 15, 1);
 	}
 	if (!flip) {
 		flip_sign = -1;
@@ -421,6 +425,11 @@ update_status ModulePlayer::Update()
 		crouchkick.SetOffset(1, 35, 30);
 		crouchkick.SetOffset(2, 30, 40);
 		crouchkick.SetOffset(3, 0, 40);
+		provocar.SetOffset(1, 0, 0);
+		provocar.SetOffset(3, 0, 0);
+		provocar.SetOffset(5, 0, 0);
+		provocar.SetOffset(7, 0, 0);
+		provocar.SetOffset(9, 0, 0);
 	}
 
 	//Player collision

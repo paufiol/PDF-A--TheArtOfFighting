@@ -281,7 +281,11 @@ update_status ModulePlayer2::Update()
 		crouchkick.SetOffset(1, -50,30);
 		crouchkick.SetOffset(2, -30,40);
 		crouchkick.SetOffset(3, 0,40);
-		
+		provocar.SetOffset(1, 15, 1);
+		provocar.SetOffset(3, 15, 1);
+		provocar.SetOffset(5, 15, 1);
+		provocar.SetOffset(7, 15, 1);
+		provocar.SetOffset(9, 15, 1);
 		//speeds
 		idle.speed = 0.075f;
 		jump.speed = 0.2f;
@@ -289,6 +293,7 @@ update_status ModulePlayer2::Update()
 		kick.speed = 0.1f;
 		damaged.speed = 0.1f;
 		crouchkick.speed = 0.1f;
+		provocar.speed = 0.1f;
 	}
 	if (!flip) {
 		flip_sign = 1;
@@ -303,6 +308,11 @@ update_status ModulePlayer2::Update()
 		crouchkick.SetOffset(1, 35, 30);
 		crouchkick.SetOffset(2, 30, 40);
 		crouchkick.SetOffset(3, 0, 40);
+		provocar.SetOffset(1, 0, 1);
+		provocar.SetOffset(3, 0, 1);
+		provocar.SetOffset(5, 0, 1);
+		provocar.SetOffset(7, 0, 1);
+		provocar.SetOffset(9, 0, 1);
 		//speeds
 		idle.speed = 0.15f;
 		jump.speed = 0.4f;
@@ -310,6 +320,7 @@ update_status ModulePlayer2::Update()
 		kick.speed = 0.2f;
 		damaged.speed = 0.25f;
 		crouchkick.speed = 0.2f;
+		provocar.speed = 0.2f;
 	}
 	
 
@@ -602,7 +613,7 @@ update_status ModulePlayer2::Update()
 			if ((App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[1], SDL_CONTROLLER_BUTTON_X)) && !leaveif && keyup[SDL_SCANCODE_C])
 			{
 				current_animation = &provocar;
-				App->player2->stamina -= 15;
+				App->player->stamina -= 15;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Provocando.wav"));
 
 				if (keyup[SDL_SCANCODE_M]) {
