@@ -294,6 +294,8 @@ update_status ModulePlayer2::Update()
 		damaged.speed = 0.1f;
 		crouchkick.speed = 0.1f;
 		provocar.speed = 0.1f;
+		doubleback.speed = 0.1f;
+		doubleforward.speed = 0.1f;
 	}
 	if (!flip) {
 		flip_sign = 1;
@@ -321,6 +323,8 @@ update_status ModulePlayer2::Update()
 		damaged.speed = 0.25f;
 		crouchkick.speed = 0.2f;
 		provocar.speed = 0.2f;
+		doubleback.speed = 0.2f;
+		doubleforward.speed = 0.2f;
 	}
 	
 
