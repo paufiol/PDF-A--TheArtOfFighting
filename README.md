@@ -3,7 +3,8 @@
 
 ## Art of Fighting Remake
 ---
-This is a project meant to create a faithful recreation of SNK's Art of Fighting (1992) with educational purposes. We do not own by any means any of the assets used, as they fall into SNK's intellectual property
+This is a project meant to create a faithful recreation of SNK's Art of Fighting (1992) with educational purposes. This have been reproduced with C++ and SDL libraries, by 5 CITM students.
+We do not own by any means any of the assets used, as they fall into SNK's intellectual property.
 
 
 ## Team Members
@@ -79,7 +80,7 @@ These are all of the members involved in the project. Feel free to contact any o
 ---
 ## How to play
 Your goal is to either defeat the enemy or be the healthiest player 
-when the round time is up.
+when the round time is up. You reach this using the personalited skills of each character.
 
 ### Controls
 SPACE as enter Key (To enter game, select character etc.)
