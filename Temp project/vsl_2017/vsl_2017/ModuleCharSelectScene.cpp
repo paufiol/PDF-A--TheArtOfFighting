@@ -41,7 +41,7 @@ bool ModuleCharSelectScene::Start()
 	printFont2 = { 0,861, 360 ,8 };
 	font_start = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
 	font_mini = App->fonts->Load("RESOURCES/UI_AOF.png", "abcdefghijklmnñopqrstuvwxyz0123456789.'!+,-$_", printFont, 1);
-	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/MUSIC/CHAMP_SELECT/champ_select_theme.ogg", -1);
+	App->audio->PlayMusic("RESOURCES/MUSIC_FXS/RYO/MUSIC/CHAMP_SELECT/champ_select_theme.ogg", -1);
 
 	
 	return true;
@@ -79,7 +79,7 @@ update_status ModuleCharSelectScene::Update()
 		if (iy == 1)
 		{
 			iy = 0;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 		
 		
@@ -90,7 +90,7 @@ update_status ModuleCharSelectScene::Update()
 		{
 			if (ix != 0)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			ix--;
 			keyup[SDL_SCANCODE_A] = false;
@@ -103,7 +103,7 @@ update_status ModuleCharSelectScene::Update()
 		if (iy == 0)
 		{
 			iy = 1;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
 	if ((App->input->keyboard[SDL_SCANCODE_D] == 1 && keyup[SDL_SCANCODE_D]) || (App->input->JoystickGetPos(App->input->controller[0], RIGHT) && App->input->isNew_Direction[RIGHT] == true))
@@ -112,7 +112,7 @@ update_status ModuleCharSelectScene::Update()
 		{
 			if (ix != 3)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			ix++;
 			keyup[SDL_SCANCODE_D] = false;	
@@ -146,7 +146,7 @@ update_status ModuleCharSelectScene::Update()
 		if (jy == 1)
 		{
 			jy = 0;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
 	if ((App->input->keyboard[SDL_SCANCODE_J] == 1 || App->input->JoystickGetPos(App->input->controller[1], LEFT)) && keyup[SDL_SCANCODE_J])
@@ -155,7 +155,7 @@ update_status ModuleCharSelectScene::Update()
 		{
 			if (jx != 0)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			jx--;
 			keyup[SDL_SCANCODE_J] = false;
@@ -166,7 +166,7 @@ update_status ModuleCharSelectScene::Update()
 		if (jy == 0)
 		{
 			jy = 1;
-			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 		}
 	}
 	if ((App->input->keyboard[SDL_SCANCODE_L] == 1 || App->input->JoystickGetPos(App->input->controller[1], RIGHT)) && keyup[SDL_SCANCODE_L])
@@ -175,7 +175,7 @@ update_status ModuleCharSelectScene::Update()
 		{			
 			if (jx != 3)
 			{
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/CHARACTER_SECTION/champ_select.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/RYO/FXS/CHARACTER_SECTION/champ_select.wav"));
 			}
 			jx++;
 			keyup[SDL_SCANCODE_L] = false;
