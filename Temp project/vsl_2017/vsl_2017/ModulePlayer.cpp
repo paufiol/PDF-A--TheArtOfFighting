@@ -906,6 +906,10 @@ update_status ModulePlayer::Update()
 		wFrame;
 	}
 
+	if (current_animation != &sp1 && current_animation != &sp2) {
+		MaxSpinDamage = 0;
+	}
+
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (p1Won)
@@ -932,12 +936,11 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 	}
 	if (A->type == COLLIDER_SPECIAL_ATTACK1 && B->type == COLLIDER_PLAYER2)
 	{
-		if (current_animation != &sp1) {
-			MaxSpinDamage = 0;
-		}
+
+		
 		if (current_animation == &sp1)
 		{
-			if (!godMode || MaxSpinDamage < 30) {
+			if (!godMode && MaxSpinDamage < 30) {
 				MaxSpinDamage++;
 				
 				App->player2->hp -= A->damage; }
