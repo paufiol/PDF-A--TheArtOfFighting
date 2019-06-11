@@ -11,7 +11,12 @@ ModuleInput::ModuleInput() : Module()
 
 // Destructor
 ModuleInput::~ModuleInput()
-{}
+{
+	LOG("Quitting SDL input event subsystem");
+	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+
+}
 
 // Called before render is available
 bool ModuleInput::Init()
@@ -82,32 +87,36 @@ update_status ModuleInput::PreUpdate()
 bool ModuleInput::CleanUp()
 {
 	//if (joystick[0] != nullptr) SDL_JoystickClose( joystick[0] );
-	if (controller[0] != nullptr) SDL_GameControllerClose(controller[0]);
-	if (controller[1] != nullptr) SDL_GameControllerClose(controller[1]);
-	
-	LOG("Quitting SDL input event subsystem");
-	SDL_QuitSubSystem(SDL_INIT_EVENTS);
-	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+	if (controller[0] != nullptr) {
+		SDL_GameControllerClose(controller[0]);
+		controller[0] = nullptr;
+	}
+	if (controller[1] != nullptr) {
+		SDL_GameControllerClose(controller[1]);
+		controller[1] = nullptr;
+	}
+
 	return true;
 }
 
 bool ModuleInput::JoystickGetPos(SDL_GameController * gamepad, DIRECTION direction) {
 	bool ret = false;
 	
-	int deadzone = 7849;
+	int deadzone_x = 7849;
+	int deadzone_y = 15698;
 	int xAxis = SDL_GameControllerGetAxis(gamepad, SDL_CONTROLLER_AXIS_LEFTX);
 	int yAxis = SDL_GameControllerGetAxis(gamepad, SDL_CONTROLLER_AXIS_LEFTY);
 
-	if (xAxis > deadzone && direction == RIGHT) ret = true;
-	if (xAxis < -deadzone && direction == LEFT) ret = true;
+	if (xAxis > deadzone_x && direction == RIGHT) ret = true;
+	if (xAxis < -deadzone_x && direction == LEFT) ret = true;
 
-	if (yAxis < -deadzone && direction == UP) ret = true;
-	if (yAxis > deadzone && direction == DOWN) ret = true;
+	if (yAxis < -deadzone_y && direction == UP) ret = true;
+	if (yAxis > deadzone_y && direction == DOWN) ret = true;
 
-	if (yAxis < -deadzone && xAxis > deadzone && direction == UPRIGHT)		ret = true;
-	if (yAxis > deadzone && xAxis > -deadzone && direction == DOWNLEFT)		ret = true;
-	if (yAxis > deadzone && xAxis > deadzone && direction == LEFTUP)		ret = true;
-	if (yAxis < -deadzone && xAxis > -deadzone && direction == RIGHTDOWN)	ret = true;
+	if (yAxis < -deadzone_x && xAxis > deadzone_x && direction == UPRIGHT)		ret = true;
+	if (yAxis > deadzone_x && xAxis > -deadzone_x && direction == DOWNLEFT)		ret = true;
+	if (yAxis > deadzone_x && xAxis > deadzone_x && direction == LEFTUP)		ret = true;
+	if (yAxis < -deadzone_x && xAxis > -deadzone_x && direction == RIGHTDOWN)	ret = true;
 
 	//if (ret == false) isNew_Direction[direction] = true;
 	//else if (ret == true && isNew_Direction[direction])  isNew_Direction[direction] = false;

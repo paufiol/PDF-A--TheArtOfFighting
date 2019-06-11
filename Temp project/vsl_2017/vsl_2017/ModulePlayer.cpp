@@ -526,18 +526,18 @@ update_status ModulePlayer::Update()
 				current_animation = &jump;
 				jumping = JUMP_UP;
 				speed.x = 4.5f;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 				if (keyup[SDL_SCANCODE_W]) {
 					StoreInput(SDL_SCANCODE_W);
 					keyup[SDL_SCANCODE_W] = false;
 				}
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
 				speed.x = -4.5f;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
@@ -577,6 +577,9 @@ update_status ModulePlayer::Update()
 				&& keyup[SDL_SCANCODE_Q] && !leaveif)
 			{
 				current_animation = &jumppunch;	
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punch.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Movement_Punch.wav"));
 			}
 
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
@@ -665,7 +668,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
 
 				if (keyup[SDL_SCANCODE_W]) {
 					StoreInput(SDL_SCANCODE_W);
@@ -733,7 +736,7 @@ update_status ModulePlayer::Update()
 			//Hyakuretsu Ken 
 			if ((TestSpecial(SDL_SCANCODE_C, SDL_SCANCODE_D, SDL_SCANCODE_A, SDL_SCANCODE_D) || App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 40)) {
 				current_animation = &koukenR;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Kooken.wav"));
+				
 				App->particles->AddParticle(App->particles->kouken, position.x, position.y, COLLIDER_PLAYER1_ATTACK);
 				App->audio->PlayChunk(App->audio->chunks[0]);
 				stamina -= 40;
@@ -992,12 +995,14 @@ update_status ModulePlayer::Update()
 
 	if (current_animation != &sp1 && current_animation != &sp2) {
 		MaxSpinDamage = 0;
+
 	}
 
 	// Draw everything --------------------------------------
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	if (p1Won)
 	{
+		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_wining_round.wav"));
 		current_animation = &victory;
 	}
 	App->render->Blit(graphics, position.x + current_animation->GetOffset().x, position.y + current_animation->GetOffset().y, &r, 1.0f, flip);
@@ -1013,6 +1018,15 @@ void ModulePlayer::OnCollision(Collider* A, Collider* B) {
 			if (!godMode) { App->player2->hp -= A->damage; }
 			if (!flip) App->player2->position.x += 15;
 			if (flip) App->player2->position.x -= 15;
+			if(current_animation ==  &kick || current_animation == &crouchkick)
+			{ App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Patada.wav")); 
+			App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punched_v2.wav"));
+			}
+			if (current_animation == &punch || current_animation == &jumppunch)
+			{
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Punch.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punched_v1.wav"));
+			}
 			App->player2->current_animation = &damaged;
 		}
 		App->particles->AddParticle(App->particles->hit, App->player2->position.x+12, A->rect.y- A->rect.h/2, COLLIDER_NONE, 0);
@@ -1158,7 +1172,10 @@ bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, S
 
 bool ModulePlayer::CleanUp() {
 
-	/*if (graphics != nullptr) { SDL_DestroyTexture(graphics); }*/
+	if (graphics != nullptr) { 
+		SDL_DestroyTexture(graphics);
+		graphics = nullptr;
+	}
 
 	if (playerCollider != nullptr) { playerCollider->to_delete = true; }
 	if (spinCollider != nullptr) { spinCollider->to_delete = true; }
