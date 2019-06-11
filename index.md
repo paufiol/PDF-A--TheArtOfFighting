@@ -1,4 +1,4 @@
-# PUÑO ETERNO STUDIOS
+﻿# PUÑO ETERNO STUDIOS
 ---
 ## Art of Fighting
 
@@ -74,7 +74,13 @@ SPACE as enter Key (To enter game, select character etc.)
 
 **GAMEPLAY VIDEO:**
 
-[Gameplay Video](https://www.youtube.com/watch?v=NKcyPTKVuBQ&feature=youtu.be)
+
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NKcyPTKVuBQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
 
 **RELEASE LINK:**
 
