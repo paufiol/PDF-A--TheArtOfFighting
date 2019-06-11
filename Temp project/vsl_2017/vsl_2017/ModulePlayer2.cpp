@@ -711,15 +711,100 @@ update_status ModulePlayer2::Update()
 	}
 	if (current_animation == &doubleback)
 	{
-		speed.x = 6.0f;
+		speed.x = 4.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
 	}
 	if (current_animation == &doubleforward)
 	{
-		speed.x = -6.0f;
+		speed.x = -4.0f;
 		playerCollider->SetPos(position.x, position.y + 33);
 		playerCollider->rect.h = 75;
+	}
+	if (current_animation == &charge)
+	{
+		if (stamina < 100)
+		{
+			stamina++;
+		}
+	}
+	if (current_animation == &sp1)
+	{
+		if (!flip)
+		{
+			spintime++;
+			if (spintime > 20)
+			{
+				speed.x = 4.0f;
+				playerCollider->SetPos(position.x, position.y + 33);
+				playerCollider->rect.h = 75;
+				spinCollider->SetPos(position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2);
+				if (spintime > 50 && position.y >= 80 && spintime < 60)
+				{
+					speed.y = -4.0f;
+				}
+				else
+				{
+					speed.y = 4.0f;
+
+					if (position.y >= 112)
+					{
+						position.y = 112;
+						speed.y = 0;
+					}
+				}
+			}
+		}
+
+		if (flip)
+		{
+			spintime++;
+			if (spintime > 20)
+			{
+				speed.x = -4.0f;
+				playerCollider->SetPos(position.x, position.y + 33);
+				playerCollider->rect.h = 75;
+				spinCollider->SetPos(position.x - spinCollider->rect.w, position.y + 15);
+				if (spintime > 50 && position.y >= 80 && spintime < 60)
+				{
+					speed.y = -4.0f;
+				}
+				else
+				{
+					speed.y = 4.0f;
+
+					if (position.y >= 112)
+					{
+						position.y = 112;
+						speed.y = 0;
+					}
+				}
+			}
+		}
+
+	}
+	else
+	{
+		spintime = 0;
+	}
+
+	if (current_animation == &sp2)
+	{
+		if (!flip)
+		{
+			speed.x = 4.0f;
+			position.y = 90;
+			playerCollider->SetPos(position.x, position.y);
+			spinCollider->SetPos(position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2);
+		}
+		if (flip)
+		{
+			speed.x = -4.0f;
+			position.y = 90;
+			playerCollider->SetPos(position.x, position.y);
+			spinCollider->SetPos(position.x - spinCollider->rect.w, position.y + 15);
+		}
+
 	}
 
 
