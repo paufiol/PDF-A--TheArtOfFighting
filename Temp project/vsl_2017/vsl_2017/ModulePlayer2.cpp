@@ -663,7 +663,7 @@ update_status ModulePlayer2::Update()
 
 		App->player->p1Won = true;
 		App->player->playersMove = false;
-		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/RYO_VOICE_FXS/Ryo_Knocked.wav"));
+		App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_screaming_losing_round.wav"));
 		playerCollider->to_delete = true;
 	}
 
