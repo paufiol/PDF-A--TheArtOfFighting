@@ -3,7 +3,8 @@
 
 ## Art of Fighting Remake
 ---
-This is a project meant to create a faithful recreation of SNK's Art of Fighting (1992) with educational purposes. This have been reproduced with C++ and SDL libraries, by 5 CITM students.
+This is a project meant to create a faithful recreation of SNK's Art of Fighting (1992) with educational purposes.
+This have been reproduced with C++ and SDL libraries, by 5 CITM students.
 We do not own by any means any of the assets used, as they fall into SNK's intellectual property.
 
 
@@ -80,14 +81,15 @@ These are all of the members involved in the project. Feel free to contact any o
 ---
 ## How to play
 Your goal is to either defeat the enemy or be the healthiest player 
-when the round time is up. You reach this using the personalited skills of each character.
+when the round time is up. The game is always on a Best of 3 round system
 
 ### Controls
-SPACE as enter Key (To enter game, select character etc.)
+
 On the special keys, we have specified the right key depending on the orientation of the character.
 
 
-	
+	**Controller**
+START on name screen, A on Character select (Only Controller 1)
 - RIGHT/LEFT 	(Joystick): Forward/Backward
 - UP		(Joystick): Jump
 - DOWN		(Joystick): Crouch
@@ -96,11 +98,12 @@ On the special keys, we have specified the right key depending on the orientatio
 - X Button:		 Taunt (Stamina drain)
 
 	**Specials:**
- - Tetsu no Tsume Low:  	Right, Down, B
- - Tetsu no Tsume High: 	Right, Down, A
+ - Tetsu no Tsume Low:  	(Right/Left), Down, B
+ - Tetsu no Tsume High: 	(Right/Left), Down, A
 
 	**Keyboard:**
-**PLAYER 1:**	
+**PLAYER 1:**
+SPACE as enter Key (To enter game, select character etc.)	
 - A/D: Forward/Backward
 - W: Jump
 - S: Crouch
