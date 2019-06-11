@@ -95,6 +95,9 @@ public:
 	Animation sp2;
 	Animation sacargarras;
 	Animation provocar;
+	Animation charge;
+	Animation firekick;
+	Animation multipunch;
 
 	iPoint position;
 

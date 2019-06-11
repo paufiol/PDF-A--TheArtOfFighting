@@ -140,7 +140,7 @@ ModulePlayer::ModulePlayer()
 	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
 	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
 	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
-	jump.speed = 0.3f;
+	jump.speed = 0.4f;
 	
 	jump.lock = true;
 
@@ -209,16 +209,16 @@ ModulePlayer::ModulePlayer()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,40);
 	crouchkick.PushBack({ 541, 372,106, 72 },0,30);
-	crouchkick.PushBack({ 650,382, 93, 78 },0,30);
-	crouchkick.PushBack({ 449, 383, 92, 61 },0,30);
-	crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
+	crouchkick.PushBack({ 650,382, 88, 78 },0,40);
+	crouchkick.PushBack({ 449, 383, 92, 61 },0,40);
+	/*crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
 	crouchkick.PushBack({ 921,382,80,62},0,30);
 	crouchkick.PushBack({0,482,58,88 },0,30);
-	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);*/
 
-	crouchkick.speed = 0.15f;
+	crouchkick.speed = 0.2f;
 	crouchkick.lock = true;
 	//RYO:
 	//damaged.PushBack({ 869,751, 66 ,107 });
@@ -529,8 +529,8 @@ update_status ModulePlayer::Update()
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_A)) && keyup[SDL_SCANCODE_Q] && !leaveif)
 			{
 				current_animation = &crouchkick;
-				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 45, 45, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 30, 60, 50 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (flip)  melee = App->collision->AddCollider({ position.x , position.y + 30, -50, 50 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				leaveif = true;
 
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
@@ -553,8 +553,8 @@ update_status ModulePlayer::Update()
 				&& keyup[SDL_SCANCODE_E] && !leaveif)
 			{
 				current_animation = &crouchkick;
-				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
-				if (flip)  melee = App->collision->AddCollider({ position.x - 40, position.y + 75, 65, 35 }, COLLIDER_PLAYER1_ATTACK, this, 20);
+				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 30, 60, 50 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (flip)  melee = App->collision->AddCollider({ position.x , position.y + 30, -50, 50 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				leaveif = true;
 
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
@@ -651,8 +651,8 @@ update_status ModulePlayer::Update()
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Movement_Punch.wav"));
 
 
-				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 15, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
-				if (flip) melee = App->collision->AddCollider({ position.x - 15, position.y + 15, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (!flip) melee = App->collision->AddCollider({ position.x + 40, position.y + 15, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
+				if (flip) melee = App->collision->AddCollider({ position.x - 40, position.y + 15, 65, 20 }, COLLIDER_PLAYER1_ATTACK, this, 10);
 				leaveif = true;
 				if (keyup[SDL_SCANCODE_Q]) {
 					StoreInput(SDL_SCANCODE_Q);

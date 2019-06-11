@@ -137,19 +137,18 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
 	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
 	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
-	jump.speed = 0.3f;
+	jump.speed = 0.4f;
 
 	jump.lock = true;
 
 	punch.PushBack({ 376, 341,  69, 103 });
 	punch.PushBack({ 81, 341,  104, 103 });
-	punch.PushBack({ 185, 341,  117, 103 });
 	punch.PushBack({ 0, 341,  74, 103 });
 	punch.PushBack({ 376, 341,  69, 103 });
 
 	/*punch.PushBack({ 485, 348,  58, 108 });*/
-	if (!flip) punch.speed = 0.2f;
-	if (flip) punch.speed = 0.05f;
+	if (!flip) punch.speed = 0.3f;
+
 	punch.lock = true;
 
 
@@ -163,6 +162,16 @@ ModulePlayer2::ModulePlayer2()
 
 	//AQUI haced que de patadas
 
+	//kick.PushBack({ 787,114,71,89 });
+	//kick.PushBack({ 858, 109,73,99 });
+	//kick.PushBack({ 0,227, 89, 103 });
+	//kick.PushBack({ 89, 222, 83,110 });
+	//kick.PushBack({ 172, 245, 105, 89 });
+	//kick.PushBack({277, 247, 75, 86 });
+	//kick.speed = 0.1f;
+	//kick.lock = true;
+
+
 	kick.PushBack({ 0, 922, 58, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
@@ -172,19 +181,19 @@ ModulePlayer2::ModulePlayer2()
 	kick.PushBack({ 296, 922, 72, 102 });
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
-	if (!flip) kick.speed = 0.2f;
-	if (flip) kick.speed = 0.1f;
+	kick.speed = 0.2f;
+
 	kick.lock = true;
 
-	flipkick.PushBack({ 669, 235, 60, 109 });
-	flipkick.PushBack({ 729, 235, 61, 113 });
-	flipkick.PushBack({ 790, 235, 103, 113 });
-	flipkick.PushBack({ 729, 235, 61, 113 });
-	/*flipkick.PushBack({ 669, 235, 60, 109 });*/
-	flipkick.speed = 0.1f;
-	flipkick.lock = true;
+	//flipkick.PushBack({ 669, 235, 60, 109 });
+	//flipkick.PushBack({ 729, 235, 61, 113 });
+	//flipkick.PushBack({ 790, 235, 103, 113 });
+	//flipkick.PushBack({ 729, 235, 61, 113 });
+	///*flipkick.PushBack({ 669, 235, 60, 109 });*/
+	//flipkick.speed = 0.1f;
+	//flipkick.lock = true;
 
-	//DONE
+	  //DONE
 	crouchidle.PushBack({ 0, 482, 58, 88 }, 0, 15);
 	crouchidle.PushBack({ 921, 382, 77, 62 }, 0, 41);
 	/*crouchidle.PushBack({ 0, 482, 58 , 88}, 0, 15);*/
@@ -197,10 +206,15 @@ ModulePlayer2::ModulePlayer2()
 	crouchpunch.speed = 0.15f;
 	crouchpunch.lock = true;
 */
-	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 30);
+	crouchkick.PushBack({ 449, 382, 92, 62 }, 0, 40);
 	crouchkick.PushBack({ 541, 372,106, 72 }, 0, 30);
-	crouchkick.PushBack({ 650,382, 93, 78 }, 0, 30);
-	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 30);
+	crouchkick.PushBack({ 650,382, 88, 78 }, 0, 40);
+	crouchkick.PushBack({ 449, 383, 92, 61 }, 0, 40);
+	/*crouchkick.PushBack({ 827, 397, 94, 47 },0,30);
+	crouchkick.PushBack({ 921,382,80,62},0,30);
+	crouchkick.PushBack({0,482,58,88 },0,30);
+	crouchkick.PushBack({ 449, 382, 92, 62 },0,30);*/
+
 	crouchkick.speed = 0.2f;
 	crouchkick.lock = true;
 	//RYO:
@@ -215,16 +229,17 @@ ModulePlayer2::ModulePlayer2()
 	damaged.lock = true;
 
 	//faltan volteretas
-	sacargarras.PushBack({ 71,466,76,105 });
-	sacargarras.PushBack({ 162,466, 76, 105 });
-	sacargarras.PushBack({ 244, 466,77, 104 });
-	sacargarras.PushBack({ 330,478, 76, 122 });
-	sacargarras.PushBack({ 244, 466,77, 104 });
-	sacargarras.speed = 0.2f;
-	sacargarras.lock = true;
-	sacargarras.loop = false;
+
+	//sacargarras.speed = 0.2f;
+	//sacargarras.lock = true;
 
 	//Spin Lee:
+	sp1.PushBack({ 71,466,76,105 });
+	sp1.PushBack({ 162,466, 76, 105 });
+	sp1.PushBack({ 244, 466,77, 104 });
+	sp1.PushBack({ 330,478, 76, 122 });
+	sp1.PushBack({ 244, 466,77, 104 });
+
 	sp1.PushBack({ 420,505,35,69 }, 0, 30);
 	sp1.PushBack({ 455,505, 108, 69 }, 0, 30);
 	sp1.PushBack({ 570, 505,77, 69 }, 0, 30);
@@ -240,7 +255,22 @@ ModulePlayer2::ModulePlayer2()
 	sp1.speed = 0.2f;
 	sp1.lock = true;
 
+	charge.PushBack({ 412, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 488, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 564, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 640, 758,76, 145 }, -10, -40);
+	charge.PushBack({ 716, 758,76, 145 }, -10, -40);
+	charge.speed = 0.2f;
+	charge.lock = true;
 
+	victory.PushBack({ 0,729,76,121 }, 0, -16);
+	victory.PushBack({ 330, 478, 76, 122 }, 0, -17);
+	victory.PushBack({ 244, 466,76,105 });
+	victory.PushBack({ 162,466,76,105 });
+	victory.PushBack({ 71,466,76,105 });
+	victory.speed = 0.15;
+	victory.lock = true;
+	victory.loop = false;
 
 	//RYO:
 	/*defeat.PushBack({ 0, 0, 66, 115 });
@@ -257,16 +287,7 @@ ModulePlayer2::ModulePlayer2()
 
 	defeat.lock = true;
 	defeat.loop = false;
-	defeat.speed = 0.3f;
-
-	victory.PushBack({ 0,729,76,121 }, 0, -16);
-	victory.PushBack({ 330, 478, 76, 122 }, 0, -17);
-	victory.PushBack({ 244, 466,76,105 });
-	victory.PushBack({ 162,466,76,105 });
-	victory.PushBack({ 71,466,76,105 });
-	victory.speed = 0.15;
-	victory.lock = true;
-	victory.loop = false;
+	defeat.speed = 0.1f;
 
 	//LEE:
 	provocar.PushBack({ 578, 232, 72, 102 });
@@ -282,6 +303,46 @@ ModulePlayer2::ModulePlayer2()
 
 	provocar.lock = true;
 	provocar.speed = 0.2f;
+
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 89,224, 84, 110 });
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 89,224, 84, 110 });
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 89,224, 84, 110 });
+	firekick.PushBack({ 172, 245, 105, 89 });
+	firekick.PushBack({ 921, 382, 77, 62 }, 0, 41);
+
+	firekick.speed = 0.02f;
+
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 892, 217,93,117 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 313, 717, 99, 99 });
+	multipunch.PushBack({ 0,345,74,9 });
+	multipunch.PushBack({ 185, 341,  117, 103 });
+	multipunch.PushBack({ 0,345,74,9 });
+
+	multipunch.speed = 0.4f;
+	multipunch.lock = true;
 }
 
 ModulePlayer2::~ModulePlayer2()
@@ -308,8 +369,29 @@ update_status ModulePlayer2::Update()
 {
 	if (this->position.x >= App->player->position.x) flip = true;
 	if (this->position.x <= App->player->position.x) flip = false;
-	if (flip) flip_sign = -1;
-	if (!flip) flip_sign = 1;
+	if (flip) {
+		flip_sign = -1;
+		/*if (newFlip = true) {
+			current_animation->SetSpeed(current_animation->speed/2);
+			newFlip = false;
+		}*/
+		
+		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(2, 0, 0);
+
+	}
+	if (!flip) {
+		flip_sign = 1;
+		/*if (newFlip = true) {
+			current_animation->SetSpeed(current_animation->speed * 2);
+			newFlip = false;
+		}*/
+		punch.SetOffset(1, -30, 0);
+		punch.SetOffset(2, -20, 0);
+		
+	}
+	
+
 	//Regeneration stamina:
 
 	if (stamina == 100)
@@ -416,7 +498,7 @@ update_status ModulePlayer2::Update()
 			if (!keyup[SDL_SCANCODE_K] && (App->input->keyboard[SDL_SCANCODE_U] == KEY_STATE::KEY_DOWN)
 				&& keyup[SDL_SCANCODE_U] && !leaveif)
 			{
-				current_animation = &crouchpunch;
+				current_animation = &crouchkick;
 				if (flip) melee = App->collision->AddCollider({ position.x - 50, position.y + 45, 55, 20 }, COLLIDER_PLAYER2_ATTACK, this);
 				if (!flip) melee = App->collision->AddCollider({ position.x + 50, position.y + 45, 45, 20 }, COLLIDER_PLAYER2_ATTACK, this);
 				leaveif = true;
@@ -489,11 +571,15 @@ update_status ModulePlayer2::Update()
 			if ((TestSpecial(SDL_SCANCODE_L, SDL_SCANCODE_L)))
 			{
 				current_animation = &doubleback;
+				playerCollider->rect.h = 108;
+				speed.x = -1.5f;
 			}
 
 			if ((TestSpecial(SDL_SCANCODE_J, SDL_SCANCODE_J)))
 			{
 				current_animation = &doubleforward;
+				playerCollider->rect.h = 108;
+				speed.x = 1.5f;
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_I] == KEY_STATE::KEY_DOWN) {
