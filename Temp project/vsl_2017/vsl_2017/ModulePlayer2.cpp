@@ -22,7 +22,7 @@ ModulePlayer2::ModulePlayer2()
 	idle.PushBack({ 75,5,69,99 }, 0, 2);
 	idle.PushBack({ 159,1,70,103 }, 0, -2);
 
-	idle.speed = 0.15f;
+	idle.speed = 0.075f;
 
 	// idle animation (arcade sprite sheet)
 	/*idle.PushBack({ 0, 8, 66, 108 });
@@ -137,7 +137,7 @@ ModulePlayer2::ModulePlayer2()
 	jump.PushBack({ 412, 112, 58, 94 }, 0, 7);
 	jump.PushBack({ 485, 108, 54, 99 }, 0, -20);
 	jump.PushBack({ 615, 40, 77, 62 }, 0, 35);
-	jump.speed = 0.4f;
+	jump.speed = 0.2f;
 
 	jump.lock = true;
 
@@ -147,7 +147,7 @@ ModulePlayer2::ModulePlayer2()
 	punch.PushBack({ 376, 341,  69, 103 });
 
 	/*punch.PushBack({ 485, 348,  58, 108 });*/
-	if (!flip) punch.speed = 0.3f;
+	if (!flip) punch.speed = 0.15f;
 
 	punch.lock = true;
 
@@ -178,10 +178,10 @@ ModulePlayer2::ModulePlayer2()
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });
+	/*kick.PushBack({ 296, 922, 72, 102 });*/
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
-	kick.speed = 0.2f;
+	kick.speed = 0.1f;
 
 	kick.lock = true;
 
@@ -375,10 +375,15 @@ update_status ModulePlayer2::Update()
 			current_animation->SetSpeed(current_animation->speed/2);
 			newFlip = false;
 		}*/
-		
-		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(1, -30, 0);
 		punch.SetOffset(2, 0, 0);
-
+		kick.SetOffset(3, -40, 0);
+		
+		//speeds
+		idle.speed = 0.075f;
+		jump.speed = 0.2f;
+		punch.speed = 0.15;
+		kick.speed = 0.1f;
 	}
 	if (!flip) {
 		flip_sign = 1;
@@ -386,9 +391,15 @@ update_status ModulePlayer2::Update()
 			current_animation->SetSpeed(current_animation->speed * 2);
 			newFlip = false;
 		}*/
-		punch.SetOffset(1, -30, 0);
-		punch.SetOffset(2, -20, 0);
-		
+		punch.SetOffset(1, 0, 0);
+		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, 0, 0);
+
+		//speeds
+		idle.speed = 0.15f;
+		jump.speed = 0.4f;
+		punch.speed = 0.3f;
+		kick.speed = 0.2f;
 	}
 	
 
