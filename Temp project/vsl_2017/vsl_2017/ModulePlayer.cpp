@@ -181,7 +181,7 @@ ModulePlayer::ModulePlayer()
 	kick.PushBack({ 171, 922, 112, 102 });
 	kick.PushBack({ 116, 922, 51, 102 });
 	kick.PushBack({ 58, 922, 58, 102 });
-	kick.PushBack({ 296, 922, 72, 102 });
+	/*kick.PushBack({ 296, 922, 72, 102 });*/
 
 	/*kick.PushBack({ 669, 235, 60, 109 });*/
 	kick.speed = 0.2f;
@@ -397,7 +397,8 @@ update_status ModulePlayer::Update()
 			newFlip = false;
 		}*/
 		punch.SetOffset(1, -30, 0);
-		punch.SetOffset(2, -20, 0);
+		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, -50, 0);
 
 		
 	}
@@ -409,6 +410,7 @@ update_status ModulePlayer::Update()
 		}*/
 		punch.SetOffset(1, 0, 0);
 		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, 0, 0);
 	}
 
 	//Player collision
