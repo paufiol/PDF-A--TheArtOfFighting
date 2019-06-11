@@ -52,8 +52,6 @@ ModulePlayer::ModulePlayer()
 	forward.PushBack({ 818, 348, 58, 109 });
 	forward.PushBack({ 876, 350, 65, 107 }, -9, 0);*/
 
-
-
 	/*forward.PushBack({ 874, 348, 67, 108 });*/
 	if (!flip) forward.speed = 0.1f;
 	if (!flip) forward.speed = 0.05f;
@@ -62,7 +60,7 @@ ModulePlayer::ModulePlayer()
 	//flipforward.PushBack({ 749, 350, 65, 107 }, 10, 0);
 	//flipforward.PushBack({ 818, 348, 58, 109 }, 0, 0);
 	//flipforward.PushBack({ 876, 350, 65, 107 }, 9, 0);
-	///*forward.PushBack({ 874, 348, 67, 108 });*/
+	/*forward.PushBack({ 874, 348, 67, 108 });*/
 	//if (flip) flipforward.speed = 0.1f;
 	//if (!flip) flipforward.speed = 0.05f;
 
@@ -379,7 +377,9 @@ bool ModulePlayer::Start()
 
 	hp = 100;
 	stamina = 100;
-	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
+	if (playerCollider == nullptr) {
+		playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
+	}
 	winFrame2 = { 65, 266, 69, 106 };
 	chargecount = 0;
 	flip = false;
@@ -515,6 +515,7 @@ update_status ModulePlayer::Update()
 				if (melee != nullptr) melee->to_delete = true;
 				if (spinCollider != nullptr) 
 				{ spinCollider->to_delete = true; }
+				if (block != nullptr) block->to_delete = true;
 
 			}
 			bool leaveif = false;
