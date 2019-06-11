@@ -377,7 +377,7 @@ update_status ModulePlayer2::Update()
 		}*/
 		punch.SetOffset(1, -30, 0);
 		punch.SetOffset(2, 0, 0);
-		kick.SetOffset(3, -40, 0);
+		kick.SetOffset(3, -50, 0);
 		
 		//speeds
 		idle.speed = 0.075f;

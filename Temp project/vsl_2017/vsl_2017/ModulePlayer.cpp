@@ -398,6 +398,7 @@ update_status ModulePlayer::Update()
 		}*/
 		punch.SetOffset(1, -30, 0);
 		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, -50, 0);
 
 		
 	}
@@ -409,6 +410,7 @@ update_status ModulePlayer::Update()
 		}*/
 		punch.SetOffset(1, 0, 0);
 		punch.SetOffset(2, 0, 0);
+		kick.SetOffset(3, 0, 0);
 	}
 
 	//Player collision
