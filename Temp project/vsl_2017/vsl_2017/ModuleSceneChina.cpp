@@ -154,13 +154,17 @@ update_status ModuleSceneChina::Update()
 			{
 				printWinner = { 596,483,104,16 };
 				App->slow->StartSlowdown(20, 20);
-				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);	
+				if (App->slow->finished) {
+					App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_china, 3.0f);
+				}
 			}
 			if (roundP2 == 1 || roundP1 == 1) 
 			{
 				printWinner = { 596,483,104,16 };
 				App->slow->StartSlowdown(20, 20);
-				App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+				if (App->slow->finished) {
+					App->fade->FadeToBlack((Module*)App->scene_china, (Module*)App->scene_end, 3.0f);
+				}
 			}
 				
 			App->render->Blit(App->UI->graphics, 100, 70, &printWinner, 0.75f, false, false);
