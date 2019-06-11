@@ -34,8 +34,8 @@ Application::Application()
 	modules[11] = player2 = new ModulePlayer2();
 	modules[12] = particles = new ModuleParticles();
 	modules[13] = collision = new ModuleCollision();
-	modules[14] = fade = new ModuleFadeToBlack();
-	modules[15] = UI = new ModuleUI();
+	modules[14] = UI = new ModuleUI();
+	modules[15] = fade = new ModuleFadeToBlack();
 	modules[16] = fonts = new ModuleFonts();
 	modules[17] = slow = new ModuleSlowdown();
 	
