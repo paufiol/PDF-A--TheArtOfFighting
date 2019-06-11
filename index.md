@@ -77,4 +77,5 @@ SPACE as enter Key (To enter game, select character etc.)
 [Gameplay Video](https://www.youtube.com/watch?v=NKcyPTKVuBQ&feature=youtu.be)
 
 **RELEASE LINK:**
+
 [Release 1.3](https://github.com/paufiol/PunoEterno-ArtOfFighting/releases/tag/1.3)
