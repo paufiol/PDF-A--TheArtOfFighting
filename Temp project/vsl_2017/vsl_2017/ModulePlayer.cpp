@@ -377,9 +377,10 @@ bool ModulePlayer::Start()
 
 	hp = 100;
 	stamina = 100;
-	if (playerCollider == nullptr) {
-		playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
-	}
+
+	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
+		
+	
 	winFrame2 = { 65, 266, 69, 106 };
 	chargecount = 0;
 	flip = false;
@@ -499,7 +500,7 @@ update_status ModulePlayer::Update()
 
 	for (int i = 0; i < 8; i++) {
 		if (App->input->JoystickGetPos(App->input->controller[0], (DIRECTION)i) == false)
-			App->input->isNew_Direction[i] = true;
+			App->input->isNew_Direction_A[i] = true;
 	}
 
 	if (playersMove) {
@@ -515,7 +516,7 @@ update_status ModulePlayer::Update()
 				if (melee != nullptr) melee->to_delete = true;
 				if (spinCollider != nullptr) 
 				{ spinCollider->to_delete = true; }
-				if (block != nullptr) block->to_delete = true;
+				//if (block != nullptr) block->to_delete = true;
 
 			}
 			bool leaveif = false;
@@ -550,10 +551,10 @@ update_status ModulePlayer::Update()
 				
 					keyup[SDL_SCANCODE_S] = false;
 				}
-				if (App->input->isNew_Direction[DOWN] == true && App->input->JoystickGetPos(App->input->controller[0], DOWN)) {
+				if (App->input->isNew_Direction_A[DOWN] == true && App->input->JoystickGetPos(App->input->controller[0], DOWN)) {
 					StoreInput(SDL_SCANCODE_S);
 					
-					App->input->isNew_Direction[DOWN] = false;
+					App->input->isNew_Direction_A[DOWN] = false;
 				}
 			}
 
@@ -612,10 +613,10 @@ update_status ModulePlayer::Update()
 					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_D] = false;
 				}
-				if (App->input->isNew_Direction[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
+				if (App->input->isNew_Direction_A[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
 					StoreInput(SDL_SCANCODE_D);
 					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					App->input->isNew_Direction[RIGHT] = false;
+					App->input->isNew_Direction_A[RIGHT] = false;
 				}
 			}
 			//cambiar//
@@ -630,10 +631,10 @@ update_status ModulePlayer::Update()
 					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_A] = false;
 				}
-				if (App->input->isNew_Direction[LEFT] == true && App->input->JoystickGetPos(App->input->controller[0], LEFT)) {
+				if (App->input->isNew_Direction_A[LEFT] == true && App->input->JoystickGetPos(App->input->controller[0], LEFT)) {
 					StoreInput(SDL_SCANCODE_A);
 					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					App->input->isNew_Direction[LEFT] = false;
+					App->input->isNew_Direction_A[LEFT] = false;
 				}
 				
 			}
@@ -766,7 +767,7 @@ update_status ModulePlayer::Update()
 				if ((TestSpecial(SDL_SCANCODE_E, SDL_SCANCODE_A, SDL_SCANCODE_S) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 
 					current_animation = &sp1;
-					spinCollider = App->collision->AddCollider({ position.x - spinCollider->rect.w, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
+					spinCollider = App->collision->AddCollider({ position.x - playerCollider->rect.w, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 					stamina -= 20;
@@ -1178,8 +1179,14 @@ bool ModulePlayer::CleanUp() {
 		graphics = nullptr;
 	}
 
-	if (playerCollider != nullptr) { playerCollider->to_delete = true; }
-	if (spinCollider != nullptr) { spinCollider->to_delete = true; }
+	if (playerCollider != nullptr) { 
+		playerCollider->to_delete = true; 
+		playerCollider = nullptr;
+	}
+	if (spinCollider != nullptr) { 
+		spinCollider->to_delete = true; 
+		spinCollider = nullptr;
+	}
 
 	return true;
 

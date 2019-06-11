@@ -386,7 +386,7 @@ update_status ModulePlayer2::Update()
 
 	for (int i = 0; i < 8; i++) {
 		if (App->input->JoystickGetPos(App->input->controller[1], (DIRECTION)i) == false)
-			App->input->isNew_Direction[i] = true;
+			App->input->isNew_Direction_B[i] = true;
 	}
 
 
@@ -438,9 +438,9 @@ update_status ModulePlayer2::Update()
 
 					keyup[SDL_SCANCODE_K] = false;
 				}
-				if (App->input->isNew_Direction[DOWN] == true && App->input->JoystickGetPos(App->input->controller[1], DOWN)) {
+				if (App->input->isNew_Direction_B[DOWN] == true && App->input->JoystickGetPos(App->input->controller[1], DOWN)) {
 					StoreInput(SDL_SCANCODE_S);
-					App->input->isNew_Direction[DOWN] = false;
+					App->input->isNew_Direction_B[DOWN] = false;
 				}
 
 			}
@@ -491,10 +491,10 @@ update_status ModulePlayer2::Update()
 					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_L] = false;
 				}
-				if (App->input->isNew_Direction[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
+				if (App->input->isNew_Direction_B[RIGHT] == true && App->input->JoystickGetPos(App->input->controller[0], RIGHT)) {
 					StoreInput(SDL_SCANCODE_L);
 					if (flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					App->input->isNew_Direction[RIGHT] = false;
+					App->input->isNew_Direction_B[RIGHT] = false;
 				}
 			}
 			//cambiar//
@@ -509,10 +509,10 @@ update_status ModulePlayer2::Update()
 					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
 					keyup[SDL_SCANCODE_J] = false;
 				}
-				if (App->input->isNew_Direction[LEFT] == true && App->input->JoystickGetPos(App->input->controller[1], LEFT)) {
+				if (App->input->isNew_Direction_B[LEFT] == true && App->input->JoystickGetPos(App->input->controller[1], LEFT)) {
 					StoreInput(SDL_SCANCODE_J);
 					if (!flip) { block = App->collision->AddCollider({ position.x + 60, position.y + 5, 10, 30 }, COLLIDER_WALL, this); }
-					App->input->isNew_Direction[LEFT] = false;
+					App->input->isNew_Direction_B[LEFT] = false;
 				}
 
 			}
@@ -571,7 +571,7 @@ update_status ModulePlayer2::Update()
 				}
 			}
 
-			if ((App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B)) && !leaveif && keyup[SDL_SCANCODE_O])
+			if ((App->input->keyboard[SDL_SCANCODE_O] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[1], SDL_CONTROLLER_BUTTON_B)) && !leaveif && keyup[SDL_SCANCODE_O])
 			{
 				current_animation = &kick;
 
@@ -602,7 +602,7 @@ update_status ModulePlayer2::Update()
 			if ((App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[1], SDL_CONTROLLER_BUTTON_X)) && !leaveif && keyup[SDL_SCANCODE_C])
 			{
 				current_animation = &provocar;
-				App->player2->stamina -= 15;
+				App->player->stamina -= 15;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Provocando.wav"));
 
 				if (keyup[SDL_SCANCODE_M]) {
@@ -632,7 +632,7 @@ update_status ModulePlayer2::Update()
 				if ((TestSpecial(SDL_SCANCODE_O, SDL_SCANCODE_J, SDL_SCANCODE_K) || App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
 
 					current_animation = &sp1;
-					spinCollider = App->collision->AddCollider({ position.x - spinCollider->rect.w, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
+					spinCollider = App->collision->AddCollider({ position.x - playerCollider->rect.w, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1);
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 					App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 					stamina -= 20;
@@ -966,7 +966,10 @@ bool ModulePlayer2::CleanUp() {
 		SDL_DestroyTexture(graphics2);
 		graphics2 = nullptr;
 	}
-	if (playerCollider != nullptr) playerCollider->to_delete = true;
+	if (playerCollider != nullptr) {
+		playerCollider->to_delete = true;
+		playerCollider= nullptr;
+	}
 
 	return true;
 
