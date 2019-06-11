@@ -120,6 +120,7 @@ SPACE as enter Key (To enter game, select character etc.)
 - U: Punch
 - O: Kick
 - x : Taunt
+
 	**Specials:**
  - Hyakuretsu Ken: 		x, x, x, x
  - Tetsu no Tsume Low:  	x, x, x
