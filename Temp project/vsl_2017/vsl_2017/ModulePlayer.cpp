@@ -258,6 +258,21 @@ ModulePlayer::ModulePlayer()
 	sp1.speed = 0.2f;
 	sp1.lock = true;
 
+	sp2.PushBack({ 420,505,35,69 },0,30);
+	sp2.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp2.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp2.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp2.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp2.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp2.PushBack({ 420,505,35,69 }, 0, 30);
+	sp2.PushBack({ 455,505, 108, 69 }, 0, 30);
+	sp2.PushBack({ 570, 505,77, 69 }, 0, 30);
+	sp2.PushBack({ 650,505, 31, 69 }, 0, 30);
+	sp2.PushBack({ 684, 505,76, 69 }, 0, 30);
+	sp2.PushBack({ 760, 505,107, 69 }, 0, 30);
+	sp2.speed = 0.2f;
+	sp2.lock = true;
+
 	charge.PushBack({ 412, 758,76, 145 }, -10, -40);
 	charge.PushBack({ 488, 758,76, 145 }, -10, -40);
 	charge.PushBack({ 564, 758,76, 145 }, -10, -40);
@@ -427,7 +442,7 @@ update_status ModulePlayer::Update()
 	//Reduce hitbox while crouching
 	if (current_animation == &crouchidle || current_animation == &crouchpunch || current_animation == &crouchkick)
 	{
-		playerCollider->SetPos(position.x, position.y + 33);
+		playerCollider->SetPos(position.x, position.y + 40);
 		playerCollider->rect.h = 75;
 	}
 
@@ -481,6 +496,10 @@ update_status ModulePlayer::Update()
 			//Reset colliders & animation
 			if (current_animation->Finished()) {
 				current_animation->Reset();
+				if (current_animation == &sp2)
+				{
+					position.y = 112;
+				}
 				if (melee != nullptr) melee->to_delete = true;
 				if (spinCollider != nullptr) 
 				{ spinCollider->to_delete = true; }
@@ -512,8 +531,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
 			{
 				current_animation = &crouchidle;
-				playerCollider->rect.h = 75;
-
+				playerCollider->rect.h = 65;
 				if ((App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_S])) {
 					StoreInput(SDL_SCANCODE_S);
 				
@@ -559,6 +577,7 @@ update_status ModulePlayer::Update()
 
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Movement_Patada.wav"));
+
 				if (keyup[SDL_SCANCODE_E]) {
 					StoreInput(SDL_SCANCODE_E);
 					keyup[SDL_SCANCODE_E] = false;
@@ -718,18 +737,16 @@ update_status ModulePlayer::Update()
 				//current_animation = &victory;
 
 				current_animation = &sp1;
-				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
-				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 10); }
+				if (!flip) { spinCollider = App->collision->AddCollider({ position.x + playerCollider->rect.w, position.y + playerCollider->rect.h / 2, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
+				if (flip) { spinCollider = App->collision->AddCollider({ position.x - 15, position.y + 15, 30, 20 }, COLLIDER_SPECIAL_ATTACK1, this, 1); }
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
-				stamina -= 20;
 			}
 			//Tetsu no Tsume High
 			if ((TestSpecial(SDL_SCANCODE_Q, SDL_SCANCODE_S, SDL_SCANCODE_A) || App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) && !leaveif && (stamina >= 20)) {
-				current_animation = &koukenR;
+				current_animation = &sp2;
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Combo_2.wav"));
 				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_Kick.wav"));
-
 				stamina -= 20;
 			}
 
@@ -859,6 +876,13 @@ update_status ModulePlayer::Update()
 	else
 	{
 		spintime = 0;
+	}
+
+	if (current_animation == &sp2)
+	{
+		speed.x = 4.0f;
+		position.y = 90;
+		playerCollider->SetPos(position.x, position.y);
 	}
 
 
@@ -1044,7 +1068,7 @@ bool ModulePlayer::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, S
 
 bool ModulePlayer::CleanUp() {
 
-	if (graphics != nullptr) { SDL_DestroyTexture(graphics); }
+	/*if (graphics != nullptr) { SDL_DestroyTexture(graphics); }*/
 
 	if (playerCollider != nullptr) { playerCollider->to_delete = true; }
 	if (spinCollider != nullptr) { spinCollider->to_delete = true; }
