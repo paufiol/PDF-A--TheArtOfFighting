@@ -14,8 +14,7 @@
 
 ModulePlayer::ModulePlayer()
 {
-	position.x = 185;
-	position.y = 112;
+
 
 	//lee animations
 
@@ -375,11 +374,15 @@ bool ModulePlayer::Start()
 	graphics = App->textures->Load("RESOURCES/lee.png");
 	//graphics2 = App->textures->Load("RESOURCES/ryo2.png");
 
+	position.x = 185;
+	position.y = 112;
+
 	hp = 100;
 	stamina = 100;
 	playerCollider = App->collision->AddCollider({ position.x, position.y, 57, 108 }, COLLIDER_PLAYER1, this);
 	winFrame2 = { 65, 266, 69, 106 };
 	chargecount = 0;
+	flip = false;
 
 	return ret;
 }

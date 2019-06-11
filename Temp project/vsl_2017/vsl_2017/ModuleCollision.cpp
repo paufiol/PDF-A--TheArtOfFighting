@@ -7,7 +7,7 @@
 
 ModuleCollision::ModuleCollision()
 {
-	for(uint i = 0; i < MAX_COLLIDERS; ++i)
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
@@ -51,6 +51,11 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER2_ATTACK][COLLIDER_SPECIAL_ATTACK2] = false;
 
 
+}
+
+bool ModuleCollision::Start() {
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+		colliders[i] = nullptr;
 }
 
 // Destructor

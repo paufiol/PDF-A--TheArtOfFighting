@@ -36,6 +36,10 @@ bool ModuleTextures::Init()
 	return ret;
 }
 
+bool ModuleTextures::Start() {
+	for (uint i = 0; i < MAX_TEXTURES; ++i)
+		textures[i] = nullptr;
+}
 // Called before q	uitting
 bool ModuleTextures::CleanUp()
 {
