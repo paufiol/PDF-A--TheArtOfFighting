@@ -82,9 +82,14 @@ update_status ModuleInput::PreUpdate()
 bool ModuleInput::CleanUp()
 {
 	//if (joystick[0] != nullptr) SDL_JoystickClose( joystick[0] );
-	if (controller[0] != nullptr) SDL_GameControllerClose(controller[0]);
-	if (controller[1] != nullptr) SDL_GameControllerClose(controller[1]);
-	
+	if (controller[0] != nullptr) {
+		SDL_GameControllerClose(controller[0]);
+		controller[0] = nullptr;
+	}
+	if (controller[1] != nullptr) {
+		SDL_GameControllerClose(controller[1]);
+		controller[1] = nullptr;
+	}
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);

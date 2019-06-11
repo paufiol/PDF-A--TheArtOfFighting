@@ -868,9 +868,10 @@ bool ModulePlayer2::TestSpecial(SDL_Scancode A, SDL_Scancode B, SDL_Scancode C, 
 
 
 bool ModulePlayer2::CleanUp() {
-
-	SDL_DestroyTexture(graphics2);
-
+	if (graphics2 != nullptr) {
+		SDL_DestroyTexture(graphics2);
+		graphics2 = nullptr;
+	}
 	if (playerCollider != nullptr) playerCollider->to_delete = true;
 
 	return true;
