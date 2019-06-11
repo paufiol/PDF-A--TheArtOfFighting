@@ -41,6 +41,7 @@ public:
 	int hp = 100;
 	int stamina = 100;
 	int plusta;
+	int chargecount;
 	fPoint speed;
 	
 	int input[MAX_INPUTS];
@@ -48,6 +49,7 @@ public:
 
 	int clock_parabolla = 0;
 	bool flip = false;
+	bool newFlip = true;
 	int flip_sign;
 
 	jump jumping = JUMP_NOT;
@@ -61,8 +63,10 @@ public:
 
 	Collider * playerCollider = nullptr;
 	Collider * melee = nullptr;
+	Collider * spinCollider = nullptr;
 	Collider * block = nullptr;
 	Collider * koukenCollider = nullptr;
+	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics2 = nullptr;
 	
 	SDL_Rect winFrame2;
