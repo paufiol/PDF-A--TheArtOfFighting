@@ -72,4 +72,4 @@ SPACE as enter Key (To enter game, select character etc.)
 - F6: Automatic Kouken
 
 **RELEASE LINK:**
-[Release 1.2](https://github.com/paufiol/PunoEterno-ArtOfFighting/releases/tag/1.2)
+[Release 1.2](https://github.com/paufiol/PunoEterno-ArtOfFighting/releases/tag/1.3)
