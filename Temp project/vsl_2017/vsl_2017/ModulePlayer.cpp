@@ -526,18 +526,18 @@ update_status ModulePlayer::Update()
 				current_animation = &jump;
 				jumping = JUMP_UP;
 				speed.x = 4.5f;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
 				if (keyup[SDL_SCANCODE_W]) {
 					StoreInput(SDL_SCANCODE_W);
 					keyup[SDL_SCANCODE_W] = false;
 				}
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN && App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
 				speed.x = -4.5f;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], DOWN))
@@ -577,6 +577,9 @@ update_status ModulePlayer::Update()
 				&& keyup[SDL_SCANCODE_Q] && !leaveif)
 			{
 				current_animation = &jumppunch;	
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Lee_punch.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Movement_Punch.wav"));
 			}
 
 			if (!keyup[SDL_SCANCODE_S] && (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN || App->input->ButtonTrigger(App->input->controller[0], SDL_CONTROLLER_BUTTON_B))
@@ -665,7 +668,7 @@ update_status ModulePlayer::Update()
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], UP)) {
 				current_animation = &jump;
 				jumping = JUMP_UP;
-				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/FXS/RYO/FIGHT/Jump.wav"));
+				App->audio->PlayChunk(App->audio->LoadChunk("RESOURCES/MUSIC_FXS/LEE/Jump.wav"));
 
 				if (keyup[SDL_SCANCODE_W]) {
 					StoreInput(SDL_SCANCODE_W);
