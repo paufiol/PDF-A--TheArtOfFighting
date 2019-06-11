@@ -71,6 +71,7 @@ ModuleCollision::ModuleCollision()
 bool ModuleCollision::Start() {
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
+	return true;
 }
 
 // Destructor
