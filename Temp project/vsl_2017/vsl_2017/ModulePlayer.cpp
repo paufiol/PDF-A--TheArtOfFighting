@@ -407,7 +407,11 @@ update_status ModulePlayer::Update()
 		crouchkick.SetOffset(1, -50, 30);
 		crouchkick.SetOffset(2, -30, 40);
 		crouchkick.SetOffset(3, 0, 40);
-		
+		provocar.SetOffset(1, 15, 1);
+		provocar.SetOffset(3, 15, 1);
+		provocar.SetOffset(5, 15, 1);
+		provocar.SetOffset(7, 15, 1);
+		provocar.SetOffset(9, 15, 1);
 	}
 	if (!flip) {
 		flip_sign = -1;
@@ -422,6 +426,11 @@ update_status ModulePlayer::Update()
 		crouchkick.SetOffset(1, 35, 30);
 		crouchkick.SetOffset(2, 30, 40);
 		crouchkick.SetOffset(3, 0, 40);
+		provocar.SetOffset(1, 0, 0);
+		provocar.SetOffset(3, 0, 0);
+		provocar.SetOffset(5, 0, 0);
+		provocar.SetOffset(7, 0, 0);
+		provocar.SetOffset(9, 0, 0);
 	}
 
 	//Player collision
@@ -603,10 +612,18 @@ update_status ModulePlayer::Update()
 
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], RIGHT))
 			{
-				if (!flip) current_animation = &forward;
-				if (flip) current_animation = &back;
+				if (!flip)
+				{
+					current_animation = &forward;
+					speed.x = 3.0f;
+				}
+				if (flip)
+				{
+					current_animation = &back;
+					speed.x = 2.0f;
+				}
 
-				speed.x = 3.5f;
+				
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_D]) ) {
 					StoreInput(SDL_SCANCODE_D);
@@ -622,9 +639,16 @@ update_status ModulePlayer::Update()
 			//cambiar//
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[0], LEFT))
 			{
-				if (!flip) current_animation = &back;
-				if (flip) current_animation = &forward;
-				speed.x = -1.5f;
+				if (!flip)
+				{
+					current_animation = &back;
+					speed.x = -1.5f;
+				}
+				if (flip) {
+					current_animation = &forward;
+					speed.x = -3.0f;
+				}
+				
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_A])) {
 					StoreInput(SDL_SCANCODE_A);

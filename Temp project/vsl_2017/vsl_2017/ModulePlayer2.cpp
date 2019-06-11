@@ -281,7 +281,11 @@ update_status ModulePlayer2::Update()
 		crouchkick.SetOffset(1, -50,30);
 		crouchkick.SetOffset(2, -30,40);
 		crouchkick.SetOffset(3, 0,40);
-		
+		provocar.SetOffset(1, 15, 1);
+		provocar.SetOffset(3, 15, 1);
+		provocar.SetOffset(5, 15, 1);
+		provocar.SetOffset(7, 15, 1);
+		provocar.SetOffset(9, 15, 1);
 		//speeds
 		idle.speed = 0.075f;
 		jump.speed = 0.2f;
@@ -289,6 +293,9 @@ update_status ModulePlayer2::Update()
 		kick.speed = 0.1f;
 		damaged.speed = 0.1f;
 		crouchkick.speed = 0.1f;
+		provocar.speed = 0.1f;
+		doubleback.speed = 0.1f;
+		doubleforward.speed = 0.1f;
 	}
 	if (!flip) {
 		flip_sign = 1;
@@ -303,6 +310,11 @@ update_status ModulePlayer2::Update()
 		crouchkick.SetOffset(1, 35, 30);
 		crouchkick.SetOffset(2, 30, 40);
 		crouchkick.SetOffset(3, 0, 40);
+		provocar.SetOffset(1, 0, 1);
+		provocar.SetOffset(3, 0, 1);
+		provocar.SetOffset(5, 0, 1);
+		provocar.SetOffset(7, 0, 1);
+		provocar.SetOffset(9, 0, 1);
 		//speeds
 		idle.speed = 0.15f;
 		jump.speed = 0.4f;
@@ -310,6 +322,9 @@ update_status ModulePlayer2::Update()
 		kick.speed = 0.2f;
 		damaged.speed = 0.25f;
 		crouchkick.speed = 0.2f;
+		provocar.speed = 0.2f;
+		doubleback.speed = 0.2f;
+		doubleforward.speed = 0.2f;
 	}
 	
 
@@ -481,10 +496,16 @@ update_status ModulePlayer2::Update()
 
 			if ((App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[1], RIGHT)))
 			{
-				if (!flip) current_animation = &forward;
-				if (flip) current_animation = &back;
+				if (!flip) {
+					current_animation = &forward;
+					speed.x = 3.0f;
+				}
+				if (flip) {
+					current_animation = &back;
+					speed.x = 2.0f;
+				}
 
-				speed.x = 3.5f;
+				
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_L] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_L])) {
 					StoreInput(SDL_SCANCODE_L);
@@ -500,9 +521,14 @@ update_status ModulePlayer2::Update()
 			//cambiar//
 			if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN || App->input->JoystickGetPos(App->input->controller[1], LEFT))
 			{
-				if (!flip) current_animation = &back;
-				if (flip) current_animation = &forward;
-				speed.x = -1.5f;
+				if (!flip) {
+					current_animation = &back;
+					speed.x = -1.5f;
+				}
+				if (flip) {
+					current_animation = &forward;
+					speed.x = -3.0f;
+				}
 				playerCollider->rect.h = 108;
 				if ((App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN && keyup[SDL_SCANCODE_J])) {
 					StoreInput(SDL_SCANCODE_J);
