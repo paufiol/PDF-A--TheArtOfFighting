@@ -95,7 +95,6 @@ SPACE as enter Key (To enter game, select character etc.)
 - X Button:		 Taunt (Stamina drain)
 
 	**Specials:**
- - Hyakuretsu Ken: 		Right, Left, Right, C
  - Tetsu no Tsume Low:  	Right, Down, B
  - Tetsu no Tsume High: 	Right, Down, A
 
@@ -109,7 +108,6 @@ SPACE as enter Key (To enter game, select character etc.)
 - C: Taunt
 
  	**Specials:**
- - Hyakuretsu Ken: 		D, A, D, C
  - Tetsu no Tsume Low:  	D, S, E
  - Tetsu no Tsume High: 	D, S, Q 
 	
